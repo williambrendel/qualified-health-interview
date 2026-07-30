@@ -1,15 +1,17 @@
-# Interview Brief — New Product Development Lead
+# Interview Exercise Brief — New Product Development Lead
 
 > Reference copy of the take-home build exercise and interview format. Internal notes for preparation; not part of the product.
 
 ## Format
 
-**Interview date:** Thursday, July 30, 2026
+**Interview date:** Thursday, August 6, 2026 *(pushed one week from the original July 30 date)*
 
 | Time (PDT) | Session | Duration |
 |---|---|---|
-| 1:30 – 2:15 PM | Case Study — presentation + live prototype walkthrough | 45 min |
-| 2:15 – 2:45 PM | Coding Screen — Python data transformation | 30 min |
+| — | Case Study — presentation + live prototype walkthrough | 45 min |
+| — | Coding Screen — **JavaScript** data transformation | 30 min |
+
+*(Confirm the exact session times when the updated invite lands.)*
 
 The loop has natural checkpoints after each session; the team may wrap up early if it becomes clear the role isn't the right fit. Join with the same email the confirmation was sent to.
 
@@ -50,6 +52,6 @@ A synthetic dataset modeled on real Epic-style EHR exports: no real patient info
 ---
 
 ## Coding Assessment (30 min)
-- Conducted in **Python**.
+- Conducted in **JavaScript**.
 - Focus on **data transformation**, not LeetCode.
 - **No AI tools** during the assessment, but the interviewer can be interacted with and will provide hints/advice as needed.
