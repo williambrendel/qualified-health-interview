@@ -1,0 +1,68 @@
+/* tokens.css — theme tokens for the Syntaxin demo.
+ *
+ *   :root                 light theme (default)
+ *   [data-theme="dark"]   dark theme override
+ *
+ * Severity tiers (critical / moderate / mild / care-gap / med-recon / data-quality)
+ * have parallel light/dark values so badges and card rules retheme automatically.
+ */
+
+:root {
+  --bg:          #f6f7f9;
+  --bg-elevated: #ffffff;
+  --bg-sunken:   #eef0f3;
+
+  --fg:          #1a1d21;
+  --fg-muted:    #5f6572;
+  --fg-subtle:   #8a8f9a;
+
+  --border:        #e5e7eb;
+  --border-strong: #d3d7dd;
+
+  --accent:        #0b7285;
+  --accent-hover:  #095c6b;
+  --accent-fg:     #ffffff;
+
+  --critical:      #c0392b; --critical-bg: #fdecea;
+  --moderate:      #b7791f; --moderate-bg: #fdf6e3;
+  --mild:          #475569; --mild-bg:     #eef2f7;
+  --caregap:       #6d28d9; --caregap-bg:  #f3f0fd;
+  --medrecon:      #0e7490; --medrecon-bg: #e0f2fe;
+  --dq:            #6b7280; --dq-bg:       #f1f2f4;
+  --ok:            #0b7a4b; --ok-bg:       #e7f6ee;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Monaco, "Cascadia Code", Consolas, monospace;
+
+  --r-sm: 5px; --r-md: 9px; --r-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+  --bg:          #0e1116;
+  --bg-elevated: #171b22;
+  --bg-sunken:   #0a0d12;
+
+  --fg:          #e6e8eb;
+  --fg-muted:    #a3aab6;
+  --fg-subtle:   #6b7280;
+
+  --border:        #262b33;
+  --border-strong: #363c46;
+
+  --accent:        #35b7cd;
+  --accent-hover:  #5fc9db;
+  --accent-fg:     #06222a;
+
+  --critical:      #f0857a; --critical-bg: rgba(192,57,43,.16);
+  --moderate:      #e0a740; --moderate-bg: rgba(183,121,31,.16);
+  --mild:          #9aa7b8; --mild-bg:     rgba(71,85,105,.20);
+  --caregap:       #b79cf5; --caregap-bg:  rgba(109,40,217,.20);
+  --medrecon:      #4fc3e0; --medrecon-bg: rgba(14,116,144,.20);
+  --dq:            #9aa0ab; --dq-bg:       rgba(107,114,128,.18);
+  --ok:            #5fd39a; --ok-bg:       rgba(11,122,75,.18);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.55);
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntaxin — drop &amp; analyze</title>
+  <!-- API base: empty = same-origin (server serves this page and the API). -->
+  <meta name="syntaxin:api-base" content="">
+  <meta name="theme-color" content="#0e1116" id="meta-theme-color">
+  <!-- Set theme before first paint to avoid a flash. -->
+  <script>
+    (function () {
+      var html = document.documentElement, theme = null;
+      try { theme = localStorage.getItem("syntaxin.theme"); } catch (_) {}
+      if (theme !== "light" && theme !== "dark") {
+        var mq = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)");
+        theme = (mq && mq.matches) ? "light" : "dark";
+      }
+      html.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__brand">
+      <img class="topbar__mark" src="assets/logo.svg" alt="" aria-hidden="true">
+      <span>Syntaxin</span>
+    </div>
+    <div class="topbar__spacer"></div>
+    <a class="topbar__link" href="/tickets">Full pre-built queue →</a>
+    <button id="theme-toggle" class="topbar__theme" type="button" aria-label="Toggle light or dark theme">Theme</button>
+  </header>
+
+  <main class="page">
+    <section class="upload" id="upload">
+      <h1 class="upload__title">Drop an EHR export &amp; run the ticket analysis</h1>
+      <p class="upload__lede">
+        Drop any CSV from <code>data/</code>. The AI input connector reads the layout,
+        induces (or loads) a mapping onto the canonical model, verifies it is lossless,
+        then the deterministic checkers turn it into review tickets.
+      </p>
+      <label class="upload__dropzone" id="dropzone">
+        <input type="file" id="file-input" accept=".csv,.tsv,.txt,.json" hidden>
+        <span class="upload__dropzone-prompt">
+          <span class="dz-strong">Drop a file here</span>
+          <span class="dz-sub">or click to choose — e.g. order_results.csv</span>
+        </span>
+      </label>
+      <p class="upload__samples">Best demo: <code>order_results.csv</code> (labs → triage tickets) or the renamed fixture <code>order_results.renamed.csv</code> — same tickets, different schema.</p>
+      <p class="upload__hint" id="hint" hidden></p>
+    </section>
+
+    <section class="report" id="report" hidden>
+      <header class="report__head">
+        <div>
+          <h2 class="report__title">Analysis</h2>
+          <p class="report__meta" id="report-meta"></p>
+        </div>
+        <button class="report__reset" id="reset" type="button">Analyze another file</button>
+      </header>
+
+      <div class="connector" id="connector"></div>
+      <div class="chips" id="chips"></div>
+      <div id="list"></div>
+      <div class="status-line" id="status"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

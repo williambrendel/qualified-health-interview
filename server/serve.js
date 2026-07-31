@@ -12,13 +12,20 @@
 
 const fs = require("fs");
 const path = require("path");
+const express = require("express");
 const { App } = require("./core");
-const { ingestFile } = require("./pipeline/ingest");
+const ingest = require("./pipeline/ingest");
+const { ingestFile } = ingest;
 const connector = require("./pipeline/connector");
+const { triage } = require("./pipeline/checks/abnormalResult");
+const ticketsMod = require("./pipeline/tickets");
 const { buildTickets } = require("./pipeline/buildTickets");
 
 const PORT = Number(process.env.PORT) || 8080;
-const DATA_DIR = path.resolve(__dirname, "../data");
+const ROOT = path.resolve(__dirname, "..");
+const DATA_DIR = path.join(ROOT, "data");
+const PUBLIC_DIR = path.join(ROOT, "client/public");
+const ANALYTES = require(path.join(ROOT, "config/clinical/analytes.json"));
 
 /** List the ingestable CSV files in data/. */
 function listSources() {
@@ -37,26 +44,63 @@ function safeDataPath(name) {
   return fs.existsSync(abs) ? abs : null;
 }
 
-const LANDING = `<!DOCTYPE html>
-<html lang="en-us"><head><meta charset="utf-8"><title>Syntaxin — Day 1</title>
-<style>body{font:15px/1.6 system-ui,sans-serif;max-width:820px;margin:3rem auto;padding:0 1rem;color:#1a1a1a}
-code{background:#f2f2f2;padding:.1em .4em;border-radius:4px}a{color:#0b6}</style></head>
-<body>
-<h1>Syntaxin</h1>
-<p><a href="/tickets" style="font-size:17px;font-weight:600">→ Open the review queue</a> — abnormal-result triage tickets over the synthetic dataset.</p>
-<p>Or inspect the pipeline directly:</p>
-<ul>
-  <li><a href="/api/sources">/api/sources</a> — list ingestable files in <code>data/</code></li>
-  <li><a href="/api/ingest?file=patient.csv&limit=3">/api/ingest?file=patient.csv&amp;limit=3</a> — sniff → repair → flatten to source <code>path → value</code></li>
-  <li><a href="/api/manifest?file=patient.csv">/api/manifest?file=patient.csv</a> — AI input connector: induced (or cached) mapping manifest + validation</li>
-  <li><a href="/api/canonical?file=patient.csv&limit=3">/api/canonical?file=patient.csv&amp;limit=3</a> — manifest applied → records on the canonical model</li>
-  <li><a href="/healthcheck">/healthcheck</a></li>
-</ul>
-<p style="color:#888">Manifests cache to <code>config/mapping.*.json</code> — first call induces (LLM), later calls are zero-network. Next: checkers → tickets.</p>
-</body></html>`;
+/** Ingest raw uploaded text → connect → (if labs) triage → tickets. */
+async function analyzeUpload(filename, content) {
+  const source = path.basename(String(filename || "upload.csv"));
+  const ingested = ingest.ingestText(content, { source });
+  const r = await connector.connectRecords(ingested, { write: false });
+
+  let ticketList = [];
+  let ticketSummary = null;
+  if (r.validation.valid && r.manifest && r.manifest.entity === "lab_result") {
+    const findings = triage(r.canonical.records, { analytes: ANALYTES });
+    ticketList = ticketsMod.assemble(findings, {});
+    ticketSummary = { ...ticketsMod.summarize(ticketList), skipped: findings.skipped };
+  }
+
+  return {
+    source,
+    cached: r.cached,
+    entity: (r.manifest && r.manifest.entity) || null,
+    ingest: {
+      delimiter: r.ingest.meta.delimiter,
+      hasHeader: r.ingest.meta.hasHeader,
+      columns: r.ingest.header.length,
+      rows: r.ingest.meta.rowCount,
+      structuralAnomalies: (r.ingest.anomalies || []).length,
+    },
+    validation: r.validation,
+    verification: r.verification && {
+      pass: r.verification.pass,
+      summary: r.verification.summary,
+      coverage: r.verification.coverage,
+      sampledRows: r.verification.sampledRows,
+      totalRows: r.verification.totalRows,
+    },
+    manifest: r.manifest,
+    canonicalAnomalies: (r.canonical.anomalies || []).length,
+    ticketSummary,
+    tickets: ticketList.slice(0, 400),
+  };
+}
 
 const endpoints = [
-  { method: "get", route: "/", process: (_req, res) => res.type("html").send(LANDING) },
+  {
+    method: "post",
+    route: "/api/analyze",
+    process: async (req, res) => {
+      try {
+        const { filename, content } = req.body || {};
+        if (typeof content !== "string" || !content.trim()) {
+          return res.status(400).json({ error: "no file content received" });
+        }
+        if (content.length > 8_000_000) return res.status(413).json({ error: "file too large for the demo (8MB max)" });
+        res.json(await analyzeUpload(filename, content));
+      } catch (e) {
+        res.status(500).json({ error: "analysis failed", detail: String((e && e.message) || e) });
+      }
+    },
+  },
 
   {
     method: "get",
@@ -176,6 +220,11 @@ const endpoints = [
   },
 ];
 
-new App({ endpoints }).listen(PORT, () =>
-  console.log(`✅ Syntaxin (Day 1) listening on http://localhost:${PORT}`)
-);
+const app = new App({
+  middlewares: [
+    express.json({ limit: "10mb" }),
+    express.static(PUBLIC_DIR), // serves the drag-and-drop demo at "/" plus css/js/assets
+  ],
+  endpoints,
+});
+app.listen(PORT, () => console.log(`✅ Syntaxin listening on http://localhost:${PORT}`));

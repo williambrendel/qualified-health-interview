@@ -72,8 +72,10 @@ The LLM's durable job is at the **edges** — compiling heterogeneous schemas, p
 ```bash
 npm install
 npm run build-tickets   # induces mappings + generates cited hypotheses (uses the LLM), writes tickets.json
-npm start               # serves the review queue at http://localhost:8080 — zero network calls
+npm start               # http://localhost:8080 — zero network calls
 ```
+
+The server serves two things: **`/`** — a drag-and-drop demo (drop any CSV from `data/`; the connector sniffs it, maps it, verifies the mapping is lossless, and runs the checkers into tickets live), and **`/tickets`** — the full pre-built review queue with cited hypotheses.
 
 Requires Node.js 20+. `build-tickets` is the only networked step: it uses the Anthropic API when `ANTHROPIC_API_KEY` (or `NEREUS_ANTHROPIC_API_KEY`) is set, and caches everything to `tickets.json` and `config/mapping.*.json`. `npm start` then serves entirely from those caches, so **the running demo makes zero network calls** and cannot fail on the network. Without an API key, `build-tickets` still produces deterministic facts-only tickets (no advisory hypotheses).
 
