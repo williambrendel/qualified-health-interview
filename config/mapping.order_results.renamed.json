@@ -1,0 +1,93 @@
+{
+  "source": "order_results.renamed.csv",
+  "entity": "lab_result",
+  "record_key": [
+    "lab_result.id"
+  ],
+  "fields": [
+    {
+      "from": "order_results.renamed.obs_id",
+      "to": "lab_result.id"
+    },
+    {
+      "from": "order_results.renamed.order_ref",
+      "to": "lab_result.order_id"
+    },
+    {
+      "from": "order_results.renamed.patient_key",
+      "to": "lab_result.patient_id"
+    },
+    {
+      "from": "order_results.renamed.encounter_key",
+      "to": "lab_result.encounter_id"
+    },
+    {
+      "from": "order_results.renamed.analyte_code",
+      "to": "lab_result.component_id"
+    },
+    {
+      "from": "order_results.renamed.analyte_name",
+      "to": "lab_result.component"
+    },
+    {
+      "from": "order_results.renamed.loinc",
+      "to": "lab_result.loinc"
+    },
+    {
+      "from": "order_results.renamed.result_num",
+      "to": "lab_result.value",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.renamed.result_text",
+      "to": "lab_result.value_text"
+    },
+    {
+      "from": "order_results.renamed.abnormal_flag",
+      "to": "lab_result.flag"
+    },
+    {
+      "from": "order_results.renamed.units",
+      "to": "lab_result.unit"
+    },
+    {
+      "from": "order_results.renamed.normal_range",
+      "to": "lab_result.reference.raw"
+    },
+    {
+      "from": "order_results.renamed.low_limit",
+      "to": "lab_result.reference.low",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.renamed.high_limit",
+      "to": "lab_result.reference.high",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.renamed.collected_on",
+      "to": "lab_result.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "order_results.renamed.collected_at",
+      "to": null
+    },
+    {
+      "from": "order_results.renamed.src",
+      "to": null
+    },
+    {
+      "from": "order_results.renamed.src_obs",
+      "to": null
+    },
+    {
+      "from": "order_results.renamed.ingested_at",
+      "to": null
+    },
+    {
+      "from": "order_results.renamed.updated_at",
+      "to": null
+    }
+  ]
+}

@@ -14,6 +14,8 @@
     "start": "node server/serve.js",
     "ingest": "node server/pipeline/ingest/cli.js",
     "sweep": "node server/pipeline/connector/sweep.js",
+    "make-fixture": "node scripts/makeRenamedFixture.js",
+    "agnostic-demo": "node scripts/agnosticDemo.js",
     "build-tickets": "node server/pipeline/buildTicketsCli.js",
     "test": "node --test \"server/**/*.test.js\""
   },
