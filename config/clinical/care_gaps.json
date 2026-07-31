@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "description": "Governed care-gap rules: for an active condition (matched by ICD-10 prefix), the tests expected within a monitoring cadence. Deterministic and human-curated. The checker reports a gap when an expected test was NEVER ordered, or was ordered but NEVER resulted (loop not closed). Keyed by ICD-10 prefix; the longest matching prefix wins.",
+    "review": "Prototype cadences/mappings for a synthetic dataset, curated 2026-07-31. Approximate common preventive/monitoring guidance (e.g. diabetes HbA1c/lipid/renal). Replace with institution-approved measures (HEDIS/USPSTF) before real use."
+  },
+  "E11": {
+    "condition": "Type 2 Diabetes Mellitus",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "4548-4", "test": "HbA1c" },
+      { "loinc": "13457-7", "test": "LDL Cholesterol" },
+      { "loinc": "33914-3", "test": "eGFR" },
+      { "loinc": "14959-1", "test": "Urine Albumin/Creatinine Ratio" }
+    ],
+    "url": "https://medlineplus.gov/diabetes.html"
+  },
+  "E78": {
+    "condition": "Hyperlipidemia",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "13457-7", "test": "LDL Cholesterol" },
+      { "loinc": "2093-3", "test": "Total Cholesterol" },
+      { "loinc": "2571-8", "test": "Triglycerides" }
+    ],
+    "url": "https://medlineplus.gov/cholesterol.html"
+  },
+  "I10": {
+    "condition": "Essential Hypertension",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "2160-0", "test": "Creatinine" },
+      { "loinc": "2823-3", "test": "Potassium" },
+      { "loinc": "33914-3", "test": "eGFR" }
+    ],
+    "url": "https://medlineplus.gov/highbloodpressure.html"
+  },
+  "E02": {
+    "condition": "Hypothyroidism",
+    "cadenceMonths": 12,
+    "expect": [{ "loinc": "3016-3", "test": "TSH" }],
+    "url": "https://medlineplus.gov/hypothyroidism.html"
+  },
+  "E06": {
+    "condition": "Autoimmune Thyroiditis",
+    "cadenceMonths": 12,
+    "expect": [{ "loinc": "3016-3", "test": "TSH" }],
+    "url": "https://medlineplus.gov/thyroiddiseases.html"
+  },
+  "J44": {
+    "condition": "COPD",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "19935-6", "test": "Peak Flow" },
+      { "loinc": "59408-5", "test": "SpO2" }
+    ],
+    "url": "https://medlineplus.gov/copd.html"
+  },
+  "I48": {
+    "condition": "Atrial Fibrillation",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "3016-3", "test": "TSH" },
+      { "loinc": "5902-2", "test": "INR / PT" }
+    ],
+    "url": "https://medlineplus.gov/atrialfibrillation.html"
+  },
+  "I50": {
+    "condition": "Heart Failure",
+    "cadenceMonths": 12,
+    "expect": [
+      { "loinc": "33762-6", "test": "NT-proBNP" },
+      { "loinc": "2160-0", "test": "Creatinine" },
+      { "loinc": "2823-3", "test": "Potassium" },
+      { "loinc": "33914-3", "test": "eGFR" }
+    ],
+    "url": "https://medlineplus.gov/heartfailure.html"
+  }
+}

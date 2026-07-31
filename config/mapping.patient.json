@@ -1,0 +1,100 @@
+{
+  "source": "patient.csv",
+  "entity": "patient",
+  "record_key": [
+    "patient.id"
+  ],
+  "fields": [
+    {
+      "from": "PAT_ID",
+      "to": "patient.id"
+    },
+    {
+      "from": "PAT_MRN_ID",
+      "to": "patient.mrn"
+    },
+    {
+      "from": "PAT_FIRST_NAME",
+      "to": "patient.name.first"
+    },
+    {
+      "from": "PAT_MIDDLE_NAME",
+      "to": "patient.name.middle"
+    },
+    {
+      "from": "PAT_LAST_NAME",
+      "to": "patient.name.last"
+    },
+    {
+      "from": "PAT_NAME",
+      "to": null
+    },
+    {
+      "from": "BIRTH_DATE",
+      "to": "patient.birth_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "DEATH_DATE",
+      "to": "patient.death_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "PAT_AGE",
+      "to": "patient.age",
+      "transform": "to_number"
+    },
+    {
+      "from": "SEX_C",
+      "to": null
+    },
+    {
+      "from": "SEX_NAME",
+      "to": "patient.sex"
+    },
+    {
+      "from": "PAT_STATUS_C",
+      "to": null
+    },
+    {
+      "from": "PAT_STATUS_NAME",
+      "to": "patient.status"
+    },
+    {
+      "from": "HOME_PHONE",
+      "to": null
+    },
+    {
+      "from": "WORK_PHONE",
+      "to": null
+    },
+    {
+      "from": "EMAIL_ADDRESS",
+      "to": null
+    },
+    {
+      "from": "CUR_PCP_PROV_ID",
+      "to": "patient.pcp.id"
+    },
+    {
+      "from": "CUR_PCP_PROV_NAME",
+      "to": "patient.pcp.name"
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "source_patient_id",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

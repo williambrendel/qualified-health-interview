@@ -1,0 +1,60 @@
+{
+  "source": "pat_enc_dx.csv",
+  "entity": "diagnosis",
+  "record_key": [
+    "diagnosis.encounter_id",
+    "diagnosis.seq"
+  ],
+  "fields": [
+    {
+      "from": "pat_enc_dx.PAT_ENC_CSN_ID",
+      "to": "diagnosis.encounter_id"
+    },
+    {
+      "from": "pat_enc_dx.DX_SEQ",
+      "to": "diagnosis.seq",
+      "transform": "to_number"
+    },
+    {
+      "from": "pat_enc_dx.DX_ID",
+      "to": "diagnosis.dx_id"
+    },
+    {
+      "from": "pat_enc_dx.DX_NAME",
+      "to": "diagnosis.name"
+    },
+    {
+      "from": "pat_enc_dx.DX_ICD_CODE",
+      "to": "diagnosis.icd10"
+    },
+    {
+      "from": "pat_enc_dx.DX_TYPE_C_NAME",
+      "to": "diagnosis.type"
+    },
+    {
+      "from": "pat_enc_dx.DX_DATE",
+      "to": "diagnosis.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "pat_enc_dx.DX_ICD_DESC",
+      "to": null
+    },
+    {
+      "from": "pat_enc_dx.DX_TYPE_C",
+      "to": null
+    },
+    {
+      "from": "pat_enc_dx.source_system",
+      "to": null
+    },
+    {
+      "from": "pat_enc_dx.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "pat_enc_dx.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

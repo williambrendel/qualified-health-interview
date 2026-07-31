@@ -1,0 +1,38 @@
+{
+  "source": "ip_frequency.csv",
+  "entity": "medication_order",
+  "record_key": [
+    "medication_order.id"
+  ],
+  "fields": [
+    {
+      "from": "ip_frequency.FREQ_ID",
+      "to": "medication_order.id"
+    },
+    {
+      "from": "ip_frequency.FREQ_NAME",
+      "to": "medication_order.frequency",
+      "transform": "lower"
+    },
+    {
+      "from": "ip_frequency.FREQ_DISPLAY_NAME",
+      "to": null
+    },
+    {
+      "from": "ip_frequency.DAILY_FREQUENCY",
+      "to": null
+    },
+    {
+      "from": "ip_frequency.source_system",
+      "to": null
+    },
+    {
+      "from": "ip_frequency.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "ip_frequency.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

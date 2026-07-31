@@ -1,0 +1,33 @@
+{
+  "source": "rxnorm_codes.csv",
+  "entity": "medication_order",
+  "record_key": [
+    "medication_order.id"
+  ],
+  "fields": [
+    {
+      "from": "rxnorm_codes.MEDICATION_ID",
+      "to": "medication_order.id"
+    },
+    {
+      "from": "rxnorm_codes.LINE",
+      "to": null
+    },
+    {
+      "from": "rxnorm_codes.RXNORM_CODE",
+      "to": "medication_order.rxnorm"
+    },
+    {
+      "from": "rxnorm_codes.source_system",
+      "to": null
+    },
+    {
+      "from": "rxnorm_codes.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "rxnorm_codes.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

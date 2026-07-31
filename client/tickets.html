@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Syntaxin — Review Queue</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --ink: #1a1d21; --muted: #6b7280; --line: #e5e7eb;
+    --crit: #c0392b; --crit-bg: #fdecea; --mod: #b7791f; --mod-bg: #fdf6e3;
+    --mild: #475569; --mild-bg: #eef2f7; --dq: #6b7280; --dq-bg: #f1f2f4;
+    --accent: #0b7285;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.55 system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); }
+  header { padding: 20px 24px 12px; border-bottom: 1px solid var(--line); background: var(--card); position: sticky; top: 0; z-index: 5; }
+  h1 { margin: 0; font-size: 20px; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .safety { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .safety b { color: var(--ink); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 16px 24px 60px; }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+  .chip { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 13px; cursor: pointer; }
+  .chip .n { font-weight: 700; font-size: 16px; }
+  .chip.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-left-width: 4px; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .card.critical { border-left-color: var(--crit); }
+  .card.moderate { border-left-color: var(--mod); }
+  .card.mild { border-left-color: var(--mild); }
+  .card\.data-quality, .card.dataq { border-left-color: var(--dq); border-style: dashed; }
+  .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .lab { font-size: 15px; font-weight: 600; }
+  .val { font-variant-numeric: tabular-nums; }
+  .hi { color: var(--crit); } .lo { color: var(--accent); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; padding: 2px 7px; border-radius: 999px; }
+  .b-critical { color: var(--crit); background: var(--crit-bg); }
+  .b-moderate { color: var(--mod); background: var(--mod-bg); }
+  .b-mild { color: var(--mild); background: var(--mild-bg); }
+  .b-data-quality { color: var(--dq); background: var(--dq-bg); }
+  .b-caregap { color: #6d28d9; background: #f3f0fd; }
+  .card.caregap { border-left-color: #7c3aed; }
+  .card.caregap.gap-open { border-left-color: var(--mod); }
+  .gap-note { color: #6d28d9; font-size: 12.5px; margin-top: 4px; }
+  .gap-note.open { color: var(--mod); font-weight: 600; }
+  .meta { color: var(--muted); font-size: 12.5px; margin-top: 4px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .prov { color: var(--muted); font-size: 11.5px; margin-top: 6px; font-family: ui-monospace, monospace; }
+  .hyp { margin-top: 8px; padding: 8px 10px; background: #fbfbfc; border: 1px dashed var(--line); border-radius: 6px; color: var(--muted); font-size: 12.5px; }
+  .hyp.verified { border-style: solid; border-color: #bfe3ea; background: #f0f9fb; color: var(--ink); }
+  .hyp .vbadge { color: var(--accent); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
+  .hyp .soap { margin-top: 5px; } .hyp .soap b { color: var(--ink); }
+  .hyp .rule { margin-top: 7px; padding-top: 6px; border-top: 1px solid #e2eef1; font-size: 12px; }
+  .hyp .rule a { color: var(--accent); text-decoration: none; } .hyp .rule a:hover { text-decoration: underline; }
+  .hyp .cites { margin-top: 4px; font-size: 11px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .act { margin-top: 10px; display: flex; gap: 8px; align-items: center; }
+  button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+  button.ghost { background: #fff; color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  .note { color: var(--muted); font-size: 12px; }
+  .sla { font-size: 12px; color: var(--muted); }
+  .dq-explain { color: var(--dq); font-size: 12.5px; margin-top: 4px; }
+  #status { color: var(--muted); padding: 20px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Syntaxin — Review Queue</h1>
+  <div class="sub">Abnormal-result triage over the synthetic EHR dataset</div>
+  <div class="safety">🔒 <b>Facts are deterministic and authoritative.</b> Advisory analysis is cited and pending. <b>No ticket writes to a chart</b> — every action requires human approval.</div>
+</header>
+<div class="wrap">
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+  <div id="status">Loading tickets…</div>
+</div>
+
+<script>
+const FILTERS = [
+  { key: "all", label: "All" },
+  { key: "clinical-urgent", label: "Urgent" },
+  { key: "clinical-routine", label: "Routine" },
+  { key: "care-gap", label: "Care gaps" },
+  { key: "data-quality", label: "Data quality" },
+];
+let STATE = { filter: "all", data: null };
+
+function fmtVal(t) {
+  const f = t.facts;
+  const dirClass = f.direction === "high" ? "hi" : f.direction === "low" ? "lo" : "";
+  const arrow = f.direction === "high" ? "▲" : f.direction === "low" ? "▼" : "";
+  const ref = f.reference && (f.reference.low != null || f.reference.high != null)
+    ? ` (ref ${f.reference.low}–${f.reference.high} ${f.unit || ""})` : "";
+  return `<span class="val ${dirClass}">${f.value}${f.unit ? " " + f.unit : ""} ${arrow}</span><span class="note">${ref}</span>`;
+}
+
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c])); }
+
+function renderHyp(t) {
+  const h = t.hypothesis;
+  if (h && h.verified) {
+    const cited = (h.cites.facts || []).map(f => f.key).join(", ");
+    const rule = h.cites.rule || {};
+    return `<div class="hyp verified">
+      <span class="vbadge">✓ Advisory · verified &amp; sourced</span>
+      <div class="soap"><b>Assessment.</b> ${esc(h.assessment)}</div>
+      <div class="soap"><b>Plan.</b> ${esc(h.plan)}</div>
+      <div class="rule">📖 Based on: ${esc(rule.statement)} ${rule.url ? `<a href="${esc(rule.url)}" target="_blank" rel="noopener">verify ↗</a>` : ""}</div>
+      <div class="cites">cites facts: ${esc(cited)} · rule: ${esc(rule.id || "")}</div>
+    </div>`;
+  }
+  if (t.hypothesisStatus === "no-rule")
+    return `<div class="hyp">No governed clinical rule applies to this finding — advisory analysis withheld (facts only).</div>`;
+  if (t.hypothesisStatus === "rejected")
+    return `<div class="hyp">Advisory analysis was generated but <b>failed source verification</b> — withheld.</div>`;
+  return `<div class="hyp">Advisory analysis (why / likely cause / suggested next step) — <i>generated for critical tickets; run <code>npm run build-tickets</code> to extend.</i></div>`;
+}
+
+function careGapCard(t) {
+  const pt = t.patient || {};
+  const ptLine = pt.name ? `${pt.name}${pt.age != null ? ", " + pt.age : ""}${pt.sex ? " · " + pt.sex : ""}` : (pt.id || "unknown");
+  const open = t.gapType === "ordered-not-resulted";
+  const ruleUrl = t.provenance.ruleUrl;
+  return `
+  <div class="card caregap ${open ? "gap-open" : ""}">
+    <div class="row1">
+      <div><span class="badge b-caregap">care gap</span> <span class="lab">${esc(t.facts.expectedTest)}</span> <span class="note">expected for ${esc(t.facts.condition)} (${esc(t.facts.icd10)})</span></div>
+      <div class="sla">${open ? "ordered · not resulted" : "never ordered"}</div>
+    </div>
+    <div class="meta"><span>👤 ${esc(ptLine)}</span><span>cadence ${esc(t.facts.cadenceMonths)}mo</span><span>rule ${esc(t.provenance.rule)}</span></div>
+    <div class="gap-note ${open ? "open" : ""}">${open
+      ? "⚠ The test was ordered but no result ever returned — the loop is open."
+      : "No order on record for this expected monitoring test."}</div>
+    <div class="prov">source: ${esc(t.provenance.source)} · problem_id: ${esc(t.provenance.problem_id || "—")} · LOINC ${esc(t.facts.loinc)} · ticket ${esc(t.id)}</div>
+    <div class="hyp">Suggested action: ${open ? "follow up the pending" : "order the"} <b>${esc(t.facts.expectedTest)}</b> to close the gap${ruleUrl ? ` · <a href="${esc(ruleUrl)}" target="_blank" rel="noopener">about ${esc(t.facts.condition)} ↗</a>` : ""}.</div>
+    <div class="act">
+      <button class="ghost" onclick="ack('${t.id}', this)">Acknowledge &amp; route</button>
+      <span class="note">Human approval required — nothing is written to the chart.</span>
+    </div>
+  </div>`;
+}
+
+function card(t) {
+  if (t.checker === "care-gap") return careGapCard(t);
+  const sev = t.severity || "data-quality";
+  const isDQ = t.queue === "data-quality";
+  const pt = t.patient || {};
+  const ptLine = pt.name ? `${pt.name}${pt.age != null ? ", " + pt.age : ""}${pt.sex ? " · " + pt.sex : ""}` : (pt.id || "unknown");
+  const oor = t.facts.outOfRangeBy != null ? `out of range by ${t.facts.outOfRangeBy}` : "";
+  const crit = t.facts.beyondCritical ? ' · <b style="color:var(--crit)">beyond critical threshold</b>' : "";
+  return `
+  <div class="card ${sev}">
+    <div class="row1">
+      <div><span class="badge b-${sev}">${sev}</span> <span class="lab">${t.facts.component || "—"}</span> ${fmtVal(t)}</div>
+      <div class="sla">${isDQ ? "data-quality" : t.queue.replace("clinical-", "")}${t.slaHours ? " · SLA " + t.slaHours + "h" : ""}</div>
+    </div>
+    <div class="meta"><span>👤 ${ptLine}</span><span>enc ${t.encounterId || "—"}</span><span>${t.facts.resultDate || ""}</span><span>${oor}${crit}</span></div>
+    ${isDQ ? `<div class="dq-explain">⚠ Physiologically implausible (${t.facts.plausibleBounds ? "outside " + t.facts.plausibleBounds.low + "–" + t.facts.plausibleBounds.high : "impossible"}). Diverted from the clinical queue for data review.</div>` : ""}
+    <div class="prov">source: ${t.provenance.source} · result_id: ${t.provenance.result_id || "—"} · LOINC ${t.provenance.loinc || "—"} · ticket ${t.id}</div>
+    ${renderHyp(t)}
+    <div class="act">
+      <button class="ghost" onclick="ack('${t.id}', this)">${isDQ ? "Send to data review" : "Acknowledge & route"}</button>
+      <span class="note">Human approval required — nothing is written to the chart.</span>
+    </div>
+  </div>`;
+}
+
+function ack(id, btn) {
+  btn.disabled = true;
+  btn.textContent = "✓ Acknowledged (no write performed)";
+}
+
+function render() {
+  const { data, filter } = STATE;
+  const s = data.summary;
+  document.getElementById("chips").innerHTML = FILTERS.map(f => {
+    const n = f.key === "all" ? s.total : (s.byQueue[f.key] || 0);
+    return `<div class="chip ${filter === f.key ? "active" : ""}" onclick="setFilter('${f.key}')"><span class="n">${n}</span> ${f.label}</div>`;
+  }).join("");
+  const list = filter === "all" ? data.tickets : data.tickets.filter(t => t.queue === filter);
+  document.getElementById("list").innerHTML = list.map(card).join("");
+  const withHyp = list.filter(t => t.hypothesis && t.hypothesis.verified).length;
+  document.getElementById("status").textContent =
+    `Showing ${list.length} of ${data.count} tickets · ${withHyp} carry verified advisory analysis` +
+    (data.count > data.shown ? ` (first ${data.shown} loaded)` : "");
+}
+function setFilter(k) { STATE.filter = k; render(); }
+
+fetch("/api/tickets?limit=500")
+  .then(r => r.json())
+  .then(d => { STATE.data = d; render(); })
+  .catch(e => { document.getElementById("status").textContent = "Failed to load tickets: " + e; });
+</script>
+</body>
+</html>

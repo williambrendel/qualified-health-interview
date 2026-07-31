@@ -1,0 +1,51 @@
+{
+  "source": "provider.csv",
+  "entity": "provider",
+  "record_key": [
+    "provider.id"
+  ],
+  "fields": [
+    {
+      "from": "PROV_ID",
+      "to": "provider.id",
+      "transform": "trim"
+    },
+    {
+      "from": "PROV_NAME",
+      "to": "provider.name",
+      "transform": "trim"
+    },
+    {
+      "from": "PROV_NAME_WID",
+      "to": null
+    },
+    {
+      "from": "NPI",
+      "to": "provider.npi",
+      "transform": "trim"
+    },
+    {
+      "from": "PROV_TYPE",
+      "to": "provider.type",
+      "transform": "trim"
+    },
+    {
+      "from": "SPECIALTY",
+      "to": "provider.specialty",
+      "transform": "trim"
+    },
+    {
+      "from": "DEPT_NAME",
+      "to": "provider.department",
+      "transform": "trim"
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    }
+  ]
+}

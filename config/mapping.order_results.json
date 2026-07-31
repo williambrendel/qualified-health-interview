@@ -1,0 +1,93 @@
+{
+  "source": "order_results.csv",
+  "entity": "lab_result",
+  "record_key": [
+    "lab_result.id"
+  ],
+  "fields": [
+    {
+      "from": "order_results.RESULT_ID",
+      "to": "lab_result.id"
+    },
+    {
+      "from": "order_results.ORDER_PROC_ID",
+      "to": "lab_result.order_id"
+    },
+    {
+      "from": "order_results.PAT_ID",
+      "to": "lab_result.patient_id"
+    },
+    {
+      "from": "order_results.PAT_ENC_CSN_ID",
+      "to": "lab_result.encounter_id"
+    },
+    {
+      "from": "order_results.COMPONENT_ID",
+      "to": "lab_result.component_id"
+    },
+    {
+      "from": "order_results.COMPONENT_NAME",
+      "to": "lab_result.component"
+    },
+    {
+      "from": "order_results.LOINC_CODE",
+      "to": "lab_result.loinc"
+    },
+    {
+      "from": "order_results.ORD_NUM_VALUE",
+      "to": "lab_result.value",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.RESULT_VALUE_TEXT",
+      "to": "lab_result.value_text"
+    },
+    {
+      "from": "order_results.RESULT_FLAG_C",
+      "to": "lab_result.flag"
+    },
+    {
+      "from": "order_results.REFERENCE_UNIT",
+      "to": "lab_result.unit"
+    },
+    {
+      "from": "order_results.REFERENCE_RANGE",
+      "to": "lab_result.reference.raw"
+    },
+    {
+      "from": "order_results.REFERENCE_LOW",
+      "to": "lab_result.reference.low",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.REFERENCE_HIGH",
+      "to": "lab_result.reference.high",
+      "transform": "to_number"
+    },
+    {
+      "from": "order_results.RESULT_DATE",
+      "to": "lab_result.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "order_results.RESULT_TIME",
+      "to": null
+    },
+    {
+      "from": "order_results.source_system",
+      "to": null
+    },
+    {
+      "from": "order_results.source_observation_id",
+      "to": null
+    },
+    {
+      "from": "order_results.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "order_results.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "source": "surgical_hx.csv",
+  "entity": "surgical_history",
+  "record_key": [
+    "surgical_history.patient_id",
+    "surgical_history.procedure_id"
+  ],
+  "fields": [
+    {
+      "from": "surgical_hx.PAT_ID",
+      "to": "surgical_history.patient_id"
+    },
+    {
+      "from": "surgical_hx.PAT_ENC_CSN_ID",
+      "to": "surgical_history.encounter_id"
+    },
+    {
+      "from": "surgical_hx.PROC_NAME",
+      "to": "surgical_history.procedure"
+    },
+    {
+      "from": "surgical_hx.PROC_ID",
+      "to": "surgical_history.procedure_id"
+    },
+    {
+      "from": "surgical_hx.CPT_CODE",
+      "to": "surgical_history.cpt"
+    },
+    {
+      "from": "surgical_hx.SURG_HX_START_DT",
+      "to": "surgical_history.start_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "surgical_hx.SURG_HX_END_DT",
+      "to": "surgical_history.end_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "surgical_hx.SURGICAL_HX_DATE",
+      "to": "surgical_history.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "surgical_hx.COMMENTS",
+      "to": "surgical_history.comments"
+    },
+    {
+      "from": "surgical_hx.PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.LINE",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.CONTACT_DATE",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_bariatric_surgery_history",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_afib_ablation_history",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_cardioversion_history",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_cardiac_surgery_history",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_icd_implant_hx",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_crt_implant_hx",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_pacemaker_implant_hx",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_generator_change_hx",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.has_lead_revision_hx",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.source_system",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "surgical_hx.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

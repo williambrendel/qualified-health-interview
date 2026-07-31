@@ -26,7 +26,7 @@ And the mark is the **x** in synta**x**in: two converging strokes that read as t
 
 Health-system data is rarely the problem because it's *dirty* — it's a problem because every system is shaped *differently*, and that integration cost is what stops tools from scaling. Syntaxin treats the **anomaly**, not the data, as the universal object: whatever shape or format the source takes, each finding becomes a normalized ticket that carries its own facts, provenance, severity, and citations.
 
-**Input is format-agnostic.** Drop in any ASCII-parsable export — CSV, JSON, TXT, Markdown — including the structurally messy ones: ragged rows, quoted multi-line fields, and values that visually span into the rows below (a merged-cell artifact CSV can't natively represent). An AI **input connector** reads samples and induces a *mapping manifest* — declarative data, never code — that a fixed engine reviews with a human, then applies to flatten the source into a canonical `path → value` model (hierarchical dotted keys, e.g. `patient.vitals.bp.systolic`).
+**Input is format-agnostic.** Drop in any ASCII-parsable export — CSV, JSON, TXT, Markdown — including the structurally messy ones: ragged rows, quoted multi-line fields, and values that visually span into the rows below (a merged-cell artifact CSV can't natively represent). An AI **input connector** reads samples and induces a *mapping manifest* — declarative data, never code — that a fixed engine reviews with a human, then applies to flatten the source into a canonical `path → value` model (hierarchical dotted keys, e.g. `patient.vitals.bp.systolic`). The mapping is then **verified, not trusted**: coverage proves no source column was silently dropped, a per-field **round-trip** reconstructs each value through the transform's declared inverse to prove the conversion is lossless, and a type gate confirms every value fits its canonical slot — so a re-induction on a renamed schema can be trusted without hand-checking each field.
 
 Three checkers ship in this prototype, all over the same pipeline:
 
@@ -50,6 +50,7 @@ any ASCII-parsable source (CSV / JSON / TXT / MD …)
   → AI input connector: induce mapping manifest (source → canonical)   advisory (LLM) → human-approved spec
   → parse + flatten to canonical path→value                            deterministic
   → structural repair (ragged rows, spanning / multi-line cells)       deterministic
+  → verify mapping: coverage + round-trip (lossless proof) + types     deterministic
   → normalize (unify labs, split BP, encodings)                        deterministic
   → plausibility gate → data-quality tickets                           deterministic
   → analysis
@@ -70,13 +71,15 @@ The LLM's durable job is at the **edges** — compiling heterogeneous schemas, p
 
 ```bash
 npm install
-npm start     # builds tickets (offline-safe) and serves the UI at http://localhost:8080
+npm run build-tickets   # induces mappings + generates cited hypotheses (uses the LLM), writes tickets.json
+npm start               # serves the review queue at http://localhost:8080 — zero network calls
 ```
 
-Requires Node.js 20+. The LLM hypothesis layer uses the Anthropic API when `ANTHROPIC_API_KEY` is set; without it, tickets render with deterministic fallback text. Tickets are cached to `tickets.json`, so the running app makes **zero network calls** — the demo cannot fail on the network.
+Requires Node.js 20+. `build-tickets` is the only networked step: it uses the Anthropic API when `ANTHROPIC_API_KEY` (or `NEREUS_ANTHROPIC_API_KEY`) is set, and caches everything to `tickets.json` and `config/mapping.*.json`. `npm start` then serves entirely from those caches, so **the running demo makes zero network calls** and cannot fail on the network. Without an API key, `build-tickets` still produces deterministic facts-only tickets (no advisory hypotheses).
 
 ```bash
 npm test      # run the test suite
+npm run sweep # run the AI connector + verifier over every file in data/ (matrix + gate)
 ```
 
 ## Data

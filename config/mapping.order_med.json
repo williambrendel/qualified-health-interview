@@ -1,0 +1,125 @@
+{
+  "source": "order_med.csv",
+  "entity": "medication_order",
+  "record_key": [
+    "medication_order.id"
+  ],
+  "fields": [
+    {
+      "from": "ORDER_MED_ID",
+      "to": "medication_order.id"
+    },
+    {
+      "from": "PAT_ID",
+      "to": "medication_order.patient_id"
+    },
+    {
+      "from": "PAT_ENC_CSN_ID",
+      "to": "medication_order.encounter_id"
+    },
+    {
+      "from": "DISPLAY_NAME",
+      "to": "medication_order.name"
+    },
+    {
+      "from": "SIMPLE_GENERIC_C_NAME",
+      "to": "medication_order.generic"
+    },
+    {
+      "from": "HV_DISCRETE_DOSE",
+      "to": "medication_order.dose",
+      "transform": "to_number"
+    },
+    {
+      "from": "HV_DOSE_UNIT_C_NAME",
+      "to": "medication_order.dose_unit"
+    },
+    {
+      "from": "HV_DISCR_FREQ_ID_FREQ_NAME",
+      "to": "medication_order.frequency"
+    },
+    {
+      "from": "MED_ROUTE_C_NAME",
+      "to": "medication_order.route"
+    },
+    {
+      "from": "ORDER_STATUS_C_NAME",
+      "to": "medication_order.status"
+    },
+    {
+      "from": "ORDER_CLASS_C_NAME",
+      "to": "medication_order.class"
+    },
+    {
+      "from": "ORDERING_DATE",
+      "to": "medication_order.ordering_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "START_DATE",
+      "to": "medication_order.start_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "END_DATE",
+      "to": "medication_order.end_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "ORD_PROV_ID",
+      "to": "medication_order.provider_id"
+    },
+    {
+      "from": "SIG",
+      "to": "medication_order.sig"
+    },
+    {
+      "from": "GPI",
+      "to": "medication_order.rxnorm"
+    },
+    {
+      "from": "PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "MEDICATION_ID",
+      "to": null
+    },
+    {
+      "from": "MEDICATION_NAME",
+      "to": null
+    },
+    {
+      "from": "ORDER_STATUS_C",
+      "to": null
+    },
+    {
+      "from": "ORDER_CLASS_C",
+      "to": null
+    },
+    {
+      "from": "ORDER_INST",
+      "to": null
+    },
+    {
+      "from": "DISCON_TIME",
+      "to": null
+    },
+    {
+      "from": "MED_COMMENTS",
+      "to": null
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

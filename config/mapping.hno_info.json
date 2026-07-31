@@ -1,0 +1,78 @@
+{
+  "source": "hno_info.csv",
+  "entity": "note",
+  "record_key": [
+    "note.id"
+  ],
+  "fields": [
+    {
+      "from": "hno_info.NOTE_ID",
+      "to": "note.id"
+    },
+    {
+      "from": "hno_info.PAT_ID",
+      "to": "note.patient_id"
+    },
+    {
+      "from": "hno_info.PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "hno_info.PAT_ENC_CSN_ID",
+      "to": "note.encounter_id"
+    },
+    {
+      "from": "hno_info.NOTE_TYPE_C",
+      "to": null
+    },
+    {
+      "from": "hno_info.NOTE_TYPE_C_NAME",
+      "to": "note.type"
+    },
+    {
+      "from": "hno_info.NOTE_TEXT",
+      "to": "note.text"
+    },
+    {
+      "from": "hno_info.AUTHOR_USER_ID",
+      "to": null
+    },
+    {
+      "from": "hno_info.AUTHOR_PROV_NAME",
+      "to": "note.author"
+    },
+    {
+      "from": "hno_info.AUTHOR_SERVICE",
+      "to": "note.service"
+    },
+    {
+      "from": "hno_info.NOTE_STATUS_C",
+      "to": null
+    },
+    {
+      "from": "hno_info.NOTE_STATUS_C_NAME",
+      "to": "note.status"
+    },
+    {
+      "from": "hno_info.ENTRY_TIME",
+      "to": "note.entry_time",
+      "transform": "to_date"
+    },
+    {
+      "from": "hno_info.source_system",
+      "to": null
+    },
+    {
+      "from": "hno_info.source_note_id",
+      "to": null
+    },
+    {
+      "from": "hno_info.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "hno_info.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

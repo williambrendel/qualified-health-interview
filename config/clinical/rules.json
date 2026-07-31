@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "description": "Governed clinical-correlation rules the advisory layer may CITE. Each rule is human-curated: a plain-language statement and a human-curated verification URL. The LLM selects an applicable rule by id and explains the correlation in words — it never authors a rule, a value, or a URL. The deterministic verifier rejects any hypothesis that cites a rule id absent from this file.",
+    "review": "Prototype references (MedlinePlus) curated 2026-07-31 for a synthetic dataset. Replace with institution-approved sources before real use.",
+    "applies": "Each rule declares { loinc, direction } it is admissible for. A ticket may only cite a rule whose loinc+direction matches its finding."
+  },
+  "hypernatremia": {
+    "loinc": "2951-2", "direction": "high",
+    "statement": "Elevated serum sodium (hypernatremia) most often reflects a free-water deficit — dehydration, inadequate intake, or excess water loss — rather than sodium excess.",
+    "url": "https://medlineplus.gov/ency/article/000394.htm"
+  },
+  "hyponatremia": {
+    "loinc": "2951-2", "direction": "low",
+    "statement": "Low serum sodium (hyponatremia) is commonly dilutional and may relate to SIADH, heart/liver/kidney disease, or certain medications such as thiazide diuretics.",
+    "url": "https://medlineplus.gov/ency/article/000394.htm"
+  },
+  "hyperkalemia": {
+    "loinc": "2823-3", "direction": "high",
+    "statement": "Elevated potassium (hyperkalemia) can arise from reduced renal excretion, potassium-sparing agents or RAAS inhibitors, or sample hemolysis; it carries cardiac-conduction risk.",
+    "url": "https://medlineplus.gov/ency/article/001179.htm"
+  },
+  "hypokalemia": {
+    "loinc": "2823-3", "direction": "low",
+    "statement": "Low potassium (hypokalemia) is frequently associated with diuretic use, gastrointestinal losses, or shifts, and can affect cardiac and neuromuscular function.",
+    "url": "https://medlineplus.gov/ency/article/000479.htm"
+  },
+  "hyperglycemia_fasting": {
+    "loinc": "1558-6", "direction": "high",
+    "statement": "An elevated fasting glucose suggests impaired glucose regulation or diabetes and is typically interpreted alongside HbA1c and repeat testing.",
+    "url": "https://medlineplus.gov/lab-tests/blood-glucose-test/"
+  },
+  "elevated_hba1c": {
+    "loinc": "4548-4", "direction": "high",
+    "statement": "An elevated HbA1c reflects higher average glucose over ~3 months and is used to diagnose and monitor diabetes.",
+    "url": "https://medlineplus.gov/lab-tests/hemoglobin-a1c-hba1c-test/"
+  },
+  "elevated_ldl": {
+    "loinc": "13457-7", "direction": "high",
+    "statement": "Elevated LDL cholesterol is a modifiable cardiovascular risk factor; management is guided by overall ASCVD risk.",
+    "url": "https://medlineplus.gov/ldl-the-bad-cholesterol.html"
+  },
+  "elevated_triglycerides": {
+    "loinc": "2571-8", "direction": "high",
+    "statement": "Elevated triglycerides relate to metabolic factors, diet, and alcohol; very high levels raise pancreatitis risk.",
+    "url": "https://medlineplus.gov/triglycerides.html"
+  },
+  "low_egfr": {
+    "loinc": "33914-3", "direction": "low",
+    "statement": "A reduced eGFR indicates decreased kidney filtration; persistence over 3 months suggests chronic kidney disease and prompts medication-dosing review.",
+    "url": "https://medlineplus.gov/lab-tests/glomerular-filtration-rate-gfr/"
+  },
+  "elevated_creatinine": {
+    "loinc": "2160-0", "direction": "high",
+    "statement": "Elevated creatinine suggests reduced kidney function and is interpreted together with eGFR and clinical context.",
+    "url": "https://medlineplus.gov/lab-tests/creatinine-test/"
+  },
+  "elevated_tsh": {
+    "loinc": "3016-3", "direction": "high",
+    "statement": "An elevated TSH suggests primary hypothyroidism; confirmation typically involves free T4.",
+    "url": "https://medlineplus.gov/lab-tests/tsh-thyroid-stimulating-hormone-test/"
+  },
+  "low_tsh": {
+    "loinc": "3016-3", "direction": "low",
+    "statement": "A low TSH suggests hyperthyroidism or overtreatment with thyroid hormone; free T4/T3 help clarify.",
+    "url": "https://medlineplus.gov/lab-tests/tsh-thyroid-stimulating-hormone-test/"
+  },
+  "anemia_hemoglobin": {
+    "loinc": "718-7", "direction": "low",
+    "statement": "Low hemoglobin indicates anemia; the pattern (with MCV and iron studies) guides the workup.",
+    "url": "https://medlineplus.gov/lab-tests/hemoglobin-test/"
+  },
+  "elevated_alt": {
+    "loinc": "1742-6", "direction": "high",
+    "statement": "Elevated ALT indicates hepatocellular injury; common contributors include metabolic fatty liver, medications, and alcohol.",
+    "url": "https://medlineplus.gov/lab-tests/alt-blood-test/"
+  },
+  "elevated_ast": {
+    "loinc": "1920-8", "direction": "high",
+    "statement": "Elevated AST reflects hepatocellular or muscle injury and is interpreted alongside ALT.",
+    "url": "https://medlineplus.gov/lab-tests/aspartate-aminotransferase-ast-blood-test/"
+  },
+  "elevated_urine_acr": {
+    "loinc": "14959-1", "direction": "high",
+    "statement": "An elevated urine albumin-to-creatinine ratio signals early kidney damage and cardiovascular risk, notably in diabetes and hypertension.",
+    "url": "https://medlineplus.gov/lab-tests/albumin-urine-test/"
+  },
+  "supratherapeutic_digoxin": {
+    "loinc": "10535-3", "direction": "high",
+    "statement": "A digoxin level above the therapeutic window raises toxicity risk; symptoms and renal function should be reviewed.",
+    "url": "https://medlineplus.gov/ency/article/003569.htm"
+  },
+  "erythrocytosis_hemoglobin": {
+    "loinc": "718-7", "direction": "high",
+    "statement": "Elevated hemoglobin (erythrocytosis) can reflect hemoconcentration from dehydration, chronic hypoxia or smoking, or a primary myeloproliferative process; markedly elevated levels warrant prompt evaluation.",
+    "url": "https://medlineplus.gov/lab-tests/hemoglobin-test/"
+  },
+  "high_egfr": {
+    "loinc": "33914-3", "direction": "high",
+    "statement": "An eGFR above the reference range is usually not clinically concerning and may reflect hyperfiltration or normal physiologic variation; interpret alongside creatinine and clinical context.",
+    "url": "https://medlineplus.gov/lab-tests/glomerular-filtration-rate-gfr/"
+  },
+  "elevated_bun": {
+    "loinc": "3094-0", "direction": "high",
+    "statement": "Elevated BUN can reflect dehydration, high protein intake, gastrointestinal bleeding, or reduced kidney function; the BUN-to-creatinine ratio helps distinguish causes.",
+    "url": "https://medlineplus.gov/lab-tests/bun-blood-urea-nitrogen/"
+  },
+  "hypermagnesemia": {
+    "loinc": "19123-9", "direction": "high",
+    "statement": "Elevated magnesium (hypermagnesemia) is uncommon and usually relates to impaired kidney function or magnesium-containing products.",
+    "url": "https://medlineplus.gov/lab-tests/magnesium-blood-test/"
+  },
+  "leukocytosis_wbc": {
+    "loinc": "6690-2", "direction": "high",
+    "statement": "An elevated white blood cell count (leukocytosis) commonly reflects infection, inflammation, or physiologic stress; the differential guides interpretation.",
+    "url": "https://medlineplus.gov/lab-tests/white-blood-count-wbc/"
+  },
+  "elevated_hdl": {
+    "loinc": "2085-9", "direction": "high",
+    "statement": "A high HDL cholesterol is generally favorable and not typically a cause for clinical concern.",
+    "url": "https://medlineplus.gov/hdl-the-good-cholesterol.html"
+  },
+  "elevated_total_cholesterol": {
+    "loinc": "2093-3", "direction": "high",
+    "statement": "Elevated total cholesterol contributes to cardiovascular risk and is interpreted together with the full lipid panel.",
+    "url": "https://medlineplus.gov/cholesterol.html"
+  },
+  "elevated_vitamin_d": {
+    "loinc": "1989-3", "direction": "high",
+    "statement": "A high vitamin D level usually reflects supplementation; overt toxicity is rare and occurs only at very high levels.",
+    "url": "https://medlineplus.gov/lab-tests/vitamin-d-test/"
+  }
+}

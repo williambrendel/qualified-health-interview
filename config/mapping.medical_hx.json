@@ -1,0 +1,96 @@
+{
+  "source": "medical_hx.csv",
+  "entity": "problem",
+  "record_key": [
+    "problem.patient_id",
+    "problem.dx_id"
+  ],
+  "fields": [
+    {
+      "from": "medical_hx.PAT_ID",
+      "to": "problem.patient_id"
+    },
+    {
+      "from": "medical_hx.PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "medical_hx.LINE",
+      "to": null
+    },
+    {
+      "from": "medical_hx.PAT_ENC_CSN_ID",
+      "to": null
+    },
+    {
+      "from": "medical_hx.CONTACT_DATE",
+      "to": null
+    },
+    {
+      "from": "medical_hx.MEDICAL_HX_DATE",
+      "to": null
+    },
+    {
+      "from": "medical_hx.MED_HX_START_DT",
+      "to": "problem.noted_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "medical_hx.MED_HX_END_DT",
+      "to": "problem.resolved_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "medical_hx.COMMENTS",
+      "to": null
+    },
+    {
+      "from": "medical_hx.MED_HX_ANNOTATION",
+      "to": null
+    },
+    {
+      "from": "medical_hx.DX_ID",
+      "to": "problem.dx_id"
+    },
+    {
+      "from": "medical_hx.DX_NAME",
+      "to": "problem.name"
+    },
+    {
+      "from": "medical_hx.ICD10_CODE",
+      "to": "problem.icd10"
+    },
+    {
+      "from": "medical_hx.has_rai_history",
+      "to": null
+    },
+    {
+      "from": "medical_hx.has_thyroidectomy_history",
+      "to": null
+    },
+    {
+      "from": "medical_hx.has_icd_history",
+      "to": null
+    },
+    {
+      "from": "medical_hx.has_crt_history",
+      "to": null
+    },
+    {
+      "from": "medical_hx.has_pacemaker_history",
+      "to": null
+    },
+    {
+      "from": "medical_hx.source_system",
+      "to": null
+    },
+    {
+      "from": "medical_hx.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "medical_hx.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

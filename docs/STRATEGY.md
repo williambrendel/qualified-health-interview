@@ -31,6 +31,9 @@ INPUT (AI connector) → CANONICAL → ANALYSIS → TICKETS → OUTPUT (AI conne
 2. LLM reads a **sample** and induces a **mapping manifest** (below) — `source field → canonical path + transform`. Declarative data.
 3. Human reviews/approves the manifest (shown on screen).
 4. Deterministic engine applies the manifest → canonical **`path → value`** records with hierarchical dotted keys (e.g. `patient.vitals.bp.systolic`). The canonical model is the fixed "protobuf"; the manifest is the only thing that varies per source.
+5. **Verify, don't trust** — a deterministic verifier proves three properties and attaches a report: **coverage** (every source column mapped or explicitly dropped — no silent omission), **round-trip** (reconstruct each value from canonical via the transform's declared `inverse`/`check` and compare, over a sample — a lossless proof up to declared transform semantics), and **type-plausibility** (each value fits its canonical slot). This is the automated confidence gate that lets a re-induction on a renamed schema be trusted without hand-checking every field. It does **not** claim semantic correctness of same-type mappings (first- vs last-name) — low-risk with descriptive headers, and backstopped by human review.
+
+Each named transform declares its reversibility contract (`inverse` + `check`) once — the **single source of truth** consumed by both the runtime verifier and the transform property tests (`check(x, fn(x))` must hold; reversible transforms must round-trip through `inverse`).
 
 ### Mapping manifest (sketch)
 

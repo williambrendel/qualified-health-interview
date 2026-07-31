@@ -1,0 +1,106 @@
+{
+  "source": "pat_enc.csv",
+  "entity": "encounter",
+  "record_key": [
+    "encounter.id"
+  ],
+  "fields": [
+    {
+      "from": "PAT_ENC_CSN_ID",
+      "to": "encounter.id"
+    },
+    {
+      "from": "PAT_ID",
+      "to": "encounter.patient_id"
+    },
+    {
+      "from": "PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "ENC_TYPE_C",
+      "to": null
+    },
+    {
+      "from": "ENC_TYPE_C_NAME",
+      "to": "encounter.type"
+    },
+    {
+      "from": "APPT_STATUS_C",
+      "to": null
+    },
+    {
+      "from": "APPT_STATUS_C_NAME",
+      "to": "encounter.status"
+    },
+    {
+      "from": "CONTACT_DATE",
+      "to": "encounter.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "APPT_TIME",
+      "to": null
+    },
+    {
+      "from": "DEPARTMENT_ID",
+      "to": null
+    },
+    {
+      "from": "DEPARTMENT_NAME",
+      "to": "encounter.department"
+    },
+    {
+      "from": "LOC_ID",
+      "to": null
+    },
+    {
+      "from": "LOC_NAME",
+      "to": "encounter.location"
+    },
+    {
+      "from": "VISIT_PROV_ID",
+      "to": "encounter.provider.id"
+    },
+    {
+      "from": "VISIT_PROV_NAME",
+      "to": "encounter.provider.name"
+    },
+    {
+      "from": "PROV_NAME_WID",
+      "to": null
+    },
+    {
+      "from": "PRC_NAME",
+      "to": "encounter.visit_reason"
+    },
+    {
+      "from": "COVERAGE_ID",
+      "to": null
+    },
+    {
+      "from": "INSURANCE",
+      "to": "encounter.insurance"
+    },
+    {
+      "from": "AWV_SOURCE",
+      "to": null
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "source_encounter_id",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

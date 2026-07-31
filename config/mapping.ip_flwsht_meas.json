@@ -1,0 +1,71 @@
+{
+  "source": "ip_flwsht_meas.csv",
+  "entity": "vital",
+  "record_key": [
+    "vital.id"
+  ],
+  "fields": [
+    {
+      "from": "FLO_MEAS_ID",
+      "to": "vital.id"
+    },
+    {
+      "from": "PAT_ID",
+      "to": "vital.patient_id"
+    },
+    {
+      "from": "FLO_MEAS_NAME",
+      "to": "vital.name"
+    },
+    {
+      "from": "MEAS_VALUE",
+      "to": "vital.value_text"
+    },
+    {
+      "from": "MEAS_VALUE_NUM",
+      "to": "vital.value",
+      "transform": "to_number"
+    },
+    {
+      "from": "RECORDED_TIME",
+      "to": "vital.date",
+      "transform": "to_date"
+    },
+    {
+      "from": "FSD_ID",
+      "to": null
+    },
+    {
+      "from": "LINE",
+      "to": null
+    },
+    {
+      "from": "PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "MEAS_COMMENT",
+      "to": null
+    },
+    {
+      "from": "ENTRY_TIME",
+      "to": null
+    },
+    {
+      "from": "RECORD_DATE",
+      "to": null
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

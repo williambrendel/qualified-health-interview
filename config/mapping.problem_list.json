@@ -1,0 +1,92 @@
+{
+  "source": "problem_list.csv",
+  "entity": "problem",
+  "record_key": [
+    "problem.id"
+  ],
+  "fields": [
+    {
+      "from": "problem_list.PROBLEM_LIST_ID",
+      "to": "problem.id"
+    },
+    {
+      "from": "problem_list.PAT_ID",
+      "to": "problem.patient_id"
+    },
+    {
+      "from": "problem_list.PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "problem_list.DX_ID",
+      "to": "problem.dx_id"
+    },
+    {
+      "from": "problem_list.PROBLEM_NAME",
+      "to": "problem.name"
+    },
+    {
+      "from": "problem_list.DESCRIPTION",
+      "to": null
+    },
+    {
+      "from": "problem_list.PROBLEM_CMT",
+      "to": null
+    },
+    {
+      "from": "problem_list.ICD10_CODE",
+      "to": "problem.icd10"
+    },
+    {
+      "from": "problem_list.ICD10_DESC",
+      "to": null
+    },
+    {
+      "from": "problem_list.NOTED_DATE",
+      "to": "problem.noted_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "problem_list.NOTED_END_DATE",
+      "to": null
+    },
+    {
+      "from": "problem_list.RESOLVED_DATE",
+      "to": "problem.resolved_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "problem_list.DATE_OF_ENTRY",
+      "to": null
+    },
+    {
+      "from": "problem_list.PROBLEM_STATUS_C",
+      "to": null
+    },
+    {
+      "from": "problem_list.PROBLEM_STATUS_C_NAME",
+      "to": "problem.status"
+    },
+    {
+      "from": "problem_list.CHRONIC_YN",
+      "to": "problem.chronic",
+      "transform": "to_boolean"
+    },
+    {
+      "from": "problem_list.source_system",
+      "to": null
+    },
+    {
+      "from": "problem_list.source_problem_id",
+      "to": null
+    },
+    {
+      "from": "problem_list.inserted_timestamp",
+      "to": null
+    },
+    {
+      "from": "problem_list.last_updated_timestamp",
+      "to": null
+    }
+  ]
+}

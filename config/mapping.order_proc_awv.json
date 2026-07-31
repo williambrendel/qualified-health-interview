@@ -1,0 +1,109 @@
+{
+  "source": "order_proc_awv.csv",
+  "entity": "lab_order",
+  "record_key": [
+    "lab_order.id"
+  ],
+  "fields": [
+    {
+      "from": "ORDER_PROC_ID",
+      "to": "lab_order.id"
+    },
+    {
+      "from": "PAT_ENC_CSN_ID",
+      "to": "lab_order.encounter_id"
+    },
+    {
+      "from": "PAT_ID",
+      "to": "lab_order.patient_id"
+    },
+    {
+      "from": "PROC_CODE",
+      "to": "lab_order.code"
+    },
+    {
+      "from": "PROC_NAME",
+      "to": "lab_order.name"
+    },
+    {
+      "from": "ORDER_TYPE_C_NAME",
+      "to": "lab_order.type"
+    },
+    {
+      "from": "ORDER_STATUS_C_NAME",
+      "to": "lab_order.status"
+    },
+    {
+      "from": "ORD_PROV_ID",
+      "to": "lab_order.provider_id"
+    },
+    {
+      "from": "ORD_PROV_SPECIALTY",
+      "to": "lab_order.specialty"
+    },
+    {
+      "from": "ORDER_DATE",
+      "to": "lab_order.order_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "RESULT_VALUE",
+      "to": "lab_order.result_value",
+      "transform": "to_number"
+    },
+    {
+      "from": "RESULT_UNIT",
+      "to": "lab_order.result_unit"
+    },
+    {
+      "from": "RESULT_DATE",
+      "to": "lab_order.result_date",
+      "transform": "to_date"
+    },
+    {
+      "from": "RESULT_FLAG_C",
+      "to": "lab_order.result_flag"
+    },
+    {
+      "from": "DAYS_FROM_VISIT",
+      "to": "lab_order.days_from_visit",
+      "transform": "to_number"
+    },
+    {
+      "from": "PAT_MRN_ID",
+      "to": null
+    },
+    {
+      "from": "PROC_ID",
+      "to": null
+    },
+    {
+      "from": "PROC_DISPLAY_NAME",
+      "to": null
+    },
+    {
+      "from": "ORD_PROV_NAME",
+      "to": null
+    },
+    {
+      "from": "ORD_PROV_NPI",
+      "to": null
+    },
+    {
+      "from": "ORDER_INST",
+      "to": null
+    },
+    {
+      "from": "ORDER_DTTM",
+      "to": null
+    },
+    {
+      "from": "source_system",
+      "to": null
+    },
+    {
+      "from": "inserted_timestamp",
+      "to": null
+    }
+  ]
+}
