@@ -1,0 +1,62 @@
+[
+  "Nereus", "ChatGPT", "Claude", "Gemeni", "Deepseek", "Mistral", "Google",
+
+  "algae", "algal", "biofilm", "biofilms", "Legionella", "legionella",
+  "planktonic", "sessile", "bactericide", "bactericides", "biocide",
+  "biocides", "microbial", "microbiological", "microorganism", "microorganisms",
+  "tubercle", "tubercles", "tuberculation", "MIC", "nitrification",
+  "nitrifying", "denitrification", "biome", "microbiome",
+
+  "azole", "azoles", "tolyltriazole", "TTA", "benzotriazole", "BTA",
+  "phosphonate", "phosphonates", "phosphate", "phosphates", "molybdate",
+  "molybdates", "nitrite", "nitrites", "orthophosphate", "polyphosphate",
+  "silicate", "silicates", "chromate", "chromates", "zinc", "zincs",
+  "dispersant", "dispersants", "surfactant", "surfactants", "chelant",
+  "chelants", "chelate", "chelation", "sequestrant", "sequestrants",
+
+  "corrosion", "corrosive", "corrosivity", "passivation", "passivate",
+  "passivating", "depassivation", "galvanic", "galvanized", "galvanizing",
+  "dealloying", "dezincification", "pitting", "crevice", "erosion",
+  "erosive", "underdeposit", "cathodic", "anodic", "anode", "cathode",
+  "electrolyte", "electrolytic",
+
+  "scaling", "scalant", "scalants", "antiscalant", "antiscalants",
+  "carbonate", "carbonates", "bicarbonate", "bicarbonates", "sulfate",
+  "sulfates", "silica", "siliceous", "calcite", "aragonite", "brucite",
+  "hydroxyapatite", "LSI", "RSI", "Langelier", "Ryznar", "Puckorius",
+  "nucleation", "precipitation", "supersaturation",
+
+  "conductivity", "alkalinity", "hardness", "turbidity", "chlorides",
+  "chloride", "TDS", "TSS", "TOC", "COD", "BOD", "ORP",
+  "redox", "pH", "ph", "manganese", "iron", "calcium", "magnesium",
+  "potassium", "sodium", "bromide", "fluoride",
+
+  "blowdown", "blowdowns", "makeup", "driftloss", "drift",
+  "recirculation", "sidestream", "sidestreams", "strainer", "strainers",
+  "nozzle", "nozzles", "eliminators", "infill", "counterflow",
+  "crossflow", "inductedraft", "forceddraft", "basin", "basins",
+  "sump", "sumps", "fillpack", "louvers", "casing",
+
+  "softener", "softeners", "softening", "deionization", "demineralization",
+  "ultrafiltration", "nanofiltration", "microfiltration", "RO", "SWRO",
+  "BWRO", "EDI", "electrodeionization", "UV", "ozonation", "ozone",
+  "chlorination", "dechlorination", "bromination", "bromine",
+  "nonoxidizing", "oxidizing", "biostatic",
+
+  "coupon", "coupons", "LPR", "polarization", "potentiostat",
+  "colorimetric", "titrimetric", "titration", "titrations", "DPD",
+  "spectrophotometer", "spectrophotometry", "turbidimeter", "nephelometer",
+  "ATP", "HPC", "SRB", "IOB", "APB", "heterotrophic",
+
+  "ASHRAE", "OSHA", "EPA", "CDC", "AWWA", "NACE", "AWT", "CTI",
+  "ANSI", "NSF", "WQA", "IAPMO", "legionellosis", "Pontiac",
+
+  "ppm", "ppb", "ppt", "GPM", "GPH", "MGD", "PSI", "PSIG", "PSIA",
+  "BTU", "kWh", "NTU", "SFU", "mV", "μS", "mS",
+
+  "passivate", "pretreatment", "posttreatment", "dosing", "feedrate",
+  "blending", "dilution", "concentration", "cycles", "COC",
+  "evaporation", "evaporative", "chiller", "chillers",
+  "condenser", "condensers", "HVAC", "boiler", "boilers", "feedwater",
+  "condensate", "steamtrap", "deaerator", "deaeration"
+]

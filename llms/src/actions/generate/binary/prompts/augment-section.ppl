@@ -1,0 +1,420 @@
+CONTEXT
+  company: Nereus — water and energy intelligence SaaS platform
+  product: Educational reference documents for RAG knowledge base
+  audience: Broad public (curious adults) + LLM retrieval
+
+INPUT
+  $section:
+    description:
+      Facts document section containing:
+      - header/title | optional
+      - content
+      - markdown tables or lists | optional
+      May originate from or contain a customer question.
+    format: text/markdown
+
+OUTPUT
+  $rows:
+    description: JSON array, no markdown, no preamble.
+    format: JSON
+    schema:
+      [
+        {
+          "descriptors": ["string"], // sensory descriptors related to color, texture, location, behavior, smell, material, form, byproduct, measurement. Drawn from the fact; used to seed observational variants and anchors. Empty array when the fact has no physical/observable manifestation.
+          "angle": "string",  // one of: What, Why, How, When, Who, Where
+          "question": "string",
+          "variants": ["string"],
+          "anchors": ["string"]
+        }
+      ]
+
+GOAL
+  description:
+    Generate retrieval rows from a document section. Work backward: facts first,
+    angles second, questions and downstream fields last. Every question, variant,
+    and anchor must be naturally satisfied by the same underlying fact. If reading
+    the section after any of them feels off or incomplete, discard it.
+
+  REASONING:
+    # Extract facts
+    Extract every discrete fact from the section. A fact is discrete if a user could independently search for it.
+
+    Critical: only use facts from $section. Do not add outside knowledge, even
+      if correct. A correct fact from outside knowledge is still a violation —
+      it breaks source attribution and cannot be distinguished from hallucination
+      at review time.
+
+    Table/enumeration: when a section contains a table or list where each
+      row is a distinct named entity (organism, chemical, system type, failure
+      mode, etc.), treat each entity as its own subject. A user asking about
+      Pseudomonas does not want to read about SRB; a user asking about chlorine
+      does not want to read about bromine. Facts about different named entities
+      are never complementary.
+
+    Contact info: if the section provides contact info (email, phone, named
+      contact for a specific topic), generate one fact whose answer IS the
+      redirect. One fact per distinct topic, even when multiple channels exist
+      for that topic — channels belong in anchors, not separate facts.
+
+    FOREACH fact
+      # Extract fact descriptors
+      Descriptors are sensory or physical-state words only — color, texture, smell, structural form, observable behavior.
+        - Do not include entity names (deposits, biofilm, scale), process terms (formation, growth), or abstract concepts (protection, resistance).
+        - IF the fact is purely mechanistic with no sensory manifestation, THEN descriptors is []
+        - Consider these dimensions as a checklist:
+          - Color: what color does it appear?
+          - Texture: what does it feel or look like up close?
+          - Location: where in the system does it appear?
+          - Behavior: how does it grow, spread, or cause problems?
+          - Smell: does it have a characteristic odor?
+          - Material: what surface or metal is affected (copper, steel, fill, galvanized)?
+          - Form: what does it look like structurally (pitting, crust, mat, film, sludge)?
+          - Byproduct: what does it leave behind (deposits, staining, streaks, patina)?
+          - Measurement: what monitoring signal reveals it (elevated metals, ATP, pressure drop)?
+
+      # Derive angles
+      For each fact, identify all applicable angles:
+        - Consider the list:
+          - What: defines or describes
+          - Why: explains cause, mechanism, or reason
+          - How: describes process or method
+          - When: states condition, trigger, or timing
+          - Who: names responsible party (operators, regulators, vendors, contacts)
+          - Where: identifies location or component
+        - Stay strictly within the angle. A What row must not explain Why; a Why row
+          must not describe What. If blending feels natural, split into two rows.
+        - One row per (fact, applicable angle) pair.
+
+      # Compose rows
+      FOREACH angle of fact
+        # Derive question
+        Produce the single most natural question this fact-and-angle satisfies:
+          - Starts with the angle word.
+          - Subject is the specific known term — never a parent category.
+          - If the section title is itself a question (ends with "?"), do not include it.
+          - Subject grounding: the question's subject MUST be the section's specific
+            named topic, not the parent concept the section explains:
+              - If the section is titled "Sublethal Exposure Patterns" and explains how
+                sublethal exposure causes tolerance, the question's subject is "sublethal
+                exposure" — not "tolerance," not "biocide resistance."
+              - Test: if you removed the section title, would your question still uniquely
+                identify which section it came from? If it could equally apply to a sibling
+                section under the same parent, the subject is too broad. Rewrite using the
+                section's specific term.
+          - Naturalness test: would the audience actually ask this? If it reads
+            like a documentation lookup, rewrite the question until it sounds like
+            a real concern.
+              Wrong: "Why does chlorine show medium likelihood of resistance?"
+              Right: "Why does chlorine sometimes stop working in my cooling tower?"
+              Wrong: "Why does ozone show low likelihood of resistance?"
+              Right: "Why is true resistance to ozone so rare?"
+          - Usefulness gate: the question's implicit answer must tell the user
+            something they could not have inferred from the title alone. If it
+            would just restate the title, skip the row.
+
+        # Derive anchors
+        Derive short search fragments, no question marks, as if the user was googling it using key terms:
+          - maximum 2 anchors.
+          - 2 to 5 meaningful terms per anchor (hyphenated terms count as one).
+          - Range from broad to specific.
+          - IF fact descriptors NOT EMPTY, THEN include 1 observational fragments using
+            color, texture, or location (e.g. "green slime cooling tower", "orange sludge basin").
+
+        # Derive variants
+        Produce other ways than the question and the anchors a user would actually query for this fact-and-angle,
+        including alternative phrasings, symptom descriptions, partial utterances, and frustrated or colloquial expressions.
+        Variants do not need to be grammatically complete questions:
+          - Ownership rule: every variant must be fully answerable by THIS row's
+            fact and angle. If a variant would be better answered by a different
+            row, discard it — a misplaced variant is a false recall signal.
+          - Variants must be phrased to align with the row's angle, because a variant phrased in the wrong angle steals recall from the correct row:
+            - What row's variants should ask What/Which/Is-it;
+            - How row's variants should ask How/By-what-mechanism;
+            - Why row's variants should ask Why/What-causes. A variant phrased in the wrong angle steals recall from the correct row.
+          - 3 to 7 variants:
+            - At least 1 variants must use lay or operator slang, not technical terms.
+              Use "bugs" not "microorganisms"; "slime" not "biofilm" (when the user
+              would call it that); "shock" not "high-dose biocide treatment";
+              "chlorine's not working" not "reduced biocide effectiveness";
+              "keeps coming back" not "recurring biological growth."
+            - At least 1 variant should be symptom-first: describe what the user
+              sees, smells, or notices before naming the concept.
+              Wrong: "What is biofilm formation?"
+              Right: "slimy coating on my tower fill that won't go away"
+            - At least 1 variant should be a sentence fragment or search-style phrase,
+              not a complete grammatical question.
+              Example: "ATP high but chlorine residual normal"
+            - If the topic is time-dependent (resistance, fouling, scaling), at least
+              1 variant should include a timeline cue ("after two weeks," "since I
+              switched," "used to work, now doesn't").
+            - IF the fact enumerates types or categories, THEN include at
+              least one variant phrased as "What types of X...", "What kinds of X...",
+              or "What are the different X...".
+            - IF fact descriptors NOT EMPTY, THEN include variants
+              describing what a non-expert observes. Examples:
+                - "green slimy stuff on my cooling tower walls"
+                - "orange-brown sludge settling in my tower basin"
+                - "black slime under deposits in my cooling system"
+                - "excessive vibration"
+                - "rough surface"
+                - "rotten egg smell"
+
+EXAMPLES
+
+  EXAMPLE @single-fact-two-angles:
+    input:
+      $section: |
+        ## Closed Loop Records
+        Closed loop system makeup meter logs serve as a key compliance indicator
+        since tight loops should show near-zero makeup water usage.
+    output:
+      $rows: |
+        [
+          {
+            "descriptors": [],
+            "angle": "What",
+            "question": "What is a makeup meter log for a closed loop system?",
+            "variants": [
+              "Do I need to keep makeup water records for my closed loop?",
+              "What does a makeup meter log actually tell you?",
+              "makeup meter records inspector wants",
+              "Should I be tracking water added to my closed loop?",
+              "what records do they check on closed loops"
+            ],
+            "anchors": [
+              "makeup meter log",
+              "closed loop compliance records"
+            ]
+          },
+          {
+            "descriptors": [],
+            "angle": "Why",
+            "question": "Why do makeup meter logs matter for closed loop compliance?",
+            "variants": [
+              "Why would high makeup water be a problem on a closed loop?",
+              "closed loop drinking water lately, should I worry",
+              "Why should a tight loop need almost no makeup?",
+              "makeup readings high after last month",
+              "Why do inspectors care about closed loop water usage?"
+            ],
+            "anchors": [
+              "high makeup water closed loop",
+              "closed loop losing water"
+            ]
+          }
+        ]
+
+  EXAMPLE @table-multiple-entities:
+    input:
+      $section: |
+        ## Common Oxidizing Biocides
+        Chlorine is the most widely used oxidizing biocide but its effectiveness
+        drops at higher pH. Bromine is often preferred in alkaline systems and
+        performs more consistently across a wider pH range. Chlorine dioxide is
+        less pH-sensitive and effective at lower concentrations but must be
+        generated on-site.
+    output:
+      $rows: |
+        [
+          {
+            "descriptors": [],
+            "angle": "What",
+            "question": "What is chlorine as a biocide in cooling systems?",
+            "variants": [
+              "What forms of chlorine can I run in my cooling tower?",
+              "Is chlorine a good biocide for cooling water?",
+              "chlorine not killing bugs at high pH",
+              "What types of chlorine products are used for cooling water?",
+              "Why does my chlorine stop working when pH climbs?"
+            ],
+            "anchors": [
+              "chlorine cooling tower biocide",
+              "chlorine effectiveness pH"
+            ]
+          },
+          {
+            "descriptors": [],
+            "angle": "What",
+            "question": "What is bromine used for in cooling systems?",
+            "variants": [
+              "When would I use bromine instead of chlorine?",
+              "Is bromine better than chlorine for high-pH systems?",
+              "bromine cooling tower alkaline water",
+              "running high pH and chlorine isn't cutting it",
+              "How does bromine differ from chlorine as a biocide?"
+            ],
+            "anchors": [
+              "bromine alkaline cooling systems",
+              "bromine vs chlorine pH"
+            ]
+          },
+          {
+            "descriptors": [],
+            "angle": "What",
+            "question": "What is chlorine dioxide as a cooling system biocide?",
+            "variants": [
+              "What's chlorine dioxide do that regular chlorine doesn't?",
+              "Does pH affect chlorine dioxide like it does chlorine?",
+              "chlorine dioxide on-site generation cooling",
+              "Why would I use chlorine dioxide instead of bleach?",
+              "What do I need to know before using ClO2?"
+            ],
+            "anchors": [
+              "chlorine dioxide cooling tower",
+              "on-site chlorine dioxide generation"
+            ]
+          }
+        ]
+
+  EXAMPLE @subject-grounding:
+    notes: |
+      Two sibling sections under the same parent topic. Each section explains
+      ONE mechanism by which resistance develops, but the BODY of each could
+      easily be re-framed as "why does resistance develop?" — drifting up to
+      the parent concept and producing duplicate rows across siblings.
+
+      The correct grounding pins each question to the section's specific
+      mechanism (sublethal exposure / high oxidant demand), not the parent
+      effect (resistance / tolerance). After grounding, the rows from these
+      two sections are clearly distinct and cover different facts.
+    input:
+      $section_1: |
+        ### Sublethal Exposure Patterns
+        Insufficient concentration or contact time creates the fundamental
+        driver of tolerance development. Underfeeding systems, intermittent
+        feed gaps, or short exposure windows leave survivors that become the
+        seed population for regrowth.
+
+      $section_2: |
+        ### High Oxidant Demand
+        High oxidant demand from organics, deposits, or corrosion products
+        consumes available disinfectant before it reaches target organisms.
+        The result is repeated cycles where some microorganisms survive,
+        reproduce, and pass on their survival traits to the next generation.
+    output:
+      # Wrong (drift to parent — both sections would emit this):
+      #   question: "Why does biocide tolerance develop in cooling systems?"
+      #   → fails subject-grounding test: removing the section title, this
+      #     question could equally describe either sibling section.
+      #
+      # Right (grounded to each section's specific mechanism):
+      $rows_for_section_1: |
+        [
+          {
+            "descriptors": [],
+            "angle": "Why",
+            "question": "Why does insufficient biocide concentration cause tolerance?",
+            "variants": [
+              "Why does underfeeding biocide make bugs come back stronger?",
+              "what happens to bacteria that survive a weak dose",
+              "Why is short contact time a problem for biocide effectiveness?",
+              "intermittent feed gap survivors regrowth",
+              "biocide dripped low for a few hours, now slime is back",
+              "Why do survivors of underdosing seed regrowth?"
+            ],
+            "anchors": [
+              "underfeeding biocide tolerance",
+              "intermittent feed gaps survivors"
+            ]
+          }
+        ]
+      $rows_for_section_2: |
+        [
+          {
+            "descriptors": [],
+            "angle": "Why",
+            "question": "Why does high oxidant demand cause biocide tolerance?",
+            "variants": [
+              "Why does my chlorine get used up before reaching the bugs?",
+              "oxidant demand from organics consuming chlorine",
+              "Why do organics and deposits drag down disinfectant?",
+              "biocide gone before it can do its job",
+              "switched chemistries but corrosion products still eating residual",
+              "Why does heavy organic loading defeat my biocide?"
+            ],
+            "anchors": [
+              "high oxidant demand organics",
+              "disinfectant consumed before target"
+            ]
+          }
+        ]
+
+  EXAMPLE @physical-observable:
+    input:
+      $section: |
+        ## Photosynthetic Organisms
+        Green algae such as Chlorella and Scenedesmus grow on sunlit wet surfaces
+        in cooling towers. They form visible green mats and contribute to organic
+        loading and clogged fill or screens.
+    output:
+      $rows: |
+        [
+          {
+            "descriptors": ["green", "mat", "slimy", "wet surfaces", "fill", "screens"],
+            "angle": "What",
+            "question": "What algae grow in cooling towers?",
+            "variants": [
+              "green slimy stuff on my cooling tower walls",
+              "There's a green mat all over my tower basin — what is it?",
+              "What types of algae grow in open cooling towers?",
+              "green growth keeps coming back on the fill",
+              "fill and screens clogged with green crud",
+              "Why do I keep seeing green growth in sunny spots?"
+            ],
+            "anchors": [
+              "green algae cooling tower",
+              "green slime tower basin"
+            ]
+          }
+        ]
+
+  EXAMPLE @contact-redirect:
+    input:
+      $section: |
+        ## Pricing
+        Pricing for the Nereus platform is handled directly by the team. Contact
+        grant@yourwaterdr.com or call +1 (925) 470-0491 for current plans and rates.
+    output:
+      $rows: |
+        [
+          {
+            "descriptors": [],
+            "angle": "Who",
+            "question": "Who handles pricing for the Nereus platform?",
+            "variants": [
+              "How do I get pricing for Nereus?",
+              "how much does Nereus cost",
+              "Is there a price list for Nereus?",
+              "Who do I talk to about plans and rates?",
+              "Can I get a quote for Nereus?"
+            ],
+            "anchors": [
+              "Nereus pricing contact",
+              "how to get Nereus pricing"
+            ]
+          }
+        ]
+
+  EXAMPLE @narrow-fact:
+    input:
+      $section: |
+        ## pH Setpoint
+        The recommended pH setpoint for open recirculating cooling systems is 7.2.
+    output:
+      $rows: |
+        [
+          {
+            "descriptors": [],
+            "angle": "What",
+            "question": "What is the recommended pH setpoint for cooling systems?",
+            "variants": [
+              "What pH should I run my cooling tower at?",
+              "pH target open recirculating",
+              "Is there a recommended pH for cooling water?"
+            ],
+            "anchors": [
+              "cooling tower pH setpoint",
+              "recommended pH cooling water"
+            ]
+          }
+        ]

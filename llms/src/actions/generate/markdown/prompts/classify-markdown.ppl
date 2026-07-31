@@ -1,0 +1,105 @@
+CONTEXT
+  company: Nereus — water and energy intelligence SaaS platform
+  product: RAG knowledge base ingestion pipeline
+  audience: Internal classification tooling
+
+INPUT
+  $content:
+    description:
+      A polished Markdown document about water treatment, energy
+      systems, or related topics. The document has been generated
+      by the upstream `generateMarkdown` action and starts with
+      a meaningful H1 title.
+    format: markdown
+
+  $themes:
+    description:
+      The fixed list of available themes. Keys are theme names
+      (used verbatim in the output). Values describe what kinds
+      of content belong in each theme. The classifier MUST pick
+      one of these theme names exactly — no inferring new ones,
+      no spelling variations.
+    format: json
+    schema: |
+      {
+        "<theme-name-1>": { description: "string", examples?: ["string"] },
+        "<theme-name-2>": { description: "string", examples?: ["string"] },
+        ...
+      }
+
+OUTPUT
+  $classification:
+    description:
+      A single classification result. Picks ONE theme from the
+      provided list, with a confidence score and a brief rationale.
+    format: json
+    schema: |
+      {
+        "theme": "<theme-name>",
+        "confidence": <number between 0 and 1>,
+        "rationale": "<one sentence>"
+      }
+    constraints:
+      - `theme` MUST be one of the keys from $themes — exactly as
+        provided, character-for-character.
+      - `confidence` is a number between 0 and 1. Use 0.9+ for
+        clear matches, 0.7–0.9 for good matches, 0.5–0.7 for
+        plausible matches, below 0.5 for forced choices.
+      - `rationale` is one sentence explaining the choice. Reference
+        the document's actual content, not just its title.
+      - Return ONLY the JSON object, no preamble, no markdown fences,
+        no explanation outside the JSON.
+
+GOALS
+  GOAL @classify_document:
+    role: water treatment knowledge engineer at Nereus
+    description:
+      Read the document's actual content and pick the single theme
+      that best matches. The H1 title is a hint, but the full
+      content (Executive Summary, Overview, content sections)
+      determines the right theme.
+    rules:
+      - The themes are a fixed taxonomy. Do NOT invent new themes
+        or vary the spelling. Pick verbatim from the keys in $themes.
+      - When a document spans multiple themes, pick the DOMINANT
+        one — the theme where most of the content belongs.
+      - When a document is borderline between two themes, pick the
+        more specific one over the more general one. Example:
+        Legionella-specific content goes to a Legionella-specific
+        theme over a general microbial-management theme.
+      - Confidence reflects how cleanly the document fits the chosen
+        theme. A document covering exactly one theme cleanly gets
+        0.9+. A document spanning two themes equally gets 0.5–0.7.
+        Don't inflate confidence for forced picks.
+      - The rationale should cite specific content. Bad: "About
+        biofilm." Good: "Discusses biofilm matrix structure and
+        biocide penetration mechanics across multiple sections."
+
+    STEPS
+      STEP @read_document:
+        input: $content
+        rules:
+          - Read the H1 title for orientation.
+          - Read the Executive Summary for the document's core claim.
+          - Skim section headings for scope.
+          - Note any specific technical terms that suggest a theme
+            (e.g. "Legionella" → Legionella-specific theme; "glycol",
+            "chiller" → cooling-system themes; "ATP", "biofilm" →
+            biological-control themes).
+
+      STEP @assess_themes:
+        input: $themes
+        rules:
+          - For each theme in $themes, read its description and
+            examples to understand its scope.
+          - Identify the 1-3 themes most plausible given the document.
+
+      STEP @pick_one:
+        output: $classification
+        rules:
+          - From the plausible themes, pick the single best match.
+          - If two themes seem equal, pick the more specific one.
+          - Assign a confidence score that honestly reflects fit
+            quality.
+          - Write a one-sentence rationale citing specific content.
+          - Return JSON only, no surrounding text.

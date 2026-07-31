@@ -4,7 +4,7 @@
 
 <p align="center"><strong>From arbitrary schemas to evidence-backed decisions.</strong></p>
 
-Syntaxin turns messy, arbitrarily-shaped EHR exports into typed, routed, cited **tickets** for human review — combining deterministic checks, an advisory LLM layer, and human-in-the-loop actions under one safety contract. Whatever syntax the source data arrives in, Syntaxin transforms it into standardized, correctly-routed evidence.
+Syntaxin turns messy, arbitrarily-shaped source data — any ASCII-parsable export: CSV, JSON, TXT, Markdown, and the like — into typed, routed, cited **tickets** for human review, and can push those tickets back out to the systems that act on them. **AI compiles the connectors at both edges; a deterministic engine does the work in between.** Whatever syntax the data arrives in, Syntaxin transforms it into standardized, correctly-routed evidence.
 
 > Source-available for evaluation. Not licensed for commercial or production use. See [License](#license).
 
@@ -24,12 +24,15 @@ And the mark is the **x** in synta**x**in: two converging strokes that read as t
 
 ## What it does
 
-Health-system data is rarely the problem because it's *dirty* — it's a problem because every EHR is shaped *differently*, and that integration cost is what stops tools from scaling. Syntaxin treats the **anomaly**, not the data, as the universal object: whatever shape the source export takes, each finding becomes a normalized ticket that carries its own facts, provenance, severity, and citations.
+Health-system data is rarely the problem because it's *dirty* — it's a problem because every system is shaped *differently*, and that integration cost is what stops tools from scaling. Syntaxin treats the **anomaly**, not the data, as the universal object: whatever shape or format the source takes, each finding becomes a normalized ticket that carries its own facts, provenance, severity, and citations.
 
-Two checkers ship in this prototype, both over the same pipeline:
+**Input is format-agnostic.** Drop in any ASCII-parsable export — CSV, JSON, TXT, Markdown — including the structurally messy ones: ragged rows, quoted multi-line fields, and values that visually span into the rows below (a merged-cell artifact CSV can't natively represent). An AI **input connector** reads samples and induces a *mapping manifest* — declarative data, never code — that a fixed engine reviews with a human, then applies to flatten the source into a canonical `path → value` model (hierarchical dotted keys, e.g. `patient.vitals.bp.systolic`).
+
+Three checkers ship in this prototype, all over the same pipeline:
 
 - **Care-gap / preventive-lab verification** — for a patient's active conditions, was the expected test done? Surfaces gaps that were never ordered and gaps that were ordered but never resulted (loop closure).
 - **Abnormal-result triage** — of the results we have, which need a human first? Ranked by severity, with a physiologic-plausibility gate that keeps impossible values out of the clinical queue.
+- **Pre-visit summarization & medication reconciliation** — the LLM reasons over the unstructured progress notes to produce a cited pre-visit summary and to surface medication-reconciliation gaps (note vs. active orders), under the same fact/hypothesis contract.
 
 ## The safety contract
 
@@ -37,47 +40,54 @@ Every ticket separates **fact** from **hypothesis**:
 
 - **Facts are deterministic and authoritative.** The LLM never emits a value, a dose, a severity, a clinical rule, or a URL.
 - **The LLM is advisory and cited.** A hypothesis is admissible only if it cites (a) the facts it explains, (b) the sourced clinical rule it invokes, and (c) a human-curated link to verify that rule — with the correlation explained in plain language.
-- **The model selects and composes from governed pieces; it never authors the executable artifact that touches the human.** No runtime UI code generation.
+- **The model emits specs, never code.** Both connectors — the input mapping manifest and the output field map — are declarative data the model *proposes* and a human can inspect; fixed, reviewed engines execute them. The model never authors a parser, a request, or the UI. No runtime code generation.
 - **Human approval gates the action, not the reading.** Nothing writes to a chart; every actionable ticket requires a click.
 
 ## Architecture
 
 ```
-raw EHR CSVs
-  → ingest (mapping spec: source → canonical)        deterministic
-  → round-trip verify (lossless proof)               deterministic
-  → normalize (unify labs, split BP, encodings)      deterministic
-  → plausibility gate → data-quality tickets         deterministic
-  → checks (care-gap, abnormal-triage) → findings     deterministic
-  → severity (sourced vector → queue, SLA)           deterministic
-  → hypothesis (why / fix / next move, cited)        advisory (LLM)
-  → verify (reject unsourced content)                deterministic
-  → tickets (assemble, dedup, route)                 deterministic
-  → frontend (governed primitives, two queues)       deterministic + human action
+any ASCII-parsable source (CSV / JSON / TXT / MD …)
+  → AI input connector: induce mapping manifest (source → canonical)   advisory (LLM) → human-approved spec
+  → parse + flatten to canonical path→value                            deterministic
+  → structural repair (ragged rows, spanning / multi-line cells)       deterministic
+  → normalize (unify labs, split BP, encodings)                        deterministic
+  → plausibility gate → data-quality tickets                           deterministic
+  → analysis
+       · Tier A — generic statistics (data-quality anomalies)          deterministic
+       · Tier B — governed clinical checks (care-gap, triage, recon)   deterministic
+  → severity (sourced vector → queue, SLA)                             deterministic
+  → hypothesis: generic-SOAP (Objective=fact / Assessment / Plan)      advisory (LLM), cited
+  → verify (reject unsourced content)                                  deterministic
+  → tickets (assemble, dedup, route)                                   deterministic
+  → frontend (governed primitives, review queue, human gate)           deterministic + human action
+  → AI output connector: induce field map from target API doc          advisory (LLM) → human-gated push
+       deterministic client executes (dry-run in this prototype)       deterministic
 ```
 
-The LLM's durable job is at the edges — compiling heterogeneous schemas and plain-English clinical rules into governed, reviewed specs — not reasoning over data at runtime. Clinical rules, severities, plausibility bounds, and citation links all live in human-curated config, never in model output.
+The LLM's durable job is at the **edges** — compiling heterogeneous schemas, plain-English clinical rules, and target-system API docs into governed, reviewed specs — plus advisory, cited reasoning over the unstructured notes. It never authors executable artifacts. Clinical rules, severities, plausibility bounds, and citation links all live in human-curated config, never in model output.
 
 ## Quick start
 
 ```bash
-./run.sh
-# → builds tickets (offline-safe) and serves the UI at http://localhost:8000
+npm install
+npm start     # builds tickets (offline-safe) and serves the UI at http://localhost:8080
 ```
 
-Requires Python 3.11+. The LLM hypothesis layer uses the Anthropic API when `ANTHROPIC_API_KEY` is set; without it, tickets render with deterministic fallback text. Tickets are cached to `tickets.json`, so the running app makes **zero network calls** — the demo cannot fail on the network.
+Requires Node.js 20+. The LLM hypothesis layer uses the Anthropic API when `ANTHROPIC_API_KEY` is set; without it, tickets render with deterministic fallback text. Tickets are cached to `tickets.json`, so the running app makes **zero network calls** — the demo cannot fail on the network.
 
 ```bash
-pytest        # run the test suite
+npm test      # run the test suite
 ```
 
 ## Data
 
-**No patient data is included in this repository.** The prototype was developed against a synthetic, de-identified dataset that is intentionally excluded. Point `config/settings.yaml` `data.root` at your own EHR export and provide a mapping spec (`config/mapping_*.yaml`) describing how its columns map to the canonical model. A renamed-schema fixture is included to demonstrate that the checkers run unchanged across different data shapes.
+The synthetic dataset lives in [`data/`](data/) — roughly 100 patients, 153 encounters, and 153 clinical progress notes across eight specialties, in an Epic-style export shape (14 CSVs). It is **synthetic and de-identified — no real patient information** — and intentionally imperfect the way production data is: missing values, inconsistent encodings, out-of-range and sentinel values, and structural mess (e.g. BP stored as `150/99` text). Handling that mess is part of the work, not a distraction from it.
+
+`config/settings.json` `data.root` points at `data/` by default. Point it at any other ASCII-parsable export and the AI input connector proposes a mapping manifest (`config/mapping.*.json`) for review before it runs. Sources may be structurally messy — ragged rows, quoted multi-line cells, values that span into the rows below — and are repaired deterministically. A renamed-schema fixture is planned to demonstrate that induction generalizes and the checkers run unchanged across different data shapes.
 
 ## Non-goals
 
-Deliberately out of scope in this prototype: an LLM schema-induction engine (data-agnosticism is proven by the renamed-schema fixture instead), medication reconciliation (stubbed), free-text summarization, and scheduling-throughput analysis.
+Deliberately out of scope in this prototype: an *unbounded, fully-autonomous* schema-induction engine — induction here is **bounded** (the model proposes a mapping manifest for human review; nothing runs unreviewed), to be demonstrated by a renamed-schema fixture — and scheduling-throughput analysis. Live write-back through the output connector is **dry-run only** in this prototype (a real push is a human-gated action). Medication reconciliation and pre-visit summarization are **in scope** — they are the third checker above.
 
 ## License
 
