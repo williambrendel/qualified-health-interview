@@ -71,6 +71,40 @@ test("triage: findings are ranked critical-first", () => {
   assert.equal(r.clinical[0].severity, "critical");
 });
 
+// ---- data-agnostic: the checker runs with NO analyte config at all ----
+
+test("triage (agnostic): detects abnormal from the result's own reference range with NO config", () => {
+  const r = triage([labRecord({ "lab_result.value": 148 })], {}); // no analytes at all
+  assert.equal(r.clinical.length, 1);
+  assert.equal(r.clinical[0].facts.direction, "high");
+  assert.equal(r.clinical[0].severity !== "critical", true); // no critical config → distance-based
+});
+
+test("triage (agnostic): generic plausibility gate fires from reference range alone", () => {
+  // ref 136-145 (range 9); 208 is >5x the range above high → implausible without any config
+  const r = triage([labRecord({ "lab_result.value": 208 })], {});
+  assert.equal(r.clinical.length, 0, "impossible value must not reach the clinical queue");
+  assert.equal(r.dataQuality.length, 1);
+  assert.equal(r.dataQuality[0].facts.plausibilityBasis, "reference-derived");
+});
+
+test("triage (agnostic): a novel analyte the config never mentions still triages", () => {
+  const novel = labRecord({
+    "lab_result.loinc": "99999-9", "lab_result.component": "Novel Marker",
+    "lab_result.value": 300, "lab_result.reference.low": 10, "lab_result.reference.high": 20,
+  });
+  const r = triage([novel], { analytes: {} });
+  // 300 vs ref 10-20 (range 10): 300 > 20 + 5*10 = 70 → implausible via generic bound
+  assert.equal(r.dataQuality.length, 1);
+  const inRange = triage([{ ...novel, values: { ...novel.values, "lab_result.value": 25 } }], {});
+  assert.equal(inRange.clinical.length, 1); // 25 vs 10-20 → high, clinical (no config needed)
+});
+
+test("triage (agnostic): sign violation caught when reference implies non-negative", () => {
+  const r = triage([labRecord({ "lab_result.value": -5, "lab_result.reference.low": 0, "lab_result.reference.high": 100 })], {});
+  assert.equal(r.dataQuality.length, 1);
+});
+
 test("severity: routing maps tiers to queues and SLAs", () => {
   assert.deepEqual(severity.route("critical"), { queue: "clinical-urgent", slaHours: 4 });
   assert.equal(severity.rank("critical") < severity.rank("mild"), true);

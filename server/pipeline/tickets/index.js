@@ -14,11 +14,17 @@
  * pipeline produces stable ids and natural de-duplication.
  */
 
+const slug = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 24);
+
 /** Build a stable ticket id from a finding. */
 function ticketId(finding) {
   if (finding.checker === "care-gap") {
     const key = (finding.provenance && finding.provenance.problem_id) || finding.patientId;
     return `CG-${key}-${finding.facts.loinc}`;
+  }
+  if (finding.checker === "med-recon") {
+    // dedup by patient + medication (across a patient's multiple notes)
+    return `MR-${finding.patientId}-${slug(finding.facts.medication)}`;
   }
   const prefix = finding.kind === "implausible-value" ? "DQ" : "AR";
   const key = (finding.provenance && finding.provenance.result_id) || `${finding.patientId}-${finding.facts.component}`;
@@ -56,8 +62,33 @@ function toCareGapTicket(finding, ctx = {}) {
  * @param {object} [ctx]
  * @param {Object.<string,object>} [ctx.patients] - patientId → { name, age, sex }
  */
+/** Convert a med-reconciliation finding into a ticket. */
+function toMedReconTicket(finding, ctx = {}) {
+  const patient = (ctx.patients && finding.patientId && ctx.patients[finding.patientId]) || null;
+  return {
+    id: ticketId(finding),
+    checker: "med-recon",
+    kind: finding.kind, // "order-not-in-note" | "note-not-in-order"
+    status: "open",
+    queue: "med-recon",
+    severity: "med-recon",
+    slaHours: null,
+    patient: {
+      id: finding.patientId || null,
+      name: patient ? patient.name : null,
+      age: patient ? patient.age : null,
+      sex: patient ? patient.sex : null,
+    },
+    encounterId: finding.encounterId || null,
+    facts: finding.facts,
+    provenance: finding.provenance,
+    hypothesis: null,
+  };
+}
+
 function toTicket(finding, ctx = {}) {
   if (finding.checker === "care-gap") return toCareGapTicket(finding, ctx);
+  if (finding.checker === "med-recon") return toMedReconTicket(finding, ctx);
   const isDataQuality = finding.kind === "implausible-value";
   const patient = (ctx.patients && finding.patientId && ctx.patients[finding.patientId]) || null;
   return {
@@ -94,13 +125,14 @@ function assemble(findings, ctx = {}) {
     ...(findings.clinical || []),
     ...(findings.dataQuality || []),
     ...(findings.careGaps || []),
+    ...(findings.medRecon || []),
   ];
   const byId = new Map();
   for (const f of all) {
     const t = toTicket(f, ctx);
     if (!byId.has(t.id)) byId.set(t.id, t);
   }
-  const sevRank = { critical: 0, moderate: 1, mild: 2, "care-gap": 3, "data-quality": 4 };
+  const sevRank = { critical: 0, moderate: 1, mild: 2, "care-gap": 3, "med-recon": 4, "data-quality": 5 };
   return [...byId.values()].sort((a, b) => {
     const r = (sevRank[a.severity] ?? 9) - (sevRank[b.severity] ?? 9);
     if (r !== 0) return r;

@@ -62,6 +62,8 @@ Transforms (`split_bp`, `parse_range`, date coercion, sentinel→null) are a **f
   - **Care-gap / preventive-lab** — for active conditions, was the expected test ordered *and* resulted? (never-ordered vs. ordered-but-unresulted).
   - **Pre-visit summarization + med reconciliation** — LLM reasons over the notes; note-vs-active-orders gaps.
 
+  **The mechanism is data-agnostic; only the knowledge is curated.** Every checker runs on the *canonical* model, never on source columns. Abnormal detection uses each result's **own reference range**, and plausibility falls back to a **reference-range-derived bound** when no curated per-analyte limit exists — so the checker triages and gates *any* analyte, in *any* schema, with zero config. Curated clinical config (analyte bounds, condition→test maps, correlation rules) is keyed to **LOINC / ICD-10** interoperability standards — portable across EHRs, not tailored to one file — and is strictly *precision enrichment*: absent an entry, the checker degrades gracefully (generic bound / distance-based severity / skip) rather than silently doing nothing.
+
 **Explanation = generic-SOAP**, mapped onto the fact/hypothesis contract:
 
 | SOAP | Ticket field | Authority |

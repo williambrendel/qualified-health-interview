@@ -17,17 +17,21 @@ const { buildTickets } = require("./buildTickets");
 async function main(argv) {
   const args = argv.slice(2);
   const noHyp = args.includes("--no-hypotheses");
+  const noMedRecon = args.includes("--no-medrecon");
   const sevArg = args.find((a) => a.startsWith("--severity="));
   const severities = sevArg ? sevArg.split("=")[1].split(",") : ["critical"];
 
   const opts = { rebuild: true };
   if (!noHyp) opts.hypotheses = { severities, concurrency: 6 };
+  if (!noMedRecon) opts.medRecon = true;
 
   const t0 = Date.now();
   const { tickets, summary } = await buildTickets(opts);
   console.log(`built ${tickets.length} tickets in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
   console.log("queues   :", JSON.stringify(summary.byQueue));
   console.log("severity :", JSON.stringify(summary.bySeverity));
+  if (summary.careGaps) console.log("care-gaps:", JSON.stringify(summary.careGaps));
+  if (summary.medRecon) console.log("med-recon:", JSON.stringify(summary.medRecon));
   if (summary.hypotheses) console.log("hypotheses:", JSON.stringify(summary.hypotheses), `(for: ${severities.join(", ")})`);
   console.log("→ tickets.json written (server serves it with zero network calls)");
 }

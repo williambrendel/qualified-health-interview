@@ -20,6 +20,7 @@ const path = require("path");
 const connector = require("./connector");
 const { triage } = require("./checks/abnormalResult");
 const { careGaps } = require("./checks/careGap");
+const { medRecon } = require("./checks/medRecon");
 const tickets = require("./tickets");
 const { generateHypothesis } = require("./hypothesis");
 
@@ -109,8 +110,27 @@ async function buildTickets(opts = {}) {
     { careGaps: CARE_GAPS }
   );
 
+  // Med reconciliation (LLM-forward) — only when requested (networked).
+  let medReconFindings = [];
+  let medReconStats = null;
+  if (opts.medRecon) {
+    const [notesR, medsR] = await Promise.all([
+      connector.connectFile(path.join(DATA_DIR, "hno_info.csv"), {}),
+      connector.connectFile(path.join(DATA_DIR, "order_med.csv"), {}),
+    ]);
+    const mr = await medRecon(
+      { notes: notesR.canonical.records, medOrders: medsR.canonical.records },
+      opts.medRecon === true ? {} : opts.medRecon
+    );
+    medReconFindings = mr.findings;
+    medReconStats = mr.stats;
+  }
+
   const patients = await patientIndex();
-  const list = tickets.assemble({ ...findings, careGaps: gap.findings }, { patients });
+  const list = tickets.assemble(
+    { ...findings, careGaps: gap.findings, medRecon: medReconFindings },
+    { patients }
+  );
 
   let hypothesisCounts = null;
   if (opts.hypotheses) {
@@ -121,6 +141,7 @@ async function buildTickets(opts = {}) {
     ...tickets.summarize(list),
     skipped: findings.skipped,
     careGaps: gap.stats,
+    medRecon: medReconStats,
     hypotheses: hypothesisCounts,
   };
 

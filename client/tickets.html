@@ -42,6 +42,9 @@
   .card.caregap.gap-open { border-left-color: var(--mod); }
   .gap-note { color: #6d28d9; font-size: 12.5px; margin-top: 4px; }
   .gap-note.open { color: var(--mod); font-weight: 600; }
+  .b-medrecon { color: #0e7490; background: #e0f2fe; }
+  .card.medrecon { border-left-color: #0891b2; }
+  .mr-note { color: #0e7490; font-size: 12.5px; margin-top: 4px; }
   .meta { color: var(--muted); font-size: 12.5px; margin-top: 4px; display: flex; gap: 14px; flex-wrap: wrap; }
   .prov { color: var(--muted); font-size: 11.5px; margin-top: 6px; font-family: ui-monospace, monospace; }
   .hyp { margin-top: 8px; padding: 8px 10px; background: #fbfbfc; border: 1px dashed var(--line); border-radius: 6px; color: var(--muted); font-size: 12.5px; }
@@ -79,6 +82,7 @@ const FILTERS = [
   { key: "clinical-urgent", label: "Urgent" },
   { key: "clinical-routine", label: "Routine" },
   { key: "care-gap", label: "Care gaps" },
+  { key: "med-recon", label: "Med recon" },
   { key: "data-quality", label: "Data quality" },
 ];
 let STATE = { filter: "all", data: null };
@@ -138,8 +142,32 @@ function careGapCard(t) {
   </div>`;
 }
 
+function medReconCard(t) {
+  const pt = t.patient || {};
+  const ptLine = pt.name ? `${pt.name}${pt.age != null ? ", " + pt.age : ""}${pt.sex ? " · " + pt.sex : ""}` : (pt.id || "unknown");
+  const orderOnly = t.kind === "order-not-in-note";
+  return `
+  <div class="card medrecon">
+    <div class="row1">
+      <div><span class="badge b-medrecon">med recon</span> <span class="lab">${esc(t.facts.medication)}</span></div>
+      <div class="sla">${orderOnly ? "active order · not in note" : "in note · no active order"}</div>
+    </div>
+    <div class="meta"><span>👤 ${esc(ptLine)}</span><span>enc ${esc(t.encounterId || "—")}</span></div>
+    <div class="mr-note">${orderOnly
+      ? "⚠ Active medication order not documented in the note's reconciliation."
+      : "⚠ Medication named in the note has no matching active order."}</div>
+    <div class="prov">source: ${esc(t.provenance.source)} · note_id: ${esc(t.provenance.note_id || "—")} · ticket ${esc(t.id)}</div>
+    <div class="hyp"><b>Note meds:</b> ${esc((t.facts.noteMeds || []).join(", ") || "—")}<br><b>Active orders:</b> ${esc((t.facts.activeOrders || []).join(", ") || "—")}</div>
+    <div class="act">
+      <button class="ghost" onclick="ack('${t.id}', this)">Acknowledge &amp; route</button>
+      <span class="note">Human approval required — nothing is written to the chart.</span>
+    </div>
+  </div>`;
+}
+
 function card(t) {
   if (t.checker === "care-gap") return careGapCard(t);
+  if (t.checker === "med-recon") return medReconCard(t);
   const sev = t.severity || "data-quality";
   const isDQ = t.queue === "data-quality";
   const pt = t.patient || {};
@@ -176,7 +204,14 @@ function render() {
     return `<div class="chip ${filter === f.key ? "active" : ""}" onclick="setFilter('${f.key}')"><span class="n">${n}</span> ${f.label}</div>`;
   }).join("");
   const list = filter === "all" ? data.tickets : data.tickets.filter(t => t.queue === filter);
-  document.getElementById("list").innerHTML = list.map(card).join("");
+  const emptyMsg = {
+    "med-recon": "✓ No reconciliation discrepancies — documented medications and active orders agree (brand/generic aware).",
+    "care-gap": "✓ No open care gaps in this view.",
+    "data-quality": "✓ No data-quality anomalies in this view.",
+  }[filter] || "No tickets in this queue.";
+  document.getElementById("list").innerHTML = list.length
+    ? list.map(card).join("")
+    : `<div class="card" style="text-align:center;color:var(--muted);border-left-color:var(--line)">${emptyMsg}</div>`;
   const withHyp = list.filter(t => t.hypothesis && t.hypothesis.verified).length;
   document.getElementById("status").textContent =
     `Showing ${list.length} of ${data.count} tickets · ${withHyp} carry verified advisory analysis` +

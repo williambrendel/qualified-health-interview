@@ -21,6 +21,11 @@
       "orderedNotResulted": 7,
       "closed": 226
     },
+    "medRecon": {
+      "notesReconciled": 120,
+      "discrepancies": 0,
+      "hallucinationsDropped": 0
+    },
     "hypotheses": {
       "admitted": 104,
       "rejected": 0,
@@ -70,8 +75,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Markedly elevated serum sodium beyond the critical threshold, indicating severe hypernatremia most likely due to free-water deficit from dehydration, inadequate fluid intake, or excessive water loss.",
-        "plan": "Consider urgent assessment of fluid status, recent intake and output, and evaluation for underlying causes of free-water loss; fluid replacement strategy may be warranted.",
+        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement therapy.",
         "cites": {
           "facts": [
             {
@@ -158,8 +163,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This most likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
-        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement therapy.",
+        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
         "cites": {
           "facts": [
             {
@@ -246,8 +251,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
-        "plan": "Consider assessing volume status, fluid intake and output, and renal function; evaluate for causes of free-water loss and consider fluid replacement strategy in consultation with the clinical team.",
+        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
+        "plan": "Consider assessing fluid status, recent intake and output, and renal function; free-water replacement or addressing the underlying cause of water loss may be warranted.",
         "cites": {
           "facts": [
             {
@@ -335,7 +340,7 @@
       },
       "hypothesis": {
         "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
-        "plan": "Consider assessing fluid status, recent intake and output, and renal function; free-water replacement or identification of the underlying cause of water loss may be warranted.",
+        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
         "cites": {
           "facts": [
             {
@@ -423,7 +428,7 @@
       },
       "hypothesis": {
         "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
-        "plan": "Consider assessing fluid status, recent fluid intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
+        "plan": "Consider assessing fluid status, recent intake and output, and renal function; free-water replacement or identification of the underlying cause of water loss may be warranted.",
         "cites": {
           "facts": [
             {
@@ -510,8 +515,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This most likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
-        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
+        "assessment": "Serum sodium is markedly elevated and beyond the critical threshold, indicating hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "plan": "Consider assessing volume status, fluid intake and output, and renal function; free-water replacement or identification of the underlying cause of water loss may be warranted.",
         "cites": {
           "facts": [
             {
@@ -598,8 +603,8 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, indicating erythrocytosis. This may reflect hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder, and warrants prompt evaluation.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for myeloproliferative disease; hematology consultation may be appropriate depending on clinical context.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to identify the underlying cause.",
+        "plan": "Consider assessing volume status, obtaining a detailed smoking and hypoxia history, and evaluating for myeloproliferative disease; repeat measurement and peripheral blood smear may help clarify the etiology.",
         "cites": {
           "facts": [
             {
@@ -686,8 +691,8 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking history, or a primary myeloproliferative disorder. Prompt evaluation is warranted to distinguish the underlying cause.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for signs of polycythemia vera or other myeloproliferative neoplasms; peripheral blood smear and additional hematologic studies may be indicated.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking history, or a primary myeloproliferative disorder. Prompt evaluation is warranted.",
+        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for myeloproliferative disease; peripheral blood smear and additional hematologic studies may be indicated.",
         "cites": {
           "facts": [
             {
@@ -774,8 +779,8 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to determine the underlying cause.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for signs of myeloproliferative disease; peripheral blood smear and additional hematologic studies may be indicated.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to identify the underlying cause.",
+        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for signs of myeloproliferative disease; further workup such as hematocrit, red cell indices, and possibly bone marrow evaluation may be indicated.",
         "cites": {
           "facts": [
             {
@@ -862,7 +867,7 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to determine the underlying cause.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to identify the underlying cause.",
         "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for signs of myeloproliferative disease; peripheral blood smear and additional hematologic studies may be indicated.",
         "cites": {
           "facts": [
@@ -950,8 +955,8 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, indicating erythrocytosis. This may reflect hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder, and warrants prompt evaluation.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and hypoxia history, and evaluating for myeloproliferative disease; hematology consultation may be appropriate depending on clinical context.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, indicating erythrocytosis. This may reflect hemoconcentration from dehydration, chronic hypoxia or smoking, or a primary myeloproliferative disorder, and warrants prompt evaluation.",
+        "plan": "Consider assessing hydration status, obtaining a detailed smoking and hypoxia history, and evaluating for myeloproliferative disease; peripheral blood smear and additional hematologic studies may be indicated.",
         "cites": {
           "facts": [
             {
@@ -1038,8 +1043,8 @@
         "loinc": "718-7"
       },
       "hypothesis": {
-        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, indicating erythrocytosis. This may reflect hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder and warrants prompt evaluation.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and cardiopulmonary history, and evaluating for myeloproliferative disease if hemoconcentration is excluded.",
+        "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, suggesting either hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder. Prompt evaluation is warranted to identify the underlying cause.",
+        "plan": "Consider assessing volume status, obtaining a detailed smoking and respiratory history, and evaluating for signs of myeloproliferative disease; may warrant hematology consultation depending on clinical context.",
         "cites": {
           "facts": [
             {
@@ -1127,7 +1132,7 @@
       },
       "hypothesis": {
         "assessment": "Hemoglobin is markedly elevated and beyond the critical threshold, indicating erythrocytosis. This may reflect hemoconcentration from dehydration, chronic hypoxia, smoking, or a primary myeloproliferative disorder, and warrants prompt evaluation.",
-        "plan": "Consider assessing hydration status, obtaining a detailed smoking and respiratory history, and evaluating for myeloproliferative disease; hematology consultation may be appropriate.",
+        "plan": "Consider assessing hydration status, obtaining a detailed smoking and hypoxia history, and evaluating for myeloproliferative disease; hematology consultation may be appropriate.",
         "cites": {
           "facts": [
             {
@@ -1206,8 +1211,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant risk for cardiac conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent ECG to assess for hyperkalemia-related changes, verify the result is not due to hemolysis, review medications, and assess renal function and acid-base status.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant cardiac conduction risk. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
+        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), ECG to assess for conduction abnormalities, and review of medications and renal function before initiating treatment.",
         "cites": {
           "facts": [
             {
@@ -1227,8 +1232,16 @@
               "value": "high"
             },
             {
+              "key": "reference_low",
+              "value": 3.5
+            },
+            {
               "key": "reference_high",
               "value": 5
+            },
+            {
+              "key": "out_of_range_by",
+              "value": 2.247
             },
             {
               "key": "beyond_critical",
@@ -1286,8 +1299,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, creating significant risk for cardiac arrhythmias and conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent ECG to assess for peaked T waves or other hyperkalemia-related changes, verify the result is not due to hemolysis, review medications and renal function, and consider emergent treatment if ECG changes are present.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant cardiac-conduction risk. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
+        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), assessment of renal function and medication review, and evaluation for electrocardiographic changes.",
         "cites": {
           "facts": [
             {
@@ -1374,8 +1387,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant risk for cardiac conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent ECG to assess for hyperkalemia-related changes, verify the result is not due to hemolysis, review medications and renal function, and consider emergent treatment if ECG changes are present.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant cardiac-conduction risk. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
+        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), assessment of renal function and medication review, and evaluation for electrocardiographic changes.",
         "cites": {
           "facts": [
             {
@@ -1463,7 +1476,7 @@
       },
       "hypothesis": {
         "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing significant cardiac conduction risk. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), assessment of renal function and current medications, and evaluation for electrocardiographic changes; cardiology consultation may be warranted.",
+        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), assessment of renal function and current medications, and ECG monitoring; clinical correlation and possible intervention may be warranted.",
         "cites": {
           "facts": [
             {
@@ -1550,8 +1563,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which carries significant risk of cardiac arrhythmias and conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent verification (repeat sampling to exclude hemolysis), review medications, assess renal function, and evaluate for signs of hyperkalemia-related cardiac effects; treatment may be warranted depending on clinical context.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which carries significant risk of cardiac conduction abnormalities and arrhythmia. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
+        "plan": "Consider urgent repeat measurement to exclude hemolysis, review current medications, assess renal function, and evaluate for electrocardiographic changes; clinical correlation and possible intervention may be warranted.",
         "cites": {
           "facts": [
             {
@@ -1638,8 +1651,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, carrying significant risk for cardiac conduction abnormalities. Consider whether this reflects true hyperkalemia or pseudohyperkalemia from hemolysis during collection.",
-        "plan": "Suggest urgent review of the sample quality and clinical context; if confirmed, consider ECG monitoring and evaluation for reduced renal function, medication review (particularly RAAS inhibitors or potassium-sparing agents), and potential acute management.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, carrying significant risk for cardiac conduction abnormalities. Consider acute kidney injury, medication effects (potassium-sparing agents or RAAS inhibitors), or sample hemolysis as potential causes.",
+        "plan": "Recommend urgent review of renal function, current medications, and ECG findings; consider repeat sampling to exclude hemolysis artifact, and evaluate need for acute potassium-lowering intervention.",
         "cites": {
           "facts": [
             {
@@ -1718,8 +1731,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which poses significant risk for cardiac conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or in-vitro hemolysis during sample collection.",
-        "plan": "Consider urgent ECG to assess for hyperkalemia-related changes, verify the result is not due to hemolysis, review medications and renal function, and initiate treatment if confirmed.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which carries significant risk of cardiac conduction abnormalities. Consider urgent evaluation for reduced renal excretion, potassium-sparing medications or RAAS inhibitors, or sample hemolysis.",
+        "plan": "Consider immediate ECG to assess for hyperkalemia-related changes and verify the result (repeat draw if hemolysis suspected); review medications and renal function.",
         "cites": {
           "facts": [
             {
@@ -1739,16 +1752,8 @@
               "value": "high"
             },
             {
-              "key": "reference_low",
-              "value": 3.5
-            },
-            {
               "key": "reference_high",
               "value": 5
-            },
-            {
-              "key": "out_of_range_by",
-              "value": 1.22
             },
             {
               "key": "beyond_critical",
@@ -1806,8 +1811,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which poses significant cardiac conduction risk. The elevation may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent ECG to assess for conduction abnormalities, verify the result is not due to hemolysis, review medications, and assess renal function and acid-base status to guide treatment.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, posing risk for cardiac conduction abnormalities. Consider whether this reflects true hyperkalemia or pseudohyperkalemia from hemolysis during collection.",
+        "plan": "Suggest reviewing the blood draw technique and considering repeat sampling; if confirmed elevated, evaluate for reduced renal excretion, potassium-sparing medications, or RAAS inhibitors, and consider ECG monitoring.",
         "cites": {
           "facts": [
             {
@@ -1827,16 +1832,8 @@
               "value": "high"
             },
             {
-              "key": "reference_low",
-              "value": 3.5
-            },
-            {
               "key": "reference_high",
               "value": 5
-            },
-            {
-              "key": "out_of_range_by",
-              "value": 1.207
             },
             {
               "key": "beyond_critical",
@@ -1894,8 +1891,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is markedly elevated and beyond the critical threshold, which carries significant risk for cardiac conduction abnormalities. This may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or sample hemolysis.",
-        "plan": "Consider urgent ECG to assess for conduction changes, verify the result is not due to hemolysis, review medications and renal function, and consider cardiology consultation if ECG changes are present.",
+        "assessment": "Potassium is markedly elevated and beyond the critical threshold, raising concern for hyperkalemia with potential cardiac conduction risk. Consider whether this reflects true hyperkalemia from reduced renal excretion, potassium-sparing medications, RAAS inhibitors, or sample hemolysis.",
+        "plan": "Suggest repeating the potassium measurement to exclude hemolysis artifact, and review renal function, current medications, and electrocardiography to assess for cardiac effects and guide urgent management if confirmed.",
         "cites": {
           "facts": [
             {
@@ -1981,8 +1978,8 @@
         "loinc": "10535-3"
       },
       "hypothesis": {
-        "assessment": "Digoxin level is markedly elevated beyond the therapeutic window, indicating supratherapeutic exposure with risk of toxicity. Clinical correlation with symptoms and renal function is warranted to assess for digoxin toxicity.",
-        "plan": "Consider reviewing for signs of digoxin toxicity (arrhythmias, gastrointestinal or neurological symptoms), assessing renal function, and evaluating the need for dose reduction or temporary withholding.",
+        "assessment": "Digoxin level is markedly elevated above the therapeutic window, indicating supratherapeutic exposure with risk for toxicity. Clinical review for symptoms of digoxin toxicity and assessment of renal function are warranted.",
+        "plan": "Consider reviewing the patient for signs of digoxin toxicity (arrhythmias, gastrointestinal or neurological symptoms), checking renal function, and evaluating whether dose reduction or temporary withholding is appropriate.",
         "cites": {
           "facts": [
             {
@@ -2008,6 +2005,10 @@
             {
               "key": "reference_high",
               "value": 2
+            },
+            {
+              "key": "out_of_range_by",
+              "value": 0.816
             },
             {
               "key": "beyond_critical",
@@ -2064,8 +2065,8 @@
         "loinc": "10535-3"
       },
       "hypothesis": {
-        "assessment": "Digoxin level is markedly elevated beyond the therapeutic window, indicating supratherapeutic exposure with significant toxicity risk. Clinical correlation with symptoms of digoxin toxicity and assessment of renal function are warranted.",
-        "plan": "Consider reviewing for signs of digoxin toxicity, assessing renal function, and evaluating the need for dose adjustment or temporary withholding of the next dose.",
+        "assessment": "Digoxin level is markedly elevated beyond the therapeutic window, indicating supratherapeutic exposure with significant toxicity risk. Clinical review for symptoms of digoxin toxicity and assessment of renal function are warranted.",
+        "plan": "Consider reviewing the patient for signs of digoxin toxicity, assessing renal function, and evaluating the need to hold or reduce the digoxin dose pending clinical correlation.",
         "cites": {
           "facts": [
             {
@@ -2151,8 +2152,8 @@
         "loinc": "10535-3"
       },
       "hypothesis": {
-        "assessment": "Digoxin level is markedly elevated beyond the therapeutic window, indicating supratherapeutic exposure with significant toxicity risk. Clinical correlation with symptoms of digoxin toxicity and renal function assessment is warranted.",
-        "plan": "Consider reviewing for signs of digoxin toxicity, assessing renal function, and evaluating the need for dose adjustment or temporary withholding of the next dose.",
+        "assessment": "Digoxin level is markedly elevated beyond the therapeutic window, indicating supratherapeutic exposure with significant toxicity risk. Clinical correlation with symptoms of digoxin toxicity and assessment of renal function are warranted.",
+        "plan": "Consider reviewing for signs of digoxin toxicity, assessing renal function, and evaluating the need to hold or reduce the digoxin dose pending clinical review.",
         "cites": {
           "facts": [
             {
@@ -2310,8 +2311,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical correlation with serum creatinine and patient context is warranted to exclude measurement artifact or unusual physiology.",
-        "plan": "Consider reviewing serum creatinine and urinalysis alongside this result; if creatinine is normal and the patient is asymptomatic, reassurance may be appropriate, though repeat measurement could be considered if clinical suspicion for artifact exists.",
+        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be reviewed to exclude measurement artifact or unusual physiology.",
+        "plan": "Consider reviewing serum creatinine and clinical context; further workup is usually not warranted unless there are signs of glomerular disease or other renal pathology.",
         "cites": {
           "facts": [
             {
@@ -2393,8 +2394,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range is typically not clinically significant and may represent hyperfiltration or normal physiologic variation in a healthy individual.",
-        "plan": "Consider reviewing serum creatinine and clinical context to confirm the result is not artifactual; further workup is usually not needed unless accompanied by other renal or systemic findings.",
+        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical correlation with serum creatinine and patient context is warranted to exclude measurement artifact or unusual physiology.",
+        "plan": "Consider reviewing serum creatinine and urinalysis alongside this result; if creatinine is normal and the patient is asymptomatic, reassurance may be appropriate, though repeat measurement could be considered if there is clinical uncertainty.",
         "cites": {
           "facts": [
             {
@@ -2476,8 +2477,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be reviewed to confirm this benign finding.",
-        "plan": "Consider reviewing serum creatinine and clinical presentation to exclude laboratory error or unusual physiology; routine follow-up is generally appropriate.",
+        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical correlation with serum creatinine and patient context is warranted to exclude laboratory error or unusual physiology.",
+        "plan": "Consider reviewing serum creatinine and urinalysis alongside this result; if creatinine is normal and the patient is asymptomatic, reassurance may be appropriate, though repeat testing could confirm stability.",
         "cites": {
           "facts": [
             {
@@ -2556,7 +2557,7 @@
       },
       "hypothesis": {
         "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be reviewed to confirm the finding.",
-        "plan": "Consider reviewing serum creatinine and clinical context (age, body composition, medications) to determine if this represents true hyperfiltration or a measurement artifact.",
+        "plan": "Consider reviewing serum creatinine and clinical presentation to confirm this is not a laboratory artifact; further intervention is usually not warranted unless accompanied by other abnormalities.",
         "cites": {
           "facts": [
             {
@@ -2574,10 +2575,6 @@
             {
               "key": "direction",
               "value": "high"
-            },
-            {
-              "key": "reference_low",
-              "value": 60
             },
             {
               "key": "reference_high",
@@ -2721,8 +2718,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range may reflect hyperfiltration or normal physiologic variation and is typically not clinically concerning. Clinical context and serum creatinine should be reviewed to confirm the finding.",
-        "plan": "Consider reviewing serum creatinine and clinical context to interpret this elevated eGFR result.",
+        "assessment": "Elevated eGFR above the reference range may reflect hyperfiltration or normal physiologic variation and is typically not clinically concerning. Interpretation should consider concurrent creatinine levels and clinical context.",
+        "plan": "Review serum creatinine and clinical presentation to assess for potential causes of hyperfiltration or confirm this represents a benign physiologic finding.",
         "cites": {
           "facts": [
             {
@@ -2804,8 +2801,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical correlation with serum creatinine and patient context is warranted to exclude measurement artifact or unusual physiology.",
-        "plan": "Consider reviewing serum creatinine and urinalysis alongside this result; reassurance may be appropriate if creatinine is normal and there are no clinical signs of renal disease.",
+        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be considered to exclude measurement artifact or unusual physiology.",
+        "plan": "Review serum creatinine and clinical context; if creatinine is normal and the patient is asymptomatic, reassurance may be appropriate, though repeat measurement could be considered if hyperfiltration is suspected.",
         "cites": {
           "facts": [
             {
@@ -2823,10 +2820,6 @@
             {
               "key": "direction",
               "value": "high"
-            },
-            {
-              "key": "reference_low",
-              "value": 60
             },
             {
               "key": "reference_high",
@@ -2888,8 +2881,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants further evaluation to assess glycemic control and diabetes risk.",
-        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to confirm the diagnosis and establish baseline glycemic status.",
+        "assessment": "Fasting glucose is moderately elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with HbA1c and consideration of repeat testing to establish a pattern.",
+        "plan": "Consider obtaining HbA1c and a repeat fasting glucose to assess glycemic control and help distinguish between impaired fasting glucose and diabetes mellitus.",
         "cites": {
           "facts": [
             {
@@ -2971,8 +2964,8 @@
         "loinc": "33914-3"
       },
       "hypothesis": {
-        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be reviewed to exclude measurement artifact or unusual physiology.",
-        "plan": "Consider reviewing serum creatinine and clinical context; if creatinine is normal and the patient is asymptomatic, reassurance may be appropriate.",
+        "assessment": "Elevated eGFR above the reference range is typically not clinically concerning and may represent hyperfiltration or normal physiologic variation. Clinical context and serum creatinine should be reviewed to confirm this is not a spurious result.",
+        "plan": "Consider reviewing serum creatinine and clinical context to ensure the elevated eGFR is physiologic rather than due to measurement error or unusual muscle mass.",
         "cites": {
           "facts": [
             {
@@ -2992,16 +2985,8 @@
               "value": "high"
             },
             {
-              "key": "reference_low",
-              "value": 60
-            },
-            {
               "key": "reference_high",
               "value": 120
-            },
-            {
-              "key": "out_of_range_by",
-              "value": 42.037
             }
           ],
           "rule": {
@@ -3055,8 +3040,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants correlation with glycemic control markers and clinical context.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose to assess for diabetes; review for symptoms of hyperglycemia and evaluate cardiovascular risk factors.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants further evaluation to determine if this represents a new abnormality or chronic hyperglycemia.",
+        "plan": "Consider obtaining HbA1c to assess glycemic control over the preceding weeks, and repeat fasting glucose testing to confirm the finding before initiating therapy.",
         "cites": {
           "facts": [
             {
@@ -3139,8 +3124,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with glycated hemoglobin and repeat testing to establish a pattern.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose on a separate occasion to assess for diabetes or prediabetes; review for symptoms and risk factors.",
+        "assessment": "Elevated fasting glucose indicates impaired glucose regulation or possible diabetes mellitus. This finding warrants correlation with glycated hemoglobin and repeat testing to establish a diagnosis.",
+        "plan": "Consider obtaining HbA1c and repeating the fasting glucose measurement to assess glycemic control and confirm the diagnosis of diabetes or prediabetes.",
         "cites": {
           "facts": [
             {
@@ -3223,8 +3208,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Elevated fasting glucose indicates impaired glucose regulation or possible diabetes. This finding warrants correlation with HbA1c and repeat testing to establish a diagnosis.",
-        "plan": "Consider ordering HbA1c and repeating fasting glucose to assess glycemic control and confirm the diagnosis of prediabetes or diabetes.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants correlation with glycemic control markers and clinical context.",
+        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to assess glycemic control and confirm the diagnosis of impaired fasting glucose or diabetes.",
         "cites": {
           "facts": [
             {
@@ -3307,8 +3292,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Elevated fasting glucose indicates impaired glucose regulation or possible diabetes mellitus. This finding warrants correlation with glycated hemoglobin and repeat testing to establish diagnosis.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose on a separate occasion to confirm the diagnosis and assess glycemic control.",
+        "assessment": "Elevated fasting glucose indicates impaired glucose regulation or possible diabetes mellitus. This finding warrants correlation with glycated hemoglobin and repeat testing to establish a diagnosis.",
+        "plan": "Consider obtaining HbA1c and repeating fasting glucose to confirm the pattern of hyperglycemia and assess glycemic control over time.",
         "cites": {
           "facts": [
             {
@@ -3391,8 +3376,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Elevated fasting glucose indicates impaired glucose regulation or possible diabetes. Correlation with HbA1c and repeat testing is warranted to establish diagnosis and assess glycemic control.",
-        "plan": "Consider ordering HbA1c and repeating fasting glucose to confirm the finding and evaluate for diabetes.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with HbA1c and consideration of repeat testing to confirm the diagnosis.",
+        "plan": "Consider ordering HbA1c to assess glycemic control over time, and discuss repeat fasting glucose testing and lifestyle modification with the patient.",
         "cites": {
           "facts": [
             {
@@ -3475,8 +3460,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with HbA1c and clinical context to assess glycemic control.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose on a separate occasion to confirm the diagnosis and assess long-term glucose trends.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This warrants further evaluation to establish the pattern and severity of hyperglycemia.",
+        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to assess glycemic control and confirm diagnosis; review for symptoms of hyperglycemia and assess cardiovascular risk factors.",
         "cites": {
           "facts": [
             {
@@ -3559,8 +3544,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants further evaluation to determine the underlying cause and assess glycemic control.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose measurement to confirm the diagnosis and evaluate long-term glucose trends; assess for diabetes risk factors and symptoms.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants correlation with glycemic control markers and clinical context.",
+        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to assess glycemic control and confirm diagnosis; review for symptoms of hyperglycemia and evaluate cardiovascular risk factors.",
         "cites": {
           "facts": [
             {
@@ -3642,8 +3627,8 @@
         "loinc": "1742-6"
       },
       "hypothesis": {
-        "assessment": "Elevated ALT suggests hepatocellular injury and warrants investigation for common causes such as metabolic fatty liver disease, medication-related hepatotoxicity, or alcohol use.",
-        "plan": "Consider obtaining additional liver function tests, reviewing medication history and alcohol consumption, and evaluating for metabolic syndrome or viral hepatitis as clinically indicated.",
+        "assessment": "Elevated ALT suggests hepatocellular injury, which may reflect metabolic fatty liver disease, medication-related hepatotoxicity, or alcohol-related liver damage.",
+        "plan": "Consider obtaining additional liver function tests, reviewing medication history and alcohol use, and evaluating for metabolic risk factors such as obesity or diabetes.",
         "cites": {
           "facts": [
             {
@@ -3727,7 +3712,7 @@
       },
       "hypothesis": {
         "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants correlation with glycemic control markers and clinical context.",
-        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to assess glucose regulation pattern and confirm diagnosis before initiating therapy.",
+        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to assess glucose regulation pattern and confirm diagnosis.",
         "cites": {
           "facts": [
             {
@@ -3810,8 +3795,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with glycated hemoglobin and clinical context to assess glucose regulation status.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose on a separate occasion to confirm the diagnosis and evaluate for diabetes or prediabetes.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes mellitus. This finding warrants further evaluation to assess glucose regulation status.",
+        "plan": "Consider obtaining HbA1c and repeat fasting glucose measurement to confirm the diagnosis and assess glycemic control over time.",
         "cites": {
           "facts": [
             {
@@ -3891,8 +3876,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic accumulation. Overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated or clinical signs are present.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation or increased sun exposure. Overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and sun exposure history; assess for symptoms of hypercalcemia if present.",
         "cites": {
           "facts": [
             {
@@ -3972,8 +3957,8 @@
         "loinc": "2085-9"
       },
       "hypothesis": {
-        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical intervention.",
-        "plan": "No specific action needed for the elevated HDL itself; consider reviewing the lipid panel in context of overall cardiovascular risk profile and lifestyle factors.",
+        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical concern.",
+        "plan": "No specific intervention is indicated; continue current lifestyle and medication regimen, and monitor lipid panel at routine intervals.",
         "cites": {
           "facts": [
             {
@@ -4053,8 +4038,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic toxicity. Overt vitamin D toxicity is uncommon and typically occurs only at markedly higher concentrations.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium levels are also elevated or if clinical signs of toxicity are present.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than endogenous production. Overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may not be necessary unless calcium is also elevated.",
         "cites": {
           "facts": [
             {
@@ -4137,8 +4122,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with HbA1c and consideration of repeat testing to confirm the diagnosis.",
-        "plan": "Consider obtaining HbA1c and repeating fasting glucose on a separate occasion to assess glycemic control and establish whether diabetes or prediabetes is present.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible diabetes. This finding warrants correlation with HbA1c and clinical context to assess glycemic control.",
+        "plan": "Consider obtaining HbA1c and repeating fasting glucose to confirm the finding and evaluate for diabetes or prediabetes.",
         "cites": {
           "facts": [
             {
@@ -4221,8 +4206,8 @@
         "loinc": "1558-6"
       },
       "hypothesis": {
-        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible early glucose dysregulation. This warrants further evaluation to assess for prediabetes or diabetes.",
-        "plan": "Consider obtaining HbA1c and repeat fasting glucose testing to confirm the pattern and degree of glucose dysregulation.",
+        "assessment": "Fasting glucose is elevated above the reference range, suggesting impaired fasting glucose tolerance or possible early diabetes. This finding warrants correlation with HbA1c and clinical context to assess glycemic control.",
+        "plan": "Consider obtaining HbA1c and repeating fasting glucose to confirm the finding and evaluate for diabetes or prediabetes.",
         "cites": {
           "facts": [
             {
@@ -4302,8 +4287,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic toxicity, as overt toxicity is rare at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation or increased sun exposure. Overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and sun exposure; reassess whether current supplementation remains appropriate.",
         "cites": {
           "facts": [
             {
@@ -4383,8 +4368,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic accumulation. Overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and clarifying the indication; reassess if symptoms of hypercalcemia or hypervitaminosis D are present.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than pathologic accumulation. Overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated.",
         "cites": {
           "facts": [
             {
@@ -4467,7 +4452,7 @@
       },
       "hypothesis": {
         "assessment": "Elevated AST suggests hepatocellular or muscle injury and warrants interpretation in the context of ALT and other liver function tests to differentiate the underlying cause.",
-        "plan": "Consider reviewing ALT, bilirubin, and alkaline phosphatase to assess for hepatic dysfunction, and evaluate clinical context for muscle injury or hemolysis.",
+        "plan": "Consider reviewing ALT, bilirubin, and alkaline phosphatase to assess for hepatic dysfunction, and obtain clinical history regarding alcohol use, medications, and muscle symptoms.",
         "cites": {
           "facts": [
             {
@@ -4549,8 +4534,8 @@
         "loinc": "1920-8"
       },
       "hypothesis": {
-        "assessment": "Elevated AST suggests hepatocellular or muscle injury and warrants interpretation in the clinical context alongside ALT and other liver function tests.",
-        "plan": "Consider reviewing ALT, bilirubin, and alkaline phosphatase to differentiate hepatic from muscular causes, and assess for recent medication use, alcohol consumption, or muscle trauma.",
+        "assessment": "Elevated AST suggests hepatocellular or muscle injury and should be interpreted in context with ALT and other liver function tests to determine the underlying cause.",
+        "plan": "Consider reviewing ALT, bilirubin, and alkaline phosphatase to characterize the pattern of liver injury, and assess for muscle injury or hemolysis if indicated by clinical context.",
         "cites": {
           "facts": [
             {
@@ -4630,8 +4615,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than endogenous production. Overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium levels are also elevated.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than pathologic overproduction. Overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may not be necessary unless calcium is also elevated.",
         "cites": {
           "facts": [
             {
@@ -4712,7 +4697,7 @@
       },
       "hypothesis": {
         "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than endogenous production. Overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated or clinical signs are present.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may not be necessary unless calcium is also elevated.",
         "cites": {
           "facts": [
             {
@@ -4792,8 +4777,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic toxicity, as overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated or symptoms are present.",
+        "assessment": "Vitamin D level is elevated above the reference range, likely reflecting supplementation rather than pathologic toxicity, as overt toxicity is uncommon at this level.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup may be warranted only if calcium is also elevated or clinical signs are present.",
         "cites": {
           "facts": [
             {
@@ -4811,6 +4796,10 @@
             {
               "key": "direction",
               "value": "high"
+            },
+            {
+              "key": "reference_low",
+              "value": 20
             },
             {
               "key": "reference_high",
@@ -4869,8 +4858,8 @@
         "loinc": "1989-3"
       },
       "hypothesis": {
-        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic accumulation. Overt toxicity is uncommon at this level.",
-        "plan": "Consider reviewing the patient's vitamin D supplementation intake and counsel on appropriate dosing; reassess if symptoms of hypercalcemia or hypervitaminosis D are present.",
+        "assessment": "Vitamin D level is moderately elevated above the reference range, likely reflecting supplementation rather than pathologic toxicity, as overt toxicity is rare and occurs only at very high levels.",
+        "plan": "Consider reviewing the patient's vitamin D supplementation intake and assessing for symptoms of hypercalcemia; further workup is warranted only if calcium is also elevated or if symptoms are present.",
         "cites": {
           "facts": [
             {
@@ -4953,8 +4942,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
-        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
+        "assessment": "Serum sodium is elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium excess.",
+        "plan": "Consider assessing volume status, fluid intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement therapy.",
         "cites": {
           "facts": [
             {
@@ -5035,7 +5024,7 @@
       },
       "hypothesis": {
         "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical concern.",
-        "plan": "No immediate action needed; continue current lifestyle and dietary practices that support healthy HDL levels.",
+        "plan": "No specific intervention is needed; continue current lifestyle and dietary practices that support healthy HDL levels.",
         "cites": {
           "facts": [
             {
@@ -5055,8 +5044,16 @@
               "value": "high"
             },
             {
+              "key": "reference_low",
+              "value": 40
+            },
+            {
               "key": "reference_high",
               "value": 60
+            },
+            {
+              "key": "out_of_range_by",
+              "value": 13.188
             }
           ],
           "rule": {
@@ -5110,8 +5107,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than primary sodium excess.",
-        "plan": "Consider assessing the patient's fluid status, recent intake and output, and urine osmolality to determine the mechanism of free-water loss and guide fluid replacement strategy.",
+        "assessment": "Serum sodium is moderately elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
         "cites": {
           "facts": [
             {
@@ -5191,8 +5188,8 @@
         "loinc": "2085-9"
       },
       "hypothesis": {
-        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical concern.",
-        "plan": "No immediate action needed; continue current lifestyle and lipid management. Consider this a positive finding in the context of overall lipid profile and cardiovascular risk assessment.",
+        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical intervention.",
+        "plan": "No specific action needed for this result; continue routine lipid monitoring as part of standard preventive care.",
         "cites": {
           "facts": [
             {
@@ -5264,8 +5261,8 @@
         "loinc": "2085-9"
       },
       "hypothesis": {
-        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable and protective against cardiovascular disease rather than a cause for concern.",
-        "plan": "No intervention typically needed; continue current lifestyle and dietary practices that support healthy HDL levels, and monitor lipid panel at routine intervals.",
+        "assessment": "HDL cholesterol is elevated above the reference range, which is generally considered favorable for cardiovascular health and does not typically warrant clinical intervention.",
+        "plan": "No specific action needed for the elevated HDL itself; continue routine lipid monitoring as part of standard preventive care.",
         "cites": {
           "facts": [
             {
@@ -5285,8 +5282,16 @@
               "value": "high"
             },
             {
+              "key": "reference_low",
+              "value": 40
+            },
+            {
               "key": "reference_high",
               "value": 60
+            },
+            {
+              "key": "out_of_range_by",
+              "value": 11.708
             }
           ],
           "rule": {
@@ -5340,8 +5345,8 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than primary sodium excess.",
-        "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement strategy.",
+        "assessment": "Serum sodium is moderately elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "plan": "Consider assessing the patient's fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement therapy.",
         "cites": {
           "facts": [
             {
@@ -5423,8 +5428,8 @@
         "loinc": "3094-0"
       },
       "hypothesis": {
-        "assessment": "Elevated BUN above the reference range suggests possible dehydration, increased protein catabolism, gastrointestinal bleeding, or reduced kidney function. The BUN-to-creatinine ratio would help clarify the underlying cause.",
-        "plan": "Consider reviewing the patient's hydration status, recent protein intake, and serum creatinine to calculate the BUN-to-creatinine ratio and narrow the differential diagnosis.",
+        "assessment": "Moderately elevated BUN above the reference range may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or reduced kidney function. Comparison of the BUN-to-creatinine ratio would help clarify the underlying cause.",
+        "plan": "Consider reviewing serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function to narrow the differential diagnosis.",
         "cites": {
           "facts": [
             {
@@ -5507,7 +5512,7 @@
       },
       "hypothesis": {
         "assessment": "Moderately elevated BUN above the reference range may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or early renal dysfunction. Comparison of the BUN-to-creatinine ratio would help clarify the underlying cause.",
-        "plan": "Consider reviewing the patient's hydration status, recent protein intake, and serum creatinine to calculate the BUN-to-creatinine ratio and narrow the differential diagnosis.",
+        "plan": "Consider reviewing serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function to narrow the differential diagnosis.",
         "cites": {
           "facts": [
             {
@@ -5589,8 +5594,8 @@
         "loinc": "3094-0"
       },
       "hypothesis": {
-        "assessment": "Elevated BUN above the reference range suggests possible dehydration, high protein intake, gastrointestinal bleeding, or reduced kidney function. The BUN-to-creatinine ratio would help distinguish among these causes.",
-        "plan": "Consider reviewing the patient's hydration status, dietary protein intake, and serum creatinine to calculate the BUN-to-creatinine ratio and narrow the differential diagnosis.",
+        "assessment": "Moderately elevated BUN above the reference range may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or reduced kidney function. Comparison of the BUN-to-creatinine ratio would help distinguish the underlying cause.",
+        "plan": "Consider reviewing the serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function to narrow the differential diagnosis.",
         "cites": {
           "facts": [
             {
@@ -5673,7 +5678,7 @@
         "loinc": "2951-2"
       },
       "hypothesis": {
-        "assessment": "Serum sodium is moderately elevated above the reference range, consistent with hypernatremia. This typically reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
+        "assessment": "Serum sodium is moderately elevated above the reference range, consistent with hypernatremia. This likely reflects a free-water deficit from dehydration, inadequate fluid intake, or excess water loss rather than sodium overload.",
         "plan": "Consider assessing fluid status, recent intake and output, and urine osmolality to identify the underlying cause of free-water deficit and guide fluid replacement therapy.",
         "cites": {
           "facts": [
@@ -5756,8 +5761,8 @@
         "loinc": "3094-0"
       },
       "hypothesis": {
-        "assessment": "BUN is moderately elevated above the reference range, which may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or reduced kidney function.",
-        "plan": "Consider obtaining a serum creatinine and calculating the BUN-to-creatinine ratio to help distinguish between prerenal causes and intrinsic renal dysfunction.",
+        "assessment": "Moderately elevated BUN above the reference range, which may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or reduced kidney function.",
+        "plan": "Consider checking the serum creatinine and calculating the BUN-to-creatinine ratio to help distinguish between prerenal causes and intrinsic renal dysfunction; also assess volume status and recent intake.",
         "cites": {
           "facts": [
             {
@@ -5840,7 +5845,7 @@
       },
       "hypothesis": {
         "assessment": "Moderately elevated BUN above the reference range may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or early renal dysfunction. Comparison of the BUN-to-creatinine ratio would help clarify the underlying cause.",
-        "plan": "Consider reviewing serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function trends.",
+        "plan": "Consider reviewing serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function to narrow the differential diagnosis.",
         "cites": {
           "facts": [
             {
@@ -5922,8 +5927,8 @@
         "loinc": "3094-0"
       },
       "hypothesis": {
-        "assessment": "Moderately elevated BUN above the reference range may reflect dehydration, increased protein catabolism, gastrointestinal bleeding, or early renal dysfunction. Comparison of the BUN-to-creatinine ratio would help clarify the underlying cause.",
-        "plan": "Consider reviewing serum creatinine and calculating the BUN-to-creatinine ratio; assess volume status, recent protein intake, and renal function to narrow the differential diagnosis.",
+        "assessment": "BUN is elevated above the reference range, which may reflect dehydration, high protein intake, gastrointestinal bleeding, or reduced kidney function. Comparison of the BUN-to-creatinine ratio would help clarify the underlying cause.",
+        "plan": "Consider reviewing the patient's hydration status, recent protein intake, and creatinine level; if not already available, obtain a BUN-to-creatinine ratio to help differentiate between prerenal and renal causes.",
         "cites": {
           "facts": [
             {
@@ -6131,8 +6136,8 @@
         "loinc": "6690-2"
       },
       "hypothesis": {
-        "assessment": "Elevated white blood cell count suggests leukocytosis, which commonly reflects infection, inflammation, or physiologic stress. The differential will be important to guide further interpretation.",
-        "plan": "Consider obtaining a CBC differential to characterize the type of leukocytosis and help narrow the differential diagnosis; also review clinical context for signs of infection or inflammatory process.",
+        "assessment": "Moderately elevated white blood cell count suggests leukocytosis, which commonly reflects infection, inflammation, or physiologic stress. The differential count will be important to guide further interpretation.",
+        "plan": "Consider reviewing the WBC differential and clinical context (fever, localizing symptoms, recent stress) to narrow the differential diagnosis.",
         "cites": {
           "facts": [
             {
@@ -6150,10 +6155,6 @@
             {
               "key": "direction",
               "value": "high"
-            },
-            {
-              "key": "reference_low",
-              "value": 4.5
             },
             {
               "key": "reference_high",
@@ -6215,8 +6216,8 @@
         "loinc": "6690-2"
       },
       "hypothesis": {
-        "assessment": "Elevated white blood cell count suggests possible infection, inflammation, or physiologic stress. A differential count would help clarify the underlying cause.",
-        "plan": "Consider obtaining a WBC differential and reviewing clinical context (fever, symptoms, recent stressors) to guide further workup.",
+        "assessment": "Moderately elevated white blood cell count suggests possible infection, inflammation, or physiologic stress. A differential count would help clarify the underlying cause.",
+        "plan": "Consider obtaining a WBC differential and reviewing clinical context (fever, symptoms, recent illness) to guide further workup.",
         "cites": {
           "facts": [
             {
@@ -6295,8 +6296,8 @@
         "loinc": "6690-2"
       },
       "hypothesis": {
-        "assessment": "Elevated white blood cell count suggests possible infection, inflammatory process, or physiologic stress. A differential count would help clarify the underlying cause.",
-        "plan": "Consider obtaining a WBC differential and reviewing clinical context (fever, symptoms, recent illness) to guide further workup.",
+        "assessment": "Elevated white blood cell count suggests possible infection, inflammatory process, or physiologic stress. A differential count would help distinguish the underlying cause.",
+        "plan": "Consider obtaining a WBC differential and reviewing clinical context (fever, symptoms, recent stressors) to guide further workup.",
         "cites": {
           "facts": [
             {
@@ -6374,8 +6375,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes that may require treatment intensification or adherence review.",
-        "plan": "Consider reviewing the patient's diabetes management regimen, medication adherence, and dietary factors; assess for any recent changes in clinical status or barriers to control.",
+        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes that may require therapeutic adjustment or intensification.",
+        "plan": "Consider reviewing the patient's current diabetes management regimen, medication adherence, and dietary factors; assess for barriers to glycemic control and consider intensification of therapy if not already optimized.",
         "cites": {
           "facts": [
             {
@@ -6457,8 +6458,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes or inadequate glucose management. This moderately elevated result warrants review of current diabetes therapy and lifestyle factors.",
-        "plan": "Consider reviewing the patient's diabetes medications, adherence, dietary habits, and physical activity; assess for barriers to glycemic control and discuss intensification of therapy if appropriate.",
+        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes or inadequate diabetes management. This moderately elevated result suggests average blood glucose has been persistently above target.",
+        "plan": "Consider reviewing the patient's current diabetes medications, adherence, dietary intake, and physical activity; a diabetes educator referral or adjustment to the therapeutic regimen may be warranted.",
         "cites": {
           "facts": [
             {
@@ -6540,8 +6541,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates average blood glucose has been above target over the past three months, consistent with inadequate glycemic control. This may reflect new-onset diabetes or suboptimal management of existing diabetes.",
-        "plan": "Consider reviewing the patient's diabetes status, current medications, and glucose monitoring patterns; discuss lifestyle factors and medication adherence with the patient.",
+        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes or inadequate glucose management. This moderately elevated result suggests average blood glucose has been above target.",
+        "plan": "Consider reviewing the patient's diabetes management regimen, medication adherence, and dietary compliance; assess for barriers to control and consider intensification of therapy if not already optimized.",
         "cites": {
           "facts": [
             {
@@ -6623,8 +6624,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "HbA1c is moderately elevated above the reference range, reflecting higher average blood glucose over approximately three months. This finding is consistent with diabetes or suboptimal glycemic control.",
-        "plan": "Consider reviewing the patient's diabetes status, current glucose-lowering therapy, and adherence; further assessment of glycemic targets and treatment adjustment may be warranted.",
+        "assessment": "Elevated HbA1c indicates suboptimal glycemic control over the preceding three months, consistent with diabetes or inadequate glucose management. This moderately elevated result warrants review of current diabetes therapy and lifestyle factors.",
+        "plan": "Consider reviewing the patient's diabetes medications, adherence, diet, and exercise; assess for barriers to control and discuss intensification of therapy if indicated.",
         "cites": {
           "facts": [
             {
@@ -6746,8 +6747,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months and suggests either undiagnosed diabetes or suboptimal glycemic control in a known diabetic patient.",
-        "plan": "Consider reviewing the patient's diabetes status, current medications, and dietary adherence; fasting glucose and oral glucose tolerance testing may help clarify diagnosis if this is a new finding.",
+        "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months, consistent with hyperglycemia. This result is above the reference range and may reflect inadequate glycemic control or warrant evaluation for diabetes.",
+        "plan": "Consider reviewing the patient's glucose monitoring records, medication adherence, and dietary intake; diabetes screening or intensification of glycemic management may be indicated depending on clinical context.",
         "cites": {
           "facts": [
             {
@@ -6830,7 +6831,7 @@
       },
       "hypothesis": {
         "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months and suggests either undiagnosed diabetes or suboptimal glycemic control in a known diabetic patient.",
-        "plan": "Consider reviewing the patient's diabetes status, current glucose-lowering therapy, and lifestyle factors; repeat testing and possible adjustment of management may be warranted.",
+        "plan": "Consider reviewing the patient's diabetes status, current glucose-lowering therapy if applicable, and dietary/lifestyle factors; repeat testing and possible adjustment of management may be warranted.",
         "cites": {
           "facts": [
             {
@@ -6913,8 +6914,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically associated with impaired kidney function or use of magnesium-containing products such as antacids or laxatives.",
-        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia if present.",
+        "assessment": "Magnesium is markedly elevated above the reference range. Hypermagnesemia is uncommon and typically reflects impaired kidney function or exposure to magnesium-containing medications or supplements.",
+        "plan": "Consider assessing renal function and reviewing the patient's medications and supplements for magnesium-containing products; clinical correlation with symptoms and kidney status may warrant intervention.",
         "cites": {
           "facts": [
             {
@@ -6996,8 +6997,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months, consistent with hyperglycemia. This may reflect new-onset diabetes, inadequate glycemic control, or need for treatment adjustment.",
-        "plan": "Consider reviewing the patient's glucose history, diabetes status, and current medications; fasting glucose or oral glucose tolerance testing may help clarify diagnosis if not yet established.",
+        "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months and may reflect inadequate glycemic control or warrant diabetes screening if not previously diagnosed.",
+        "plan": "Consider reviewing the patient's diabetes status, current glucose-lowering therapy if applicable, and discussing lifestyle modifications or medication adjustment with the patient.",
         "cites": {
           "facts": [
             {
@@ -7080,8 +7081,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is elevated above the reference range, consistent with hyperkalemia. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or sample hemolysis, and carries potential cardiac-conduction risk.",
-        "plan": "Consider reviewing renal function, current medications (particularly ACE inhibitors, ARBs, potassium-sparing diuretics), and whether sample hemolysis occurred; an ECG may be warranted to assess for conduction abnormalities.",
+        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or in vitro hemolysis during sample collection. Hyperkalemia carries risk of cardiac conduction abnormalities.",
+        "plan": "Consider reviewing medications (ACE inhibitors, ARBs, potassium-sparing diuretics), assessing renal function, and repeating the measurement to exclude pseudohyperkalemia from hemolysis; an ECG may be warranted if the result is confirmed.",
         "cites": {
           "facts": [
             {
@@ -7164,8 +7165,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired renal function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
-        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia such as weakness or altered mental status.",
+        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired renal function or exposure to magnesium-containing medications or supplements.",
+        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication/supplement use, including antacids and laxatives, to identify the underlying cause.",
         "cites": {
           "facts": [
             {
@@ -7248,8 +7249,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or in-vitro hemolysis during sample collection. Hyperkalemia carries risk of cardiac conduction abnormalities.",
-        "plan": "Consider reviewing medications (ACE inhibitors, ARBs, potassium-sparing diuretics), assessing renal function, and repeating the measurement to exclude pseudohyperkalemia from hemolysis; an ECG may be warranted if the result is confirmed.",
+        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or possibly sample hemolysis. Hyperkalemia carries risk of cardiac conduction abnormalities.",
+        "plan": "Consider reviewing renal function, current medications (particularly ACE inhibitors, ARBs, potassium-sparing diuretics), and whether sample hemolysis occurred; repeat measurement may be warranted to confirm the result.",
         "cites": {
           "facts": [
             {
@@ -7332,8 +7333,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or possibly sample hemolysis. This elevation carries potential cardiac-conduction risk.",
-        "plan": "Consider reviewing the patient's medications (particularly ACE inhibitors, ARBs, or potassium-sparing diuretics), renal function, and whether sample hemolysis occurred; an ECG may be warranted to assess for conduction changes.",
+        "assessment": "Potassium is elevated above the reference range, consistent with hyperkalemia. This may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or in vitro hemolysis during sample collection.",
+        "plan": "Consider reviewing medications (ACE inhibitors, ARBs, potassium-sparing diuretics), assessing renal function, and repeating the measurement to exclude pseudohyperkalemia from hemolysis; ECG may be warranted to screen for cardiac-conduction effects.",
         "cites": {
           "facts": [
             {
@@ -7420,8 +7421,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or possibly sample hemolysis. Elevated potassium carries risk for cardiac conduction abnormalities.",
-        "plan": "Consider reviewing medications (ACE inhibitors, ARBs, potassium-sparing diuretics), assessing renal function, and obtaining an ECG to evaluate for conduction changes; repeat measurement may help exclude hemolysis artifact.",
+        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or possibly sample hemolysis. This elevation carries potential cardiac-conduction risk.",
+        "plan": "Consider reviewing the patient's medications, renal function, and clinical context; verify the result is not due to hemolysis and consider repeat testing or ECG monitoring if clinically indicated.",
         "cites": {
           "facts": [
             {
@@ -7504,8 +7505,8 @@
         "loinc": "2823-3"
       },
       "hypothesis": {
-        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing agents or RAAS inhibitors, or in-vitro hemolysis. Hyperkalemia carries risk of cardiac conduction abnormalities.",
-        "plan": "Consider reviewing medications (ACE inhibitors, ARBs, potassium-sparing diuretics), assessing renal function, and evaluating for hemolysis; an ECG may be warranted to assess for conduction changes.",
+        "assessment": "Potassium is moderately elevated above the reference range, which may reflect reduced renal excretion, use of potassium-sparing medications or RAAS inhibitors, or possibly sample hemolysis. This elevation carries potential cardiac-conduction risk.",
+        "plan": "Consider reviewing the patient's medications, renal function, and clinical context; verify the result is not due to hemolysis and assess for any cardiac symptoms or ECG changes if clinically indicated.",
         "cites": {
           "facts": [
             {
@@ -7523,10 +7524,6 @@
             {
               "key": "direction",
               "value": "high"
-            },
-            {
-              "key": "reference_low",
-              "value": 3.5
             },
             {
               "key": "reference_high",
@@ -7628,8 +7625,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically indicates either impaired renal function or exposure to magnesium-containing products such as antacids or laxatives.",
-        "plan": "Consider reviewing renal function tests and medication history, particularly use of magnesium-containing supplements or medications, to identify the underlying cause.",
+        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
+        "plan": "Consider reviewing renal function (creatinine, eGFR) and obtaining a medication/supplement history to identify potential sources of excess magnesium intake.",
         "cites": {
           "facts": [
             {
@@ -7712,8 +7709,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically associated with impaired kidney function or use of magnesium-containing products such as antacids or laxatives.",
-        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia if present.",
+        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
+        "plan": "Consider reviewing renal function (creatinine, eGFR) and obtaining a medication/supplement history to identify potential sources of excess magnesium intake.",
         "cites": {
           "facts": [
             {
@@ -7836,7 +7833,7 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as antacids or laxatives.",
+        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as antacids or laxatives.",
         "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia if present.",
         "cites": {
           "facts": [
@@ -7920,8 +7917,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically associated with reduced renal clearance or intake of magnesium-containing products such as antacids or laxatives.",
-        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for clinical symptoms of hypermagnesemia if present.",
+        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired renal function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
+        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia if present.",
         "cites": {
           "facts": [
             {
@@ -8003,8 +8000,8 @@
         "loinc": "4548-4"
       },
       "hypothesis": {
-        "assessment": "Elevated HbA1c indicates higher average blood glucose over approximately three months and may reflect inadequate glycemic control or warrant evaluation for diabetes if not previously diagnosed.",
-        "plan": "Consider reviewing the patient's diabetes status, current glucose-lowering therapy, and lifestyle factors; repeat testing and further evaluation may be warranted depending on clinical context.",
+        "assessment": "HbA1c is elevated above the reference range, indicating higher average blood glucose over approximately three months. This finding is consistent with either undiagnosed diabetes or suboptimal glycemic control in a patient with known diabetes.",
+        "plan": "Consider reviewing the patient's glucose history, current diabetes status, and medications; fasting glucose or oral glucose tolerance testing may help clarify diagnosis if not already established.",
         "cites": {
           "facts": [
             {
@@ -8086,8 +8083,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, or prerenal causes.",
-        "plan": "Consider reviewing the eGFR result, recent kidney function trends, fluid status, and medication list (particularly nephrotoxic agents); assess for symptoms of uremia if not already done.",
+        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to determine the underlying cause.",
+        "plan": "Consider reviewing the eGFR result and recent renal function trends; assess for acute kidney injury, chronic kidney disease progression, or prerenal causes such as dehydration or medication effects.",
         "cites": {
           "facts": [
             {
@@ -8170,7 +8167,7 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
+        "assessment": "Magnesium is elevated above the reference range, which is uncommon and typically indicates either impaired kidney function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
         "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; assess for symptoms of hypermagnesemia if present.",
         "cites": {
           "facts": [
@@ -8254,8 +8251,8 @@
         "loinc": "19123-9"
       },
       "hypothesis": {
-        "assessment": "Magnesium is moderately elevated above the reference range, which is uncommon and typically indicates either impaired renal function or exposure to magnesium-containing products such as supplements, antacids, or laxatives.",
-        "plan": "Consider reviewing renal function (creatinine, eGFR) and recent medication or supplement use; if kidney disease is present or suspected, magnesium-containing products should be avoided.",
+        "assessment": "Magnesium is elevated above the reference range, likely due to impaired renal clearance or intake of magnesium-containing products such as antacids or laxatives. This is uncommon but warrants investigation of underlying kidney function.",
+        "plan": "Consider checking serum creatinine and estimated glomerular filtration rate to assess renal function, and review the patient's medications and supplements for magnesium-containing agents.",
         "cites": {
           "facts": [
             {
@@ -8337,8 +8334,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, or prerenal causes.",
-        "plan": "Consider reviewing the eGFR result and recent creatinine trend; assess volume status and medication history (particularly nephrotoxic agents); consider urinalysis and basic metabolic panel trends to clarify the etiology.",
+        "assessment": "Elevated creatinine indicates reduced glomerular filtration rate and suggests impaired kidney function. Clinical correlation with eGFR, urine output, and hydration status is needed to determine acuity and severity.",
+        "plan": "Consider reviewing the eGFR result, assessing for acute kidney injury versus chronic kidney disease, and evaluating clinical context including medication use, volume status, and recent imaging or procedures.",
         "cites": {
           "facts": [
             {
@@ -8462,8 +8459,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Elevated creatinine suggests reduced glomerular filtration rate and warrants assessment of kidney function. Clinical correlation with eGFR, urine output, and hydration status is needed to distinguish between acute kidney injury, chronic kidney disease, or prerenal causes.",
-        "plan": "Consider obtaining eGFR, urinalysis, and recent baseline creatinine to assess the acuity and severity of renal dysfunction, and review medications and clinical context for contributing factors.",
+        "assessment": "Elevated creatinine suggests reduced glomerular filtration rate and warrants evaluation of kidney function. Clinical context, including patient age, muscle mass, and eGFR, is needed to assess the significance.",
+        "plan": "Consider calculating eGFR and reviewing recent creatinine trends and urine output to determine the degree of renal impairment and guide further workup.",
         "cites": {
           "facts": [
             {
@@ -8545,8 +8542,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, or prerenal causes.",
-        "plan": "Consider reviewing the eGFR result, recent kidney function trends, and clinical context (medications, volume status, urinalysis) to assess the significance and determine whether further nephrology evaluation or intervention is needed.",
+        "assessment": "Elevated creatinine indicates reduced glomerular filtration rate and impaired kidney function. Clinical context and concurrent eGFR are needed to assess severity and determine if acute or chronic kidney disease is present.",
+        "plan": "Consider reviewing the patient's eGFR, urinalysis, and recent renal function trends; assess for acute kidney injury versus chronic kidney disease and evaluate for contributing factors such as dehydration, medications, or underlying renal disease.",
         "cites": {
           "facts": [
             {
@@ -8628,8 +8625,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Elevated creatinine suggests reduced glomerular filtration rate and warrants assessment of kidney function. Clinical context, including hydration status, muscle mass, and medication use, should be considered.",
-        "plan": "Consider calculating eGFR if not already available, reviewing recent creatinine trends, and assessing for acute kidney injury versus chronic kidney disease.",
+        "assessment": "Elevated creatinine suggests reduced glomerular filtration rate and impaired kidney function. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, or prerenal causes.",
+        "plan": "Consider calculating eGFR if not already available, reviewing recent creatinine trends, assessing volume status and urine output, and evaluating for potential nephrotoxic medications or contrast exposure.",
         "cites": {
           "facts": [
             {
@@ -8753,8 +8750,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration and impaired kidney function. Clinical correlation with eGFR, urine output, and hydration status is warranted to determine acuity and severity.",
-        "plan": "Consider reviewing the eGFR, urinalysis, and recent kidney function trends; assess for acute kidney injury versus chronic kidney disease and evaluate for reversible causes such as dehydration or medication effects.",
+        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, and prerenal causes.",
+        "plan": "Consider reviewing the patient's eGFR result, baseline creatinine, recent medications (particularly nephrotoxic agents), and fluid status to contextualize the degree of renal impairment and guide further workup if indicated.",
         "cites": {
           "facts": [
             {
@@ -8878,8 +8875,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Elevated creatinine indicates reduced glomerular filtration rate and suggests impaired kidney function. Clinical correlation with eGFR, urine output, and hydration status is needed to determine acuity and severity.",
-        "plan": "Consider calculating eGFR if not already available, reviewing recent creatinine trends, assessing volume status, and evaluating for prerenal causes or medication effects on renal function.",
+        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted.",
+        "plan": "Consider reviewing the eGFR result and recent kidney function trend; assess for acute kidney injury, chronic kidney disease progression, or medication effects; evaluate volume status and urine output.",
         "cites": {
           "facts": [
             {
@@ -8961,8 +8958,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is needed to determine the underlying cause.",
-        "plan": "Consider reviewing the eGFR result and recent kidney function trends; assess for acute kidney injury, chronic kidney disease progression, or prerenal causes such as dehydration or medication effects.",
+        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury and chronic kidney disease.",
+        "plan": "Consider reviewing the eGFR result, assessing recent medication changes (particularly ACE inhibitors, NSAIDs, or contrast agents), evaluating volume status, and obtaining a baseline creatinine if not available to help determine acuity.",
         "cites": {
           "facts": [
             {
@@ -9044,8 +9041,8 @@
         "loinc": "2160-0"
       },
       "hypothesis": {
-        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is needed to determine significance.",
-        "plan": "Consider reviewing the eGFR result and recent kidney function trend; assess for acute kidney injury versus chronic kidney disease, and evaluate volume status and medication nephrotoxicity.",
+        "assessment": "Creatinine is elevated above the reference range, suggesting reduced glomerular filtration rate and possible kidney dysfunction. Clinical correlation with eGFR, urine output, and hydration status is warranted to distinguish between acute kidney injury, chronic kidney disease, and prerenal causes.",
+        "plan": "Consider reviewing the eGFR result, recent kidney function trends, and clinical context (medications, volume status, urinalysis) to assess the significance and etiology of the elevated creatinine.",
         "cites": {
           "facts": [
             {
@@ -22699,6 +22696,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22738,6 +22736,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22777,6 +22776,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22816,6 +22816,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22855,6 +22856,7 @@
           "low": 2,
           "high": 24
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22894,6 +22896,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22933,6 +22936,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -22972,6 +22976,7 @@
           "low": 50,
           "high": 100
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23011,6 +23016,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23050,6 +23056,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23089,6 +23096,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23128,6 +23136,7 @@
           "low": 2,
           "high": 24
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23167,6 +23176,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23206,6 +23216,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23245,6 +23256,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23284,6 +23296,7 @@
           "low": 50,
           "high": 800
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23323,6 +23336,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23362,6 +23376,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23401,6 +23416,7 @@
           "low": 90,
           "high": 180
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23440,6 +23456,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23479,6 +23496,7 @@
           "low": 2,
           "high": 24
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23518,6 +23536,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23557,6 +23576,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23596,6 +23616,7 @@
           "low": 50,
           "high": 800
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
@@ -23635,6 +23656,7 @@
           "low": 20,
           "high": 700
         },
+        "plausibilityBasis": "governed",
         "reason": "value outside physiologically-possible range"
       },
       "provenance": {
