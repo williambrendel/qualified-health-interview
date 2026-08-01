@@ -34,6 +34,11 @@ function ingestText(text, options = {}) {
   const namespace =
     options.namespace || String(source).replace(/\.[^.]+$/, "") || "record";
 
+  // JSON path: a `.json` source, or text that opens with `[`/`{`, flattens through
+  // the JSON ingester into the same canonical `path → value` records.
+  const looksJson = options.format === "json" || /\.json$/i.test(String(source)) || /^\s*[[{]/.test(text);
+  if (looksJson) return require("./json").ingestJson(text, { source, namespace });
+
   const sniffed = sniff(text);
   const delimiter = options.delimiter || sniffed.delimiter;
   const hasHeader = options.hasHeader ?? sniffed.hasHeader;

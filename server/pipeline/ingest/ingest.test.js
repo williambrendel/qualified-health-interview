@@ -10,7 +10,7 @@ const { sniff } = require("./sniff");
 const { repair } = require("./structural");
 const { ingestText, ingestFile } = require("./index");
 
-const DATA_DIR = path.resolve(__dirname, "../../../data");
+const DATA_DIR = path.resolve(__dirname, "../../../data/interview");
 
 test("csv: simple rows", () => {
   const rows = csv.parse("a,b,c\n1,2,3\n");
@@ -81,6 +81,32 @@ test("flatten: canonical path→value with text sentinel → null", () => {
   assert.equal(records[0].values["patient.PAT_ID"], "P1");
   assert.equal(records[0].values["patient.MIDDLE"], null);
   assert.deepEqual(records[0].sentinels, ["patient.MIDDLE"]);
+});
+
+// --- JSON ingest: nested objects flatten to the same path→value shape ---
+
+test("json: an array of nested objects flattens to dotted path→value records", () => {
+  const text = JSON.stringify([
+    { obs: { id: "R1", loinc: "2951-2" }, measurement: { value: 170 }, reference: { low: 136, high: 145 } },
+    { obs: { id: "R2", loinc: "2823-3" }, measurement: { value: 4.2 }, reference: { low: 3.5, high: 5 } },
+  ]);
+  const { records, meta } = ingestText(text, { source: "labs.json" });
+  assert.equal(meta.format, "json");
+  assert.equal(records.length, 2);
+  assert.equal(records[0].values["labs.obs.id"], "R1");
+  assert.equal(records[0].values["labs.measurement.value"], 170); // number preserved
+  assert.equal(records[0].values["labs.reference.high"], 145);
+});
+
+test("json: detected from a leading '[' even without a .json name", () => {
+  const { meta } = ingestText('[{"a":1}]', { source: "mystery" });
+  assert.equal(meta.format, "json");
+});
+
+test("json: a wrapping object with a records array is unwrapped", () => {
+  const { records } = ingestText(JSON.stringify({ results: [{ x: 1 }, { x: 2 }] }), { source: "w.json" });
+  assert.equal(records.length, 2);
+  assert.equal(records[1].values["w.x"], 2);
 });
 
 // --- Real-data smoke tests: prove it runs on the actual interview dataset ---

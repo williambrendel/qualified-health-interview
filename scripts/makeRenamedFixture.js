@@ -55,12 +55,12 @@ function serialize(rows, delim) {
 
 function main() {
   const root = path.resolve(__dirname, "..");
-  const srcText = fs.readFileSync(path.join(root, "data/order_results.csv"), "utf8");
+  const srcText = fs.readFileSync(path.join(root, "data/interview/order_results.csv"), "utf8");
   const rows = csv.parse(srcText);
   if (!rows.length) throw new Error("source is empty");
 
   rows[0] = rows[0].map((h) => RENAME[h] || h);
-  const outDir = path.join(root, "data/fixtures");
+  const outDir = path.join(root, "data/interview/fixtures");
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, "order_results.renamed.csv");
   fs.writeFileSync(outPath, serialize(rows, DELIM));

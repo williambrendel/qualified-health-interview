@@ -1,0 +1,53 @@
+{
+  "source": "labs_nested.json",
+  "entity": "lab_result",
+  "record_key": [
+    "lab_result.id"
+  ],
+  "fields": [
+    {
+      "from": "obs.id",
+      "to": "lab_result.id"
+    },
+    {
+      "from": "obs.loinc",
+      "to": "lab_result.loinc"
+    },
+    {
+      "from": "obs.name",
+      "to": "lab_result.component"
+    },
+    {
+      "from": "subject",
+      "to": "lab_result.patient_id"
+    },
+    {
+      "from": "visit",
+      "to": "lab_result.encounter_id"
+    },
+    {
+      "from": "measurement.value",
+      "to": "lab_result.value",
+      "transform": "to_number"
+    },
+    {
+      "from": "measurement.unit",
+      "to": "lab_result.unit"
+    },
+    {
+      "from": "reference.low",
+      "to": "lab_result.reference.low",
+      "transform": "to_number"
+    },
+    {
+      "from": "reference.high",
+      "to": "lab_result.reference.high",
+      "transform": "to_number"
+    },
+    {
+      "from": "collected",
+      "to": "lab_result.date",
+      "transform": "to_date"
+    }
+  ]
+}

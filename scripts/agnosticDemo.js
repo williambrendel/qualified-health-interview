@@ -34,8 +34,8 @@ const triageSig = (t) =>
   });
 
 async function main() {
-  const orig = await connector.connectFile(path.join(root, "data/order_results.csv"), {});
-  const renamed = await connector.connectFile(path.join(root, "data/fixtures/order_results.renamed.csv"), {});
+  const orig = await connector.connectFile(path.join(root, "data/interview/order_results.csv"), {});
+  const renamed = await connector.connectFile(path.join(root, "data/interview/fixtures/order_results.renamed.csv"), {});
 
   console.log("── Two files, same data, different syntax ──");
   console.log(`  original: delimiter ${JSON.stringify(orig.ingest.meta.delimiter)} · columns: ${orig.ingest.header.slice(0, 5).join(", ")} …`);

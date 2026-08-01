@@ -20,7 +20,7 @@ const fs = require("fs");
 const path = require("path");
 const connector = require("./index");
 
-const DATA_DIR = path.resolve(__dirname, "../../../data");
+const DATA_DIR = path.resolve(__dirname, "../../../data/interview");
 
 async function main(argv) {
   const args = argv.slice(2);

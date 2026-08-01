@@ -32,8 +32,11 @@ function buildResolver(records) {
   return (from) => {
     if (from == null) return null;
     if (full.has(from)) return from;
+    // dotted-path suffix match (handles nested JSON: "obs.id" → "labs.obs.id")
+    const sfx = keys.filter((k) => k.endsWith("." + from));
+    if (sfx.length === 1) return sfx[0];
     const bare = from.includes(".") ? from.slice(from.lastIndexOf(".") + 1) : from;
-    return bareToFull[bare] || bareToFull[from] || null;
+    return bareToFull[bare] || bareToFull[from] || (sfx.length ? sfx[0] : null);
   };
 }
 

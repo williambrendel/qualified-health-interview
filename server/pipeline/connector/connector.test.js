@@ -124,6 +124,15 @@ test("apply: resolves bare column names against namespaced ingest keys", () => {
   assert.equal(anomalies.length, 0);
 });
 
+test("apply: resolves a nested JSON path via dotted-suffix match", () => {
+  // JSON ingest produces "labs.obs.id"; the model cites the nested "obs.id".
+  const manifest = { source: "labs.json", entity: "lab_result", fields: [{ from: "obs.id", to: "lab_result.id" }] };
+  const records = [{ recordIndex: 0, source: "labs.json", values: { "labs.obs.id": "R1", "labs.order.id": "O1" } }];
+  const { records: out, anomalies } = applyManifest(records, manifest);
+  assert.equal(out[0].values["lab_result.id"], "R1"); // matched obs.id, not order.id
+  assert.equal(anomalies.length, 0);
+});
+
 test("apply: a truly missing source column is flagged, not silently nulled", () => {
   const manifest = {
     source: "patient.csv", entity: "patient",

@@ -23,7 +23,7 @@ const { buildTickets } = require("./pipeline/buildTickets");
 
 const PORT = Number(process.env.PORT) || 8080;
 const ROOT = path.resolve(__dirname, "..");
-const DATA_DIR = path.join(ROOT, "data");
+const DATA_DIR = path.join(ROOT, "data/interview");
 const PUBLIC_DIR = path.join(ROOT, "client/public");
 const ANALYTES = require(path.join(ROOT, "config/clinical/analytes.json"));
 

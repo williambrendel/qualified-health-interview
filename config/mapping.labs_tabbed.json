@@ -1,0 +1,49 @@
+{
+  "source": "labs_tabbed.tsv",
+  "entity": "lab_result",
+  "record_key": [
+    "lab_result.id"
+  ],
+  "fields": [
+    {
+      "from": "labs_tabbed.ResultKey",
+      "to": "lab_result.id"
+    },
+    {
+      "from": "labs_tabbed.Patient",
+      "to": "lab_result.patient_id"
+    },
+    {
+      "from": "labs_tabbed.TestName",
+      "to": "lab_result.component"
+    },
+    {
+      "from": "labs_tabbed.LOINC",
+      "to": "lab_result.loinc"
+    },
+    {
+      "from": "labs_tabbed.NumericResult",
+      "to": "lab_result.value",
+      "transform": "to_number"
+    },
+    {
+      "from": "labs_tabbed.Units",
+      "to": "lab_result.unit"
+    },
+    {
+      "from": "labs_tabbed.RefLow",
+      "to": "lab_result.reference.low",
+      "transform": "to_number"
+    },
+    {
+      "from": "labs_tabbed.RefHigh",
+      "to": "lab_result.reference.high",
+      "transform": "to_number"
+    },
+    {
+      "from": "labs_tabbed.Date",
+      "to": "lab_result.date",
+      "transform": "to_date"
+    }
+  ]
+}

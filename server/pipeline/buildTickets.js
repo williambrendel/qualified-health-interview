@@ -25,7 +25,7 @@ const tickets = require("./tickets");
 const { generateHypothesis } = require("./hypothesis");
 
 const ROOT = path.resolve(__dirname, "../..");
-const DATA_DIR = path.join(ROOT, "data");
+const DATA_DIR = path.join(ROOT, "data/interview");
 const TICKETS_PATH = path.join(ROOT, "tickets.json");
 const ANALYTES = require(path.join(ROOT, "config/clinical/analytes.json"));
 const RULES = require(path.join(ROOT, "config/clinical/rules.json"));

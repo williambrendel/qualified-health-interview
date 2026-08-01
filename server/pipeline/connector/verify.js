@@ -46,8 +46,10 @@ function makeResolve(record) {
   return (from) => {
     if (from == null) return null;
     if (full.has(from)) return from;
+    const sfx = keys.filter((k) => k.endsWith("." + from));
+    if (sfx.length === 1) return sfx[0];
     const b = from.includes(".") ? from.slice(from.lastIndexOf(".") + 1) : from;
-    return bare[b] || bare[from] || null;
+    return bare[b] || bare[from] || (sfx.length ? sfx[0] : null);
   };
 }
 
