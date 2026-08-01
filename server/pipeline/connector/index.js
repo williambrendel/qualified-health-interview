@@ -49,13 +49,17 @@ async function connectRecords(ingested, opts = {}) {
 
   let manifest = null;
   let cached = false;
+  let llmUsed = false;
 
-  if (!opts.forceInduce && fs.existsSync(cachePath)) {
+  if (opts.manifest) {
+    manifest = opts.manifest; // supplied manifest → LLM bypassed entirely (deterministic load)
+  } else if (!opts.forceInduce && fs.existsSync(cachePath)) {
     manifest = JSON.parse(fs.readFileSync(cachePath, "utf8"));
     cached = true;
   } else {
     const induced = await induceManifest(ingested, opts);
     manifest = induced.manifest;
+    llmUsed = true;
   }
 
   const validation = validateManifest(manifest);
@@ -67,8 +71,8 @@ async function connectRecords(ingested, opts = {}) {
     verification = verifyMapping(ingested, manifest, canonical.records, {
       sampleSize: opts.sampleSize,
     });
-    // Persist only freshly-induced, valid manifests (never overwrite on cached loads).
-    if (!cached && opts.write !== false) {
+    // Persist only freshly-induced manifests (never a supplied one, never a cache reload).
+    if (llmUsed && opts.write !== false) {
       fs.mkdirSync(CONFIG_DIR, { recursive: true });
       fs.writeFileSync(cachePath, JSON.stringify(manifest, null, 2) + "\n");
     }
@@ -77,6 +81,7 @@ async function connectRecords(ingested, opts = {}) {
   return {
     source,
     cached,
+    llmUsed,
     manifest,
     validation,
     verification,
@@ -97,4 +102,7 @@ async function connectFile(filePath, opts = {}) {
   return connectRecords(ingested, opts);
 }
 
-module.exports = { connectFile, connectRecords, manifestPath, CONFIG_DIR };
+module.exports = {
+  connectFile, connectRecords, manifestPath, CONFIG_DIR,
+  induceManifest, validateManifest, applyManifest, verifyMapping,
+};
