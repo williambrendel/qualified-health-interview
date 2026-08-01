@@ -26,9 +26,15 @@ function ticketId(finding) {
     // dedup by patient + medication (across a patient's multiple notes)
     return `MR-${finding.patientId}-${slug(finding.facts.medication)}`;
   }
-  const prefix = finding.kind === "implausible-value" ? "DQ" : "AR";
-  const key = (finding.provenance && finding.provenance.result_id) || `${finding.patientId}-${finding.facts.component}`;
-  return `${prefix}-${key}`;
+  if (finding.checker === "abnormal-result-triage") {
+    const prefix = finding.kind === "implausible-value" ? "DQ" : "AR";
+    const key = (finding.provenance && finding.provenance.result_id) || `${finding.patientId}-${finding.facts.component}`;
+    return `${prefix}-${key}`;
+  }
+  // Generic fallback: any other analyzer's findings get a stable, checker-derived id.
+  const f = finding.facts || {};
+  const tail = slug(f.field || f.medication || f.component || "") || String(finding.patientId || "x");
+  return `${slug(finding.checker)}-${finding.patientId || "x"}-${tail}`;
 }
 
 /** Convert a care-gap finding into a ticket. */
@@ -121,12 +127,16 @@ function toTicket(finding, ctx = {}) {
  * @returns {object[]}
  */
 function assemble(findings, ctx = {}) {
-  const all = [
-    ...(findings.clinical || []),
-    ...(findings.dataQuality || []),
-    ...(findings.careGaps || []),
-    ...(findings.medRecon || []),
-  ];
+  // Accept either a flat array of findings (from the analyzer registry) or the
+  // grouped shape the batch checkers produce.
+  const all = Array.isArray(findings)
+    ? findings
+    : [
+        ...(findings.clinical || []),
+        ...(findings.dataQuality || []),
+        ...(findings.careGaps || []),
+        ...(findings.medRecon || []),
+      ];
   const byId = new Map();
   for (const f of all) {
     const t = toTicket(f, ctx);
