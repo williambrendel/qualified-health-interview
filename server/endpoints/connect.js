@@ -59,20 +59,16 @@ const load = createEndpoint("post", "/connect/load", async (req, res) => {
     if (typeof content !== "string" || !content.trim()) return res.status(400).json({ error: "no file content" });
     const source = path.basename(filename || "upload.csv");
     const ingested = ingest.ingestText(content, { source });
-    const full = ingested.records.length; // verify against every row
 
-    let r = await connector.connectRecords(ingested, { manifest: manifest || undefined, write: false, sampleSize: full });
-    let reAdjusted = false;
-    if (!manifest && r.validation.valid && r.verification && !r.verification.pass) {
-      const r2 = await connector.connectRecords(ingested, { forceInduce: true, write: false, sampleSize: full });
-      reAdjusted = true;
-      r = r2;
-    }
-    if (!r.validation.valid) return res.status(422).json({ source, llmUsed: r.llmUsed, validation: r.validation, manifest: r.manifest });
+    // Full-dataset load with targeted repair: an induced manifest that fails the full
+    // verification is re-induced with the specific failing fields fed back (not re-rolled).
+    const r = await connector.loadWithRepair(ingested, { manifest: manifest || undefined, write: false });
+    if (!r.validation.valid) return res.status(422).json({ source, llmUsed: r.llmUsed, validation: r.validation, manifest: r.manifest, repair: r.repair });
 
     const limit = Math.max(0, Math.min(Number(req.body.limit) || 50, 5000));
     res.json({
-      source, entity: r.manifest.entity, llmUsed: r.llmUsed, cached: r.cached, reAdjusted,
+      source, entity: r.manifest.entity, llmUsed: r.llmUsed, cached: r.cached,
+      repair: r.repair, // { attempts, repaired, log:[{attempt, fields, reasons}] }
       manifest: r.manifest,
       verification: r.verification && { pass: r.verification.pass, summary: r.verification.summary, coverage: r.verification.coverage, sampledRows: r.verification.sampledRows, totalRows: r.verification.totalRows },
       canonical: { count: r.canonical.records.length, records: r.canonical.records.slice(0, limit) },

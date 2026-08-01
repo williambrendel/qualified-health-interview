@@ -10,8 +10,9 @@ const t = require("./transforms");
 const { validateManifest } = require("./validate");
 const { applyManifest } = require("./apply");
 const { induceManifest } = require("./induce");
-const { connectRecords } = require("./index");
-const { verifyMapping } = require("./verify");
+const { connectRecords, loadWithRepair } = require("./index");
+const ingestMod = require("../ingest");
+const { verifyMapping, collectFailures } = require("./verify");
 const canonical = require("./canonical");
 
 // ---------------------------------------------------------------- transforms
@@ -281,6 +282,64 @@ test("verify: BP split round-trips losslessly", () => {
   const applied = [{ values: { "vital.bp.systolic": 150, "vital.bp.diastolic": 99 } }];
   const r = verifyMapping(ingested, manifest, applied);
   assert.equal(r.summary.roundTripClean, true);
+});
+
+// ------------------------------------------------ loadWithRepair (targeted repair loop)
+
+test("collectFailures: extracts failing fields with reasons from a verification report", () => {
+  const verification = { fields: [
+    { from: "x.A", to: "lab_result.value", transform: null, roundTripOk: true, typeOk: false, typeViolations: [{ path: "lab_result.value", value: "Sodium", expected: "number" }] },
+    { from: "x.B", to: "lab_result.component", roundTripOk: true, typeOk: true },
+  ] };
+  const failures = collectFailures(verification, [{ kind: "unresolved_source", from: "x.C" }]);
+  assert.deepEqual(failures.map((f) => f.from).sort(), ["x.A", "x.C"]);
+});
+
+test("loadWithRepair: a bad induced manifest is repaired by feeding failures back (not re-rolled)", async () => {
+  const csv = "RESULT_ID,COMPONENT,VALUE,LOW,HIGH\nR1,Sodium,170,136,145\nR2,Sodium,142,136,145\n";
+  const ingested = ingestMod.ingestText(csv, { source: "repairme.csv" });
+
+  const BAD = { source: "repairme.csv", entity: "lab_result", fields: [
+    { from: "RESULT_ID", to: "lab_result.id" },
+    { from: "COMPONENT", to: "lab_result.value" }, // WRONG: a string mapped into a numeric field → type violation
+    { from: "VALUE", to: "lab_result.component" },
+  ] };
+  const GOOD = { source: "repairme.csv", entity: "lab_result", fields: [
+    { from: "RESULT_ID", to: "lab_result.id" },
+    { from: "COMPONENT", to: "lab_result.component" },
+    { from: "VALUE", to: "lab_result.value", transform: "to_number" },
+    { from: "LOW", to: "lab_result.reference.low", transform: "to_number" },
+    { from: "HIGH", to: "lab_result.reference.high", transform: "to_number" },
+  ] };
+
+  let calls = 0;
+  const runLLM = async (config, prompt) => {
+    calls++;
+    const repairMode = /REPAIR MODE/.test(prompt);
+    // On repair, the prompt must name the specific failing field.
+    if (repairMode) assert.ok(prompt.includes("COMPONENT"), "repair prompt cites the failing field");
+    return { output: { text: JSON.stringify(repairMode ? GOOD : BAD) } };
+  };
+  const parse = require("../../../llms/src/utilities/parseResponseJson");
+
+  const r = await loadWithRepair(ingested, { forceInduce: true, write: false, runLLM, parse, config: {} });
+  assert.equal(calls, 2, "one initial induction + one targeted repair");
+  assert.equal(r.repair.attempts, 1);
+  assert.equal(r.repair.repaired, true);
+  assert.equal(r.verification.pass, true);
+  assert.ok(r.repair.log[0].fields.includes("COMPONENT"));
+  assert.equal(r.canonical.records[0].values["lab_result.value"], 170); // corrected mapping applied
+});
+
+test("loadWithRepair: a SUPPLIED manifest is applied verbatim and never repaired", async () => {
+  const csv = "RESULT_ID,VALUE\nR1,170\n";
+  const ingested = ingestMod.ingestText(csv, { source: "supplied.csv" });
+  const manifest = { source: "supplied.csv", entity: "lab_result", fields: [{ from: "RESULT_ID", to: "lab_result.id" }, { from: "VALUE", to: "lab_result.value", transform: "to_number" }] };
+  const runLLM = async () => { throw new Error("must not induce when a manifest is supplied"); };
+  const r = await loadWithRepair(ingested, { manifest, write: false, runLLM, config: {} });
+  assert.equal(r.repair.attempts, 0);
+  assert.equal(r.llmUsed, false);
+  assert.equal(r.canonical.records[0].values["lab_result.value"], 170);
 });
 
 test("canonical: every declared path has a type", () => {

@@ -171,4 +171,34 @@ function verifyMapping(ingested, manifest, applied, opts = {}) {
   };
 }
 
-module.exports = { verifyMapping, typeOk, sampleIndices };
+/**
+ * Collect the specific fields that failed verification, with reasons and a few
+ * example rows — the input to a *targeted* re-induction (repair), so the model
+ * fixes only what broke instead of re-rolling the whole manifest.
+ *
+ * @param {object} verification - a {@link verifyMapping} report
+ * @param {Array}  [applyAnomalies] - anomalies from the apply step (unresolved columns, etc.)
+ * @returns {Array<{from:string, to?:*, transform?:string, reason:string, examples?:Array}>}
+ */
+function collectFailures(verification, applyAnomalies) {
+  const failures = [];
+  const seen = new Set();
+  for (const f of (verification && verification.fields) || []) {
+    if (!f.roundTripOk) {
+      failures.push({ from: f.from, to: f.to, transform: f.transform, reason: "value did not round-trip — the mapping or transform is likely wrong", examples: (f.mismatches || []).slice(0, 3) });
+      seen.add(f.from);
+    } else if (!f.typeOk) {
+      failures.push({ from: f.from, to: f.to, transform: f.transform, reason: "value type does not fit the target canonical field", examples: (f.typeViolations || []).slice(0, 3) });
+      seen.add(f.from);
+    }
+  }
+  for (const a of applyAnomalies || []) {
+    if (a.kind === "unresolved_source" && !seen.has(a.from)) {
+      failures.push({ from: a.from, reason: "source column not found in the data" });
+      seen.add(a.from);
+    }
+  }
+  return failures;
+}
+
+module.exports = { verifyMapping, typeOk, sampleIndices, collectFailures };

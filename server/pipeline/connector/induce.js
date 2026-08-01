@@ -99,6 +99,31 @@ Return the JSON manifest now.`;
 }
 
 /**
+ * Build a *repair* prompt: the same context, plus the prior manifest and the exact
+ * fields that failed verification on the full dataset, with instructions to fix ONLY
+ * those. This is targeted correction, not a blind re-roll.
+ */
+function buildRepairPrompt(source, header, sampleRecords, feedback) {
+  const base = buildUserPrompt(source, header, sampleRecords);
+  const failLines = (feedback.failures || []).map((f) => {
+    const ex = (f.examples || []).map((e) => JSON.stringify(e)).join("; ");
+    return `  - "${f.from}"${f.to ? ` → "${f.to}"` : ""}${f.transform ? ` (transform: ${f.transform})` : ""}: ${f.reason}${ex ? ` — e.g. ${ex}` : ""}`;
+  }).join("\n");
+
+  return `${base}
+
+REPAIR MODE — your previous manifest passed a small sample but FAILED verification on the FULL dataset. Return a corrected FULL manifest as JSON.
+- Keep every field NOT listed below EXACTLY as it was.
+- Fix ONLY these failing fields — pick a different canonical path, a different transform, or drop the field ("to": null) if it has no canonical home:
+${failLines}
+
+Your previous manifest fields were:
+${JSON.stringify(feedback.priorManifest.fields)}
+
+Return the corrected JSON manifest now.`;
+}
+
+/**
  * Induce a mapping manifest for one ingested source.
  *
  * @param {{source:string, header:string[], records:Array}} ingested - Output of ingest.
@@ -118,7 +143,9 @@ async function induceManifest(ingested, opts = {}) {
   const config = opts.config || d.config;
   const parse = opts.parse || d.parse || ((x) => JSON.parse(typeof x === "string" ? x : x.output.text));
 
-  const userPrompt = buildUserPrompt(source, header, records.slice(0, sampleSize));
+  const userPrompt = opts.feedback
+    ? buildRepairPrompt(source, header, records.slice(0, sampleSize), opts.feedback)
+    : buildUserPrompt(source, header, records.slice(0, sampleSize));
 
   const res = await runLLM({ ...config, system: SYSTEM_PROMPT, max_tokens: 4000 }, userPrompt);
   const text = res && res.output && typeof res.output.text === "string"
@@ -136,4 +163,4 @@ async function induceManifest(ingested, opts = {}) {
   };
 }
 
-module.exports = { induceManifest, SYSTEM_PROMPT, buildUserPrompt, renderVocabulary, renderTransforms };
+module.exports = { induceManifest, SYSTEM_PROMPT, buildUserPrompt, buildRepairPrompt, renderVocabulary, renderTransforms };
