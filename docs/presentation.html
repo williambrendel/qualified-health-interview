@@ -47,98 +47,95 @@
 <div id="deck">
   <div id="prog"></div>
 
-  <!-- 1 · TITLE / PROBLEM -->
+  <!-- 1 · TITLE / ETHOS -->
   <section class="slide">
     <div class="kicker">New Product Development — Case Study</div>
     <h1>Syntaxin</h1>
-    <div class="sub">From arbitrary EHR exports to <b>typed, routed, cited tickets</b> for human review. Two checkers over one governed pipeline, under one safety contract.</div>
-    <div class="lead"><b>Problem:</b> in Annual-Wellness-Visit panels, which lab results need a human <span class="c">first</span> — and which expected tests were ordered but <b>never resulted</b> (the loop that silently stays open)?</div>
+    <div class="sub">The problem was never that health data is <i>dirty</i>. It's that every system speaks a different <b>syntax</b> — going in <i>and</i> coming out — and that integration cost is what stops tools from scaling.</div>
+    <div class="lead">Syntaxin solves <b>two problems</b>, and uses <b class="a">AI at each</b>:</div>
     <ul>
-      <li><b>Who it helps &amp; why:</b> high-volume, high-stakes review. The failure mode — a critical result or an unresulted order sitting unseen — is exactly what a ranked, gated queue fixes.</li>
-      <li>Core move: treat the <b>anomaly</b>, not the data, as the universal object — so whatever shape the source takes, each finding becomes one normalized, cited ticket.</li>
+      <li><b class="a">I/O</b> — standardize the boundary in <b>both directions</b>: any source → canonical, and canonical → any target system's API.</li>
+      <li><b class="a">Application</b> — conduct <b>data-agnostic analysis</b> on the canonical model.</li>
     </ul>
-    <div class="foot"><span>Syntaxin — synthetic Epic-style data</span><span>1 / 4</span></div>
+    <div class="stat">The canonical model is the fixed contract between them. Demonstrated on a high-value clinical use case: <b>abnormal-result triage + care-gap</b> over Annual-Wellness-Visit panels.</div>
+    <div class="foot"><span>AI at every edge — never in the action</span><span>1 / 4</span></div>
   </section>
 
-  <!-- 2 · DATA JUDGMENT -->
+  <!-- 2 · PROBLEM 1 — I/O -->
   <section class="slide">
-    <div class="kicker">Sound data judgment — the messy parts</div>
-    <h2>What I trusted, cleaned, and excluded</h2>
+    <div class="kicker">Problem 1 — I/O · standardize input &amp; output variation</div>
+    <h2>Map arbitrary syntax ↔ the canonical model, both directions</h2>
     <div class="cols">
-      <div>
+      <div class="card">
+        <h3>Input — any export → canonical</h3>
         <ul>
-          <li><b>Trusted (deterministic):</b> each result carries its own reference range, LOINC, flag → out-of-range detection needs no assumptions.</li>
-          <li><b>Repaired:</b> BP as <code>"150/99"</code> text → split; ragged rows, quoted multi-line notes, values spanning cells → structural repair, logged, never silent.</li>
-          <li class="mut"><b>Excluded / gated:</b> sentinels &amp; impossible values kept <i>out</i> of the clinical queue.</li>
+          <li>AI proposes a <b>mapping spec (data, not code)</b> from samples → human reviews → fixed engine applies</li>
+          <li><b>Trusted / repaired / gated:</b> each result carries its own reference range (trusted); BP <code>"150/99"</code> text, ragged rows, sentinels → repaired &amp; logged; impossible values → gated out</li>
+          <li><b>Verified lossless</b> (coverage + round-trip) — renamed-column, re-delimited copy → <b>identical output</b></li>
         </ul>
       </div>
       <div class="card">
-        <h3>The plausibility gate</h3>
+        <h3>Output — canonical → a target's API</h3>
         <ul>
-          <li><span class="c">Sodium 178.6</span> → <b>critical</b>, clinical-urgent</li>
-          <li><span class="m">Sodium 208 · SpO₂ 126%</span> → <b>impossible</b> → data-quality, <b>diverted</b> from the clinical queue</li>
-        </ul>
-        <div class="stat">1,288 results → 25 critical · 321 routine · <b>25 impossible diverted</b></div>
-      </div>
-    </div>
-    <div class="lead">Arbitrary schema/format → a fixed canonical model, <b>proven lossless</b> — coverage + round-trip verification, re-checked on a renamed-column, re-delimited copy and on JSON/TSV/pipe files: <b>identical tickets</b>.</div>
-    <div class="foot"><span>~100 patients · 153 encounters · 153 notes · 8 specialties</span><span>2 / 4</span></div>
-  </section>
-
-  <!-- 3 · SAFETY -->
-  <section class="slide">
-    <div class="kicker">Clinical appropriateness &amp; safety</div>
-    <h2>Fact vs. hypothesis — and where GenAI does real work</h2>
-    <div class="cols">
-      <div class="card">
-        <h3>Fact — deterministic, authoritative</h3>
-        <ul>
-          <li>values, ranges, severities, plausibility, clinical rules</li>
-          <li>the LLM <b>never</b> emits a value, dose, severity, rule, or URL</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Hypothesis — advisory, cited, verified</h3>
-        <ul>
-          <li>Assessment / Plan, citing <b>governed rules + the facts</b> it explains</li>
-          <li>a deterministic verifier <b>rejects unsourced content</b> — it caught its own false-positives (fabricated values, brand≡generic)</li>
+          <li>AI reads the target's <b>API doc</b> → induces a field-map (spec, not code) → deterministic client</li>
+          <li><b>Human-gated dry-run</b> — a real write is an approved action</li>
+          <li class="mut">The <b>mirror</b> of input: same mechanism, reversed</li>
         </ul>
       </div>
     </div>
-    <div class="lead">GenAI is at the <b>edges</b> (compiling messy schemas → reviewed mapping specs; reasoning over unstructured notes) — <b>not</b> authoring the artifact that touches the human.</div>
-    <ul>
-      <li><b>Human approval gates the action, not the reading.</b> Nothing writes to a chart; every actionable ticket takes a click.</li>
-      <li class="mut">Honest by design: when no governed rule applies, the system <b>says so and stays silent</b> rather than speculate.</li>
-    </ul>
-    <div class="foot"><span>LLM emits specs, never code · advisory, cited, verified · human-gated</span><span>3 / 4</span></div>
+    <div class="lead">Same move in and out: <b>AI compiles heterogeneous syntax into governed, reviewed mapping specs</b> — and never authors the artifact that executes. The messy-data judgment lives here, at the input boundary.</div>
+    <div class="foot"><span>bounded schema induction · human-reviewed · deterministic apply · verified lossless</span><span>2 / 4</span></div>
   </section>
 
-  <!-- 4 · RISKS + ARCHITECTURE -->
+  <!-- 3 · PROBLEM 2 — APPLICATION -->
   <section class="slide">
-    <div class="kicker">Biggest risks — and the architecture that contains them</div>
-    <h2>Where it could be wrong, and the guardrails</h2>
+    <div class="kicker">Problem 2 — Application · data-agnostic analysis</div>
+    <h2>Analyze the canonical model — agnostic to source, aware of content</h2>
     <div class="cols">
       <div>
-        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Risks &amp; mitigations</h3>
+        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Deterministic clinical work</h3>
         <ul>
-          <li><b>Generic stats ≠ clinical judgment</b> → two tiers: generic stats for <i>data quality</i>, governed rules for <i>clinical</i> validity.</li>
-          <li><b>Med-recon false positives</b> (a regex mis-parses doses; brand vs generic) → the verified LLM pipeline found the truth: <b>0 real gaps</b>. Honest &gt; inflated.</li>
-          <li><b>Out-of-scope data</b> → fail safe: flag low-fit mappings, don't force-fit; generic analyzer still gives a floor.</li>
+          <li><b>Abnormal-result triage</b> — plausibility gate: <span class="c">Sodium 178</span> → critical vs <span class="m">Sodium 208 · SpO₂ 126%</span> → impossible, <b>diverted</b></li>
+          <li><b>Care-gap</b> — expected test <b>never-ordered</b> vs <b>ordered-but-unresulted</b> (the open loop)</li>
+          <li class="mut">1,288 results → 25 critical · 128 care gaps · 25 impossible diverted</li>
         </ul>
       </div>
       <div>
-        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Architecture</h3>
-        <div class="flow">any ASCII source
-  → <span class="a">input connector</span>  (discover → load, verified)   AI ↔ human-reviewed
-  → canonical model                  the fixed contract
-  → <span class="a">application layer</span>  (registry of checkers)     deterministic + governed
-  → cited hypothesis → verify        advisory, sourced
-  → tickets → queue                  human-gated
-  → <span class="a">output connector</span>  (dry-run)                 human-gated write</div>
-        <div class="stat">Connectors at the edges are the durable product; the app layer is swappable. 100+ tests · zero-network demo.</div>
+        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Where AI does real work</h3>
+        <ul>
+          <li><b>Suggests what to analyze</b> — data-aware, from schema + single-signal findings (pairwise → dominant-set cliques; recovered <span class="g">Glucose ↔ HbA1c</span>)</li>
+          <li><b>Reasons over unstructured notes</b> → cited Assessment / Plan, verified against governed rules</li>
+        </ul>
       </div>
     </div>
-    <div class="foot"><span>Appendix follows — architecture &amp; scaling depth for Q&amp;A</span><span>4 / 4</span></div>
+    <div class="lead">Agnostic to <b>form</b> (any schema), aware of <b>content</b> (an analysis runs only if its entities are present) — <b>data-agnostic, never data-blind</b>.</div>
+    <div class="foot"><span>deterministic checkers · AI suggests &amp; reasons · governed</span><span>3 / 4</span></div>
+  </section>
+
+  <!-- 4 · SAFETY + RISKS + INVARIANT -->
+  <section class="slide">
+    <div class="kicker">The safety contract — and the risks it contains</div>
+    <h2>AI at every edge — never in the action</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Fact vs. hypothesis</h3>
+        <ul>
+          <li>Facts are <b>deterministic &amp; authoritative</b> — values, ranges, severities, rules</li>
+          <li>The LLM is <b>advisory, cited, verified</b> — never emits a value, rule, URL, or action; a verifier <b>rejects unsourced content</b> (it caught its own false-positives)</li>
+          <li><b>Human approval gates the write</b>, not the reading</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Biggest risks &amp; mitigations</h3>
+        <ul>
+          <li>Generic stats ≠ clinical judgment → <b>two tiers</b> (stats for data-quality, governed rules for clinical)</li>
+          <li>Med-recon false positives (dose parsing, brand≡generic) → verified pipeline found the truth: <b>0 real gaps</b>. Honest &gt; inflated.</li>
+          <li>Out-of-scope data → <b>fail safe</b>; correlation ≠ causation → cliques are <b>candidates</b>, human-validated</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lead">Across <b>both problems</b>, AI sits at the <b>edges</b> — mapping in, mapping out, suggesting &amp; reasoning in the middle — while the executable artifact and the action stay <b>governed and human-gated</b>. <b class="a">That is the ethos of Syntaxin.</b></div>
+    <div class="foot"><span>100+ tests · zero-network demo · appendix follows for Q&amp;A</span><span>4 / 4</span></div>
   </section>
 
   <!-- APPENDIX A · METHOD SELECTION -->

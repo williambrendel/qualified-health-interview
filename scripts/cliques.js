@@ -80,7 +80,7 @@ async function main() {
   console.log("\ncohesive dominant-set cliques (co-varying analyte groups → candidate k-uplets):");
   if (!groups.length) console.log("  (none above threshold — weak pairwise structure)");
   groups.forEach((g, k) => {
-    console.log(`  clique ${k + 1} (cohesion ${g.cohesion.toFixed(2)}): { ${g.members.map((i) => label[analytes[i]]).join(", ")} }`);
+    console.log(`  clique ${k + 1} (k=${g.members.length}, cohesion ${g.cohesion.toFixed(2)}): { ${g.members.map((i) => label[analytes[i]]).join(", ")} }`);
   });
   console.log("\nNOTE: these are CORRELATION-based candidates, not causal claims. They suggest");
   console.log("which analytes to analyze jointly; governed rules + a human decide meaning.");
