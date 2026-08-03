@@ -210,6 +210,32 @@ POST /publish            tickets → target field-map → <b>dry-run</b> (human-
       </div>
     </div>
     <div class="lead"><b>Autonomy in <i>applicability</i> never becomes autonomy in <i>action</i></b> — every result still flows through verify → tickets → human gate.</div>
+    <div class="hint">← → to navigate</div>
+  </section>
+
+  <!-- APPENDIX E · AUTONOMOUS INGESTION (future) -->
+  <section class="slide">
+    <div class="kicker appx">Appendix · A5 — where I/O goes next</div>
+    <h2>An ingestion agent: read the schema, hold the credentials, close the loop</h2>
+    <div class="sub">Today the input is a file drop. The same <i>AI-reads-a-spec</i> move extends one layer further — to autonomous, credentialed access to the source system itself.</div>
+    <div class="cols">
+      <div class="card">
+        <h3>Given a DB schema / API doc + credentials, the agent can</h3>
+        <ul>
+          <li><b>Collect</b> — discover and pull the data from the source system</li>
+          <li><b>Push back</b> — read the write API → know <i>what</i> to send and <i>where</i></li>
+          <li><b>Analyze</b> — the schema itself reveals which entities exist → which analyses are even possible</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why we didn't (yet)</h3>
+        <ul>
+          <li>No access to live systems; the data was <b>provided as flat files</b></li>
+          <li>So we took the <b>simpler route</b> — drag-and-drop → connector. Same architecture; the agent just sits in front of it.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lead">Same ethos, one layer up: AI reads a <b>spec</b> (schema / API doc), operates under <b>governed credentials</b>, and still never authors the action — collection, push, and analysis stay human-gated.</div>
     <div class="hint">← → to navigate · End</div>
   </section>
 
