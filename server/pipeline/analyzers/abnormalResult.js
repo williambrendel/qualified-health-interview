@@ -15,9 +15,9 @@ const ANALYTES = require(path.resolve(__dirname, "../../../config/clinical/analy
 module.exports = register({
   id: "abnormal-result-triage",
   title: "Abnormal-result triage",
-  appliesTo: (entity) => entity === "lab_result",
-  run: (records, opts = {}) => {
-    const t = triage(records, { analytes: opts.analytes || ANALYTES });
+  requires: ["lab_result"],
+  run: (dataset, opts = {}) => {
+    const t = triage(dataset.lab_result, { analytes: opts.analytes || ANALYTES });
     return [...t.clinical, ...t.dataQuality]; // flat findings
   },
 });

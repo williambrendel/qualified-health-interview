@@ -3,13 +3,16 @@
 /**
  * @module endpoints/analyze
  * @description The application layer as a microservice, dispatched through the
- * analyzer registry:
+ * analyzer registry over a canonical dataset:
  *
- *   POST /analyze — canonical records → tickets. Runs EVERY registered analyzer that
- *                   applies to the incoming entity and unions their findings.
+ *   POST /analyze
+ *     { entity, records }              — a single entity's canonical records, or
+ *     { dataset: { entity: records } } — a multi-entity canonical dataset
  *
- * The app layer is swappable: register a different analyzer module and this endpoint
- * routes to it — the input/output connectors don't change.
+ * Runs EVERY registered analyzer whose required entities are present and unions their
+ * findings into tickets. Analyzers whose entities aren't present simply don't fire —
+ * so a single-entity call runs only the single-entity analyzers, and a full dataset
+ * additionally runs the multi-entity ones (care-gap, med-recon).
  */
 
 const { createEndpoint } = require("../core");
@@ -17,21 +20,26 @@ const { ticketsMod } = require("./lib");
 require("../pipeline/analyzers"); // registers all analyzers on load
 const registry = require("../pipeline/analyzers/registry");
 
-const analyze = createEndpoint("post", "/analyze", (req, res) => {
+const analyze = createEndpoint("post", "/analyze", async (req, res) => {
   try {
-    const { entity, records } = req.body || {};
-    if (!Array.isArray(records)) return res.status(400).json({ error: "canonical records[] required" });
-    const ent = entity || ((records[0] && Object.keys(records[0].values || {})[0]) || "").split(".")[0];
+    const { entity, records, dataset } = req.body || {};
 
-    const analyzers = registry.analyzersFor(ent);
-    if (!analyzers.length) {
-      return res.json({ entity: ent, analyzers: [], tickets: [], summary: null, note: "no analyzer registered for this entity" });
+    let ds;
+    if (dataset && typeof dataset === "object" && !Array.isArray(dataset)) {
+      ds = dataset;
+    } else if (Array.isArray(records)) {
+      const ent = entity || ((records[0] && Object.keys(records[0].values || {})[0]) || "").split(".")[0];
+      ds = { [ent]: records };
+    } else {
+      return res.status(400).json({ error: "provide records[] (single entity) or dataset { entity: records[] }" });
     }
-    const findings = analyzers.flatMap((a) => a.run(records));
+
+    const applied = registry.applicable(ds).map((a) => a.id);
+    const findings = await registry.runAll(ds);
     const list = ticketsMod.assemble(findings, {});
     res.json({
-      entity: ent,
-      analyzers: analyzers.map((a) => a.id),
+      entities: Object.keys(ds),
+      analyzers: applied,
       summary: ticketsMod.summarize(list),
       tickets: list,
     });
