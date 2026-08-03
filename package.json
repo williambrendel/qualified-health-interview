@@ -16,6 +16,7 @@
     "sweep": "node server/pipeline/connector/sweep.js",
     "make-fixture": "node scripts/makeRenamedFixture.js",
     "agnostic-demo": "node scripts/agnosticDemo.js",
+    "cliques": "node scripts/cliques.js",
     "build-tickets": "node server/pipeline/buildTicketsCli.js",
     "test": "node --test \"server/**/*.test.js\""
   },

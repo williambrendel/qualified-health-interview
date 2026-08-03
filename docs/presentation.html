@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Syntaxin — Case Study</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#171b22; --sunken:#0a0d12; --fg:#e6e8eb; --muted:#a3aab6; --subtle:#6b7280;
+    --line:#262b33; --accent:#35b7cd; --crit:#f0857a; --mod:#e0a740; --ok:#5fd39a; --purple:#b79cf5;
+    --mono:ui-monospace,"SF Mono",Monaco,Consolas,monospace; --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  #deck{height:100vh;width:100vw;overflow:hidden;position:relative}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 8vw;animation:f .25s ease}
+  .slide.on{display:flex}
+  @keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px}
+  .kicker.appx{color:var(--purple)}
+  h1{font-size:clamp(28px,4.4vw,52px);margin:0 0 6px;line-height:1.06}
+  h2{font-size:clamp(22px,3vw,36px);margin:0 0 18px;line-height:1.12}
+  .sub{color:var(--muted);font-size:clamp(15px,1.5vw,20px);max-width:60ch;margin:0 0 18px}
+  ul{margin:6px 0;padding:0;list-style:none}
+  li{padding:6px 0 6px 22px;position:relative;font-size:clamp(14px,1.5vw,18px);color:var(--fg);max-width:70ch}
+  li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  li.mut{color:var(--muted)} li.mut::before{background:var(--subtle)}
+  b{color:#fff} .a{color:var(--accent)} .c{color:var(--crit)} .m{color:var(--mod)} .g{color:var(--ok)} .p{color:var(--purple)}
+  code,.mono{font-family:var(--mono)}
+  .flow{font-family:var(--mono);font-size:clamp(12px,1.35vw,16px);color:var(--muted);background:var(--sunken);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:14px;line-height:1.7;white-space:pre-wrap;overflow-x:auto}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .card h3{margin:0 0 8px;font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+  table{border-collapse:collapse;margin-top:12px;font-size:clamp(13px,1.4vw,17px);width:100%}
+  td,th{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;background:var(--sunken)}
+  .big{font-size:clamp(30px,4vw,46px);font-weight:700}
+  .foot{position:absolute;bottom:22px;left:8vw;right:8vw;display:flex;justify-content:space-between;color:var(--subtle);font-size:12px;font-family:var(--mono)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .stat{color:var(--muted);font-family:var(--mono);font-size:clamp(12px,1.3vw,15px);margin-top:12px}
+  .lead{font-size:clamp(16px,1.8vw,22px);color:var(--fg);border-left:3px solid var(--accent);padding-left:14px;margin:16px 0}
+  #prog{position:absolute;top:0;left:0;height:3px;background:var(--accent);transition:width .2s}
+  .hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--subtle);font-size:11px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div id="deck">
+  <div id="prog"></div>
+
+  <!-- 1 · TITLE / PROBLEM -->
+  <section class="slide">
+    <div class="kicker">New Product Development — Case Study</div>
+    <h1>Syntaxin</h1>
+    <div class="sub">From arbitrary EHR exports to <b>typed, routed, cited tickets</b> for human review. Two checkers over one governed pipeline, under one safety contract.</div>
+    <div class="lead"><b>Problem:</b> in Annual-Wellness-Visit panels, which lab results need a human <span class="c">first</span> — and which expected tests were ordered but <b>never resulted</b> (the loop that silently stays open)?</div>
+    <ul>
+      <li><b>Who it helps &amp; why:</b> high-volume, high-stakes review. The failure mode — a critical result or an unresulted order sitting unseen — is exactly what a ranked, gated queue fixes.</li>
+      <li>Core move: treat the <b>anomaly</b>, not the data, as the universal object — so whatever shape the source takes, each finding becomes one normalized, cited ticket.</li>
+    </ul>
+    <div class="foot"><span>Syntaxin — synthetic Epic-style data</span><span>1 / 4</span></div>
+  </section>
+
+  <!-- 2 · DATA JUDGMENT -->
+  <section class="slide">
+    <div class="kicker">Sound data judgment — the messy parts</div>
+    <h2>What I trusted, cleaned, and excluded</h2>
+    <div class="cols">
+      <div>
+        <ul>
+          <li><b>Trusted (deterministic):</b> each result carries its own reference range, LOINC, flag → out-of-range detection needs no assumptions.</li>
+          <li><b>Repaired:</b> BP as <code>"150/99"</code> text → split; ragged rows, quoted multi-line notes, values spanning cells → structural repair, logged, never silent.</li>
+          <li class="mut"><b>Excluded / gated:</b> sentinels &amp; impossible values kept <i>out</i> of the clinical queue.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>The plausibility gate</h3>
+        <ul>
+          <li><span class="c">Sodium 178.6</span> → <b>critical</b>, clinical-urgent</li>
+          <li><span class="m">Sodium 208 · SpO₂ 126%</span> → <b>impossible</b> → data-quality, <b>diverted</b> from the clinical queue</li>
+        </ul>
+        <div class="stat">1,288 results → 25 critical · 321 routine · <b>25 impossible diverted</b></div>
+      </div>
+    </div>
+    <div class="lead">Arbitrary schema/format → a fixed canonical model, <b>proven lossless</b> — coverage + round-trip verification, re-checked on a renamed-column, re-delimited copy and on JSON/TSV/pipe files: <b>identical tickets</b>.</div>
+    <div class="foot"><span>~100 patients · 153 encounters · 153 notes · 8 specialties</span><span>2 / 4</span></div>
+  </section>
+
+  <!-- 3 · SAFETY -->
+  <section class="slide">
+    <div class="kicker">Clinical appropriateness &amp; safety</div>
+    <h2>Fact vs. hypothesis — and where GenAI does real work</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Fact — deterministic, authoritative</h3>
+        <ul>
+          <li>values, ranges, severities, plausibility, clinical rules</li>
+          <li>the LLM <b>never</b> emits a value, dose, severity, rule, or URL</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Hypothesis — advisory, cited, verified</h3>
+        <ul>
+          <li>Assessment / Plan, citing <b>governed rules + the facts</b> it explains</li>
+          <li>a deterministic verifier <b>rejects unsourced content</b> — it caught its own false-positives (fabricated values, brand≡generic)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lead">GenAI is at the <b>edges</b> (compiling messy schemas → reviewed mapping specs; reasoning over unstructured notes) — <b>not</b> authoring the artifact that touches the human.</div>
+    <ul>
+      <li><b>Human approval gates the action, not the reading.</b> Nothing writes to a chart; every actionable ticket takes a click.</li>
+      <li class="mut">Honest by design: when no governed rule applies, the system <b>says so and stays silent</b> rather than speculate.</li>
+    </ul>
+    <div class="foot"><span>LLM emits specs, never code · advisory, cited, verified · human-gated</span><span>3 / 4</span></div>
+  </section>
+
+  <!-- 4 · RISKS + ARCHITECTURE -->
+  <section class="slide">
+    <div class="kicker">Biggest risks — and the architecture that contains them</div>
+    <h2>Where it could be wrong, and the guardrails</h2>
+    <div class="cols">
+      <div>
+        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Risks &amp; mitigations</h3>
+        <ul>
+          <li><b>Generic stats ≠ clinical judgment</b> → two tiers: generic stats for <i>data quality</i>, governed rules for <i>clinical</i> validity.</li>
+          <li><b>Med-recon false positives</b> (a regex mis-parses doses; brand vs generic) → the verified LLM pipeline found the truth: <b>0 real gaps</b>. Honest &gt; inflated.</li>
+          <li><b>Out-of-scope data</b> → fail safe: flag low-fit mappings, don't force-fit; generic analyzer still gives a floor.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em">Architecture</h3>
+        <div class="flow">any ASCII source
+  → <span class="a">input connector</span>  (discover → load, verified)   AI ↔ human-reviewed
+  → canonical model                  the fixed contract
+  → <span class="a">application layer</span>  (registry of checkers)     deterministic + governed
+  → cited hypothesis → verify        advisory, sourced
+  → tickets → queue                  human-gated
+  → <span class="a">output connector</span>  (dry-run)                 human-gated write</div>
+        <div class="stat">Connectors at the edges are the durable product; the app layer is swappable. 100+ tests · zero-network demo.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Appendix follows — architecture &amp; scaling depth for Q&amp;A</span><span>4 / 4</span></div>
+  </section>
+
+  <!-- APPENDIX A · METHOD SELECTION -->
+  <section class="slide">
+    <div class="kicker appx">Appendix · A1</div>
+    <h2>Right method per tier — not LLM-for-everything</h2>
+    <div class="sub">The brief says: <i>if the design barely needs an LLM, reconsider it.</i> So the LLM is reserved for where it's genuinely needed.</div>
+    <table>
+      <tr><th>Layer</th><th>Method</th><th>Why this method</th></tr>
+      <tr><td>Facts &amp; gates</td><td>deterministic rules</td><td>safety demands it — authoritative, testable</td></tr>
+      <tr><td>Anomaly &amp; structure</td><td class="g">robust statistics (median/MAD), correlation graphs, dominant sets</td><td>measurable, <b>explainable</b>, no enumeration</td></tr>
+      <tr><td>Text · schemas · semantics</td><td class="a">GenAI (cited, verified)</td><td>genuinely needs language understanding</td></tr>
+    </table>
+    <div class="stat">Already built: robust MAD outlier detection, plausibility/reference stats, deterministic round-trip verifier. GenAI: schema-mapping induction + cited hypotheses.</div>
+    <div class="hint">← → to navigate</div>
+  </section>
+
+  <!-- APPENDIX B · SCALING -->
+  <section class="slide">
+    <div class="kicker appx">Appendix · A2 — research avenue</div>
+    <h2>Scaling the analysis tier without exploding</h2>
+    <div class="sub">Single-signal analysis is a no-brainer. For k-uplets (joining k signals), the space of combinations is a power set — you can't enumerate it.</div>
+    <div class="flow">k=1  single-signal analyzers run (free, immediate)          →  fast tickets
+schema + k=1 findings                                     →  what's possible × what's interesting
+k=2  pairwise affinity  (|corr|, min co-observation)      →  O(N²), tractable
+graph → <span class="p">dominant sets</span> (Pavan–Pelillo, replicator dynamics) →  coherent, overlapping cliques
+cliques = candidate k-uplets  →  human-curated  →  <b>governed</b> analysis</div>
+    <div class="lead">Run on the real panel (<code>npm run cliques</code>): it <b>recovered known physiology</b> — <span class="g">Glucose ↔ HbA1c</span> and a <span class="g">Sodium · Creatinine · Urine-ACR renal cluster</span> — with <b>no enumeration</b>; a cohesion gate rejects the incoherent leftover.</div>
+    <ul>
+      <li>Higher-order groups are <b>discovered from pairwise structure</b>, not brute-forced. Anticorrelation is as informative as correlation.</li>
+      <li class="mut">Cliques are <b>hypotheses</b>, not conclusions — correlation stays a candidate; governed rules + a human decide meaning. (Confounding, support, stratification all apply.)</li>
+    </ul>
+    <div class="hint">← → to navigate</div>
+  </section>
+
+  <!-- APPENDIX C · MICROSERVICES -->
+  <section class="slide">
+    <div class="kicker appx">Appendix · A3</div>
+    <h2>Composable microservices — canonical model as the contract</h2>
+    <div class="flow">POST /connect/discover   schema discovery (LLM) + quick sample round-trip
+POST /connect/load       full-dataset load + verify; <b>manifest bypasses the LLM</b>;
+                         a failed induced mapping is <b>repaired</b> — the specific failing
+                         fields are fed back to the model, not re-rolled blindly
+POST /analyze            canonical dataset → registry of analyzers → tickets
+POST /publish            tickets → target field-map → <b>dry-run</b> (human-gated)</div>
+    <ul>
+      <li>Each stage is independently callable; the <b>canonical model is the stable interface</b> between them.</li>
+      <li>Isolating the output connector <b>encodes the write-safety boundary</b> — nothing reaches a chart except through the one human-gated endpoint.</li>
+    </ul>
+    <div class="hint">← → to navigate</div>
+  </section>
+
+  <!-- APPENDIX D · GOVERNANCE / AGNOSTIC -->
+  <section class="slide">
+    <div class="kicker appx">Appendix · A4</div>
+    <h2>Data-agnostic, not data-blind — and a governance spectrum</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Agnostic input, aware analysis</h3>
+        <ul>
+          <li><b>Agnostic to form</b> (any format/schema → canonical) — the connector.</li>
+          <li><b>Aware of content</b> — an analyzer runs only if its entities are present; unknown data → clinical analyzers sit out, the generic one still runs.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Who decides an analysis runs</h3>
+        <ul>
+          <li><b>Human-authored</b> requirements — fully governed</li>
+          <li><b>AI-suggested, human-validated</b> — nothing runs unreviewed</li>
+          <li><b>Requirement-free (<code>*</code>)</b> — generic, runs on anything</li>
+        </ul>
+      </div>
+    </div>
+    <div class="lead"><b>Autonomy in <i>applicability</i> never becomes autonomy in <i>action</i></b> — every result still flows through verify → tickets → human gate.</div>
+    <div class="hint">← → to navigate · End</div>
+  </section>
+
+</div>
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';}
+  function next(){show(i+1)} function prev(){show(i-1)}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')next();
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')prev();
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+  });
+  document.getElementById('deck').addEventListener('click',e=>{ if(e.clientX < window.innerWidth*0.25) prev(); else next(); });
+  show(0);
+</script>
+</body>
+</html>
