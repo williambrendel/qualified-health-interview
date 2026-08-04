@@ -19,7 +19,9 @@
     "cliques": "node scripts/cliques.js",
     "build-tickets": "node server/pipeline/buildTicketsCli.js",
     "test": "node --test \"server/**/*.test.js\"",
-    "migrate-check": "node scripts/migrationValidate.js"
+    "migrate-check": "node scripts/migrationValidate.js",
+    "lossless": "node scripts/losslessRoundtrip.js",
+    "project": "node scripts/fhirProjection.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",

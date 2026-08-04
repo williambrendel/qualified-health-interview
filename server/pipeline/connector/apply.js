@@ -11,6 +11,17 @@
  * Each canonical record keeps a provenance back-pointer (`_source`, `recordIndex`)
  * and every coercion that failed (a value a transform could not parse) is recorded
  * as an anomaly, so downstream steps and reviewers can see exactly what was lost.
+ *
+ * **Lossless master.** The interpreted canonical (`values`) is only *one* view of the
+ * record. To make the mapping lossless — reconstructable back to the source, not just
+ * projectable forward — each output record is an **envelope** that also carries:
+ *   - `raw`       — the exact ingested `path → value` map (ground truth).
+ *   - `remainder` — every source column NOT consumed by the manifest, retained
+ *                   verbatim instead of dropped. This is the "unmappable remainder":
+ *                   the fields a FHIR-first / closed-canonical store silently loses.
+ * and the apply step returns a dataset-level `lineage` (which source column, via which
+ * transform, produced each canonical path) so {@link module:pipeline/connector/reconstruct}
+ * can invert the mapping and prove the round trip.
  */
 
 const transforms = require("./transforms");
@@ -58,6 +69,8 @@ function applyManifest(records, manifest) {
   // genuinely don't exist rather than silently producing nulls.
   const resolve = buildResolver(records);
   const resolvedFrom = new Map();
+  const consumed = new Set();      // source keys the manifest actually maps → not remainder
+  const lineage = [];              // dataset-level: how each canonical path is produced from a source column
   for (const f of fields) {
     const key = resolve(f.from);
     resolvedFrom.set(f, key);
@@ -67,7 +80,16 @@ function applyManifest(records, manifest) {
         kind: "unresolved_source",
         detail: `mapped source column "${f.from}" not found in the ingested data`,
       });
+      continue;
     }
+    consumed.add(key);
+    const multi = Array.isArray(f.emits) && f.emits.length > 0;
+    lineage.push({
+      from: key,
+      transform: f.transform && transforms.isTransform(f.transform) ? f.transform : null,
+      to: multi ? f.emits.slice() : [f.to],
+      multi,
+    });
   }
 
   const out = records.map((rec, recordIndex) => {
@@ -115,15 +137,24 @@ function applyManifest(records, manifest) {
       }
     }
 
+    // The remainder: every source column the manifest did not consume, kept verbatim.
+    // This is what makes the master lossless — nothing is dropped, only set aside.
+    const remainder = {};
+    for (const k of Object.keys(rec.values)) {
+      if (!consumed.has(k)) remainder[k] = rec.values[k];
+    }
+
     return {
       entity: manifest.entity || null,
       source: rec.source || manifest.source,
       recordIndex,
-      values,
+      values,               // the interpreted canonical view (one projection)
+      raw: rec.values,      // exact ingested source (ground truth)
+      remainder,            // unmapped source columns, retained — not dropped
     };
   });
 
-  return { records: out, anomalies };
+  return { records: out, anomalies, lineage };
 }
 
 module.exports = { applyManifest };
