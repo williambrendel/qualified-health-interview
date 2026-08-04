@@ -18,7 +18,8 @@
     "agnostic-demo": "node scripts/agnosticDemo.js",
     "cliques": "node scripts/cliques.js",
     "build-tickets": "node server/pipeline/buildTicketsCli.js",
-    "test": "node --test \"server/**/*.test.js\""
+    "test": "node --test \"server/**/*.test.js\"",
+    "migrate-check": "node scripts/migrationValidate.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
