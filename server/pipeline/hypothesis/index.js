@@ -23,9 +23,9 @@ const { verifyHypothesis, citableFacts } = require("./verify");
 let _claudeRun, _haiku, _parse;
 function lazyDefaults() {
   if (!_claudeRun) {
-    _claudeRun = require("../../../llms/src/claude");
-    _haiku = require("../../../llms/src/claude/config").HAIKU45_CONFIG;
-    _parse = require("../../../llms/src/utilities/parseResponseJson");
+    _claudeRun = require("llms/src/claude");
+    _haiku = require("llms/src/claude/config").HAIKU45_CONFIG;
+    _parse = require("llms/src/utilities/parseResponseJson");
   }
   return { runLLM: _claudeRun, config: _haiku, parse: _parse };
 }

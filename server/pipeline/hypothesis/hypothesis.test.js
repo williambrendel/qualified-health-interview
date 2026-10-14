@@ -129,7 +129,7 @@ test("generate: stubbed LLM producing a valid note is admitted", async () => {
     assert.ok(!prompt.includes("hyponatremia"), "non-applicable rule filtered out");
     return { output: { text: JSON.stringify(goodParsed) } };
   };
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const r = await generateHypothesis(sodiumTicket(), { rules: RULES, runLLM, parse, config: {} });
   assert.equal(r.admissible, true, r.reasons.join("; "));
   assert.equal(r.hypothesis.cites.rule.statement.length > 0, true);
@@ -138,7 +138,7 @@ test("generate: stubbed LLM producing a valid note is admitted", async () => {
 test("generate: stubbed LLM emitting a fabricated value is rejected by verify", async () => {
   const bad = { ...goodParsed, assessment: "Sodium 178.593 indicates severe hypernatremia." };
   const runLLM = async () => ({ output: { text: JSON.stringify(bad) } });
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const r = await generateHypothesis(sodiumTicket(), { rules: RULES, runLLM, parse, config: {} });
   assert.equal(r.admissible, false);
   assert.equal(r.hypothesis, null);

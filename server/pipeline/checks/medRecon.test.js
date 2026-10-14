@@ -23,7 +23,7 @@ test("inNote: only names present in the note pass (anti-hallucination)", () => {
 test("extractNoteMeds: drops model-invented meds not present in the note", async () => {
   const note = "Active meds: Aspirin and Metformin.";
   const runLLM = async () => ({ output: { text: JSON.stringify({ meds: [{ name: "Aspirin" }, { name: "Metformin" }, { name: "Warfarin" }] }) } });
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const { meds, dropped } = await extractNoteMeds(note, { runLLM, parse, config: {} });
   assert.deepEqual(meds.sort(), ["Aspirin", "Metformin"]);
   assert.deepEqual(dropped, ["Warfarin"]); // hallucinated, dropped before it can affect a finding
@@ -76,7 +76,7 @@ test("medRecon: only reconciles notes that mention medications; skips inactive o
     { values: { "medication_order.patient_id": "P1", "medication_order.name": "Warfarin 5 mg", "medication_order.status": "Discontinued" } },
   ];
   const runLLM = async () => ({ output: { text: JSON.stringify({ meds: [{ name: "Aspirin" }] }) } });
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const { findings, stats } = await medRecon({ notes, medOrders }, { runLLM, parse, config: {} });
   assert.equal(stats.notesReconciled, 1); // N2 has no med mention → skipped (note text still matches /medication/i? no)
   assert.equal(findings.length, 0); // Aspirin matches; Warfarin is discontinued so not an active-order gap

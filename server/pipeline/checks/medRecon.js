@@ -86,9 +86,9 @@ async function extractNoteMeds(noteText, opts = {}) {
 }
 
 let _run, _cfg, _parse;
-function lazyRun() { return (_run = _run || require("../../../llms/src/claude")); }
-function lazyCfg() { return (_cfg = _cfg || require("../../../llms/src/claude/config").HAIKU45_CONFIG); }
-function lazyParse() { return (_parse = _parse || require("../../../llms/src/utilities/parseResponseJson")); }
+function lazyRun() { return (_run = _run || require("llms/src/claude")); }
+function lazyCfg() { return (_cfg = _cfg || require("llms/src/claude/config").HAIKU45_CONFIG); }
+function lazyParse() { return (_parse = _parse || require("llms/src/utilities/parseResponseJson")); }
 
 /**
  * Reconcile a patient's note-documented meds against their active orders.

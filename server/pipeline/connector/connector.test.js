@@ -169,7 +169,7 @@ test("induce: uses injected runLLM and returns the parsed manifest", async () =>
     assert.ok(prompt.includes("patient.PAT_ID"), "sample columns present in prompt");
     return { output: { text: "```json\n" + JSON.stringify(fakeManifest) + "\n```" } };
   };
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const { manifest } = await induceManifest(
     { source: "patient.csv", header: ["PAT_ID"], records: [{ values: { "patient.PAT_ID": "P1" } }] },
     { runLLM, parse, config: {} }
@@ -197,7 +197,7 @@ test("connectRecords: end-to-end with stubbed induction, no cache write", async 
       }),
     },
   });
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
   const result = await connectRecords(ingested, { runLLM, parse, config: {}, write: false, forceInduce: true });
   assert.equal(result.validation.valid, true, result.validation.errors.join("; "));
   assert.equal(result.canonical.records[0].values["patient.id"], "P200001");
@@ -320,7 +320,7 @@ test("loadWithRepair: a bad induced manifest is repaired by feeding failures bac
     if (repairMode) assert.ok(prompt.includes("COMPONENT"), "repair prompt cites the failing field");
     return { output: { text: JSON.stringify(repairMode ? GOOD : BAD) } };
   };
-  const parse = require("../../../llms/src/utilities/parseResponseJson");
+  const parse = require("llms/src/utilities/parseResponseJson");
 
   const r = await loadWithRepair(ingested, { forceInduce: true, write: false, runLLM, parse, config: {} });
   assert.equal(calls, 2, "one initial induction + one targeted repair");

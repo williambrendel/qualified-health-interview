@@ -21,9 +21,9 @@ const transforms = require("./transforms");
 let _claudeRun, _haikuConfig, _parseResponseJson;
 function lazyDefaults() {
   if (!_claudeRun) {
-    _claudeRun = require("../../../llms/src/claude");
-    _haikuConfig = require("../../../llms/src/claude/config").HAIKU45_CONFIG;
-    _parseResponseJson = require("../../../llms/src/utilities/parseResponseJson");
+    _claudeRun = require("llms/src/claude");
+    _haikuConfig = require("llms/src/claude/config").HAIKU45_CONFIG;
+    _parseResponseJson = require("llms/src/utilities/parseResponseJson");
   }
   return { runLLM: _claudeRun, config: _haikuConfig, parse: _parseResponseJson };
 }
